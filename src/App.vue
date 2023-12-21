@@ -1,10 +1,14 @@
 <script setup lang="ts">
+
+import LangSelect from './components/LangSelect.vue'
 import HelloWorld from './components/HelloWorld.vue'
 import ProductCard from './components/ProductCard.vue'
 import NavbarTop from './components/NavbarTop.vue'
 </script>
 
 <template>
+  <h2>{{ $t("msg.test") }}</h2>
+  <LangSelect></LangSelect>
   <NavbarTop></NavbarTop>
   <HelloWorld  />
   <ProductCard/>
