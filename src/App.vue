@@ -1,6 +1,10 @@
 <script setup lang="ts">
 
 import AppHeader from './components/AppHeader.vue'
+import AppHeader1 from './components/AppHeader1.vue'
+import AppFooter from './components/AppFooter.vue'
+
+// AppHeader1
 // import LangSelect from './components/LangSelect.vue'
 // import HelloWorld from './components/HelloWorld.vue'
 // import ProductCard from './components/ProductCard.vue'
@@ -10,6 +14,10 @@ import AppHeader from './components/AppHeader.vue'
 <template>
   <!-- <h2>{{ $t("msg.test") }}</h2> -->
   <AppHeader></AppHeader>
+  <AppHeader1></AppHeader1>
+  <!-- <NewsletterBox></NewsletterBox> -->
+  <AppFooter></AppFooter>
+  
   <!-- <LangSelect></LangSelect> -->
   <!-- <NavbarTop></NavbarTop> -->
   <!-- <HelloWorld  /> -->
