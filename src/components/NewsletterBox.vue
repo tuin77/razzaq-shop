@@ -1,13 +1,24 @@
 <template>
   <div class="relative">
-    <div class="bg-neutral-100 p-4 sm:p-10 text-center">
-
+    <div class="text-right bg-neutral-100">
       <form
-        class="mb-4 flex flex-col sm:flex-row gap-4 max-w-[688px] mx-auto"
+        class="mb-4 flex flex-col sm:flex-row gap-4 max-w-[720px] ml-auto"
         @submit.prevent="subscribeNewsletter(inputValue)"
       >
-        <SfInput v-model="inputValue" type="email" wrapper-class="grow" placeholder="Please enter your email" />
-        <SfButton type="submit" size="lg"> subscription  </SfButton>
+        <SfInput
+          v-model="inputValue"
+          type="email"
+          size="lg"
+          wrapper-class="grow"
+          placeholder="Please enter your email" 
+        />
+        <SfButton
+          type="submit"
+          size="lg"
+          class="px-4 py-2 font-bold text-white bg-orange-500 sm:w-auto hover:bg-orange-600 rounded-r-md"
+        >
+          subscription
+        </SfButton>
       </form>
     </div>
     <div class="absolute top-0 right-0 mx-2 mt-2 sm:mr-6">
@@ -16,8 +27,10 @@
         role="alert"
         class="flex items-start md:items-center shadow-md max-w-[600px] bg-positive-100 pr-2 pl-4 mb-2 ring-1 ring-positive-200 typography-text-sm md:typography-text-base py-1 rounded-md"
       >
-        <SfIconCheckCircle class="mr-2 my-2 text-positive-700" />
-        <p class="py-2 mr-2">Your email has been added to the newsletter subscription.</p>
+        <SfIconCheckCircle class="my-2 mr-2 text-positive-700" />
+        <p class="py-2 mr-2">
+          Your email has been added to the newsletter subscription.
+        </p>
         <button
           type="button"
           class="p-1.5 md:p-2 ml-auto rounded-md text-positive-700 hover:bg-positive-200 active:bg-positive-300 hover:text-positive-800 active:text-positive-900"
@@ -25,13 +38,13 @@
           @click="showPositiveAlert = false"
         >
           <SfIconClose class="hidden md:block" />
-          <SfIconClose size="sm" class="md:hidden block" />
+          <SfIconClose size="sm" class="block md:hidden" />
         </button>
       </div>
       <div
         v-if="showErrorAlert"
         role="alert"
-        class="flex items-start md:items-center max-w-[600px] shadow-md bg-negative-100 pr-2 pl-4 ring-1 ring-negative-300 typography-text-sm md:typography-text-base py-1 rounded-md"
+        class="flex items-start md:items-center max-w-[720px] shadow-md bg-negative-100 pr-2 pl-4 ring-1 ring-negative-300 typography-text-sm md:typography-text-base py-1 rounded-md"
       >
         <p class="py-2 mr-2">This email is already subscribed for our newsletter.</p>
         <button
@@ -41,7 +54,7 @@
           @click="showErrorAlert = false"
         >
           <SfIconClose class="hidden md:block" />
-          <SfIconClose size="sm" class="md:hidden block" />
+          <SfIconClose size="sm" class="block md:hidden" />
         </button>
       </div>
     </div>
@@ -49,15 +62,21 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, type Ref } from 'vue';
-import { SfButton, SfInput,  SfIconCheckCircle, SfIconClose } from '@storefront-ui/vue';
+import { ref, type Ref } from "vue";
+import {
+  SfButton,
+  SfInput,
+  SfIconCheckCircle,
+  SfIconClose,
+} from "@storefront-ui/vue";
 
-const inputValue = ref('');
+const inputValue = ref("");
 const showPositiveAlert = ref(false);
 const showErrorAlert = ref(false);
 const emailDataBase: Ref<string[]> = ref([]);
 
-const checkEmailDataBase = (email: string) => emailDataBase.value.find((element) => element === email);
+const checkEmailDataBase = (email: string) =>
+  emailDataBase.value.find((element) => element === email);
 
 const subscribeNewsletter = (email: string) => {
   if (!email) return;
@@ -70,6 +89,6 @@ const subscribeNewsletter = (email: string) => {
     setTimeout(() => (showPositiveAlert.value = false), 5000);
   }
   console.log(email);
-  inputValue.value = '';
+  inputValue.value = "";
 };
 </script>
