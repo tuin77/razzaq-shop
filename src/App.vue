@@ -1,14 +1,5 @@
 <script setup lang="ts">
 
-// import AppHeader from './components/AppHeader.vue'
-// import AppFooter from './components/AppFooter.vue'
-
-
-// AppHeader1
-// import LangSelect from './components/LangSelect.vue'
-// import Home from './components/Home.vue'
-// import ProductCard from './components/ProductCard.vue'
-// import NavbarTop from './components/NavbarTop.vue'
 </script>
 
 <template>
