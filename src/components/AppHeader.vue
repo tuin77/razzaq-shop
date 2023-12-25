@@ -180,17 +180,20 @@
         </nav>
       </ul>
       <div class="hidden xl:flex gap-[20px]">
-        <div class="items-center justify-center hidden xl:flex">
+        <div class="items-center justify-end hidden xl:flex">
           <!-- <a
-            href="https://github.com/vuestorefront"
-            target="_blank"
+            href="https://vuestorefront.io/request-demo"
+            class="font-sans bg-gray-800 border-none hover:bg-primary-600 focus:bg-primary-700 focus:outline-2 text-white font-normalfocus:shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-offset focus:ring-primary-500 px-3 py-1.5 text-xs button-transition flex items-center justify-center border tracking-wideborder-transparent text-base font-medium rounded-md whitespace-nowrap font-normal !text-[14px]"
+            title="REQUEST DEMO"
             data-analytics-type="Click"
-            data-analytics-label="Nav github star"
-            ><img
-              class="h-[20px] w-auto object-contain"
-              src="./Frontend as a Service for composable commerce _ Vue Storefront_files/github-star-nav-top.svg"
-              alt="github-star-nav-top.svg"
-          /></a> -->
+            data-analytics-label="Nav request demo"
+            target="_self"
+            >
+            REQUEST DEMO</a
+          > -->
+          <LangSelect></LangSelect>
+        </div>
+        <div class="items-center justify-center hidden xl:flex">
           <div
             class="bg-white border-gray-200 p-[20px] inline-flex text-primary-500 hover:text-primary-700 hover:cursor-pointer"
           >
@@ -210,19 +213,6 @@
               ></path>
             </svg>
           </div>
-        </div>
-        <div class="items-center justify-end hidden xl:flex">
-          <a
-            href="https://vuestorefront.io/request-demo"
-            class="font-sans bg-gray-800 border-none hover:bg-primary-600 focus:bg-primary-700 focus:outline-2 text-white font-normalfocus:shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-offset focus:ring-primary-500 px-3 py-1.5 text-xs button-transition flex items-center justify-center border tracking-wideborder-transparent text-base font-medium rounded-md whitespace-nowrap font-normal !text-[14px]"
-            title="REQUEST DEMO"
-            data-analytics-type="Click"
-            data-analytics-label="Nav request demo"
-            target="_self"
-            ><!---->
-            REQUEST DEMO
-            <!----><!----></a
-          >
         </div>
       </div>
       <div class="flex xl:hidden gap-[20px]">
@@ -277,6 +267,7 @@ import {
 } from "@storefront-ui/vue";
 import { ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
+import LangSelect from "./LangSelect.vue";
 
 const { isOpen, toggle, close } = useDisclosure();
 const menuRef = ref();
