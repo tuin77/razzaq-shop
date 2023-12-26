@@ -60,41 +60,139 @@
           <ul
             class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0"
           >
-            <li>
-
-              <a
-                href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
-                ><router-link tag="span" to="/">Home</router-link></a
+            <li class="group">
+              <div
+                class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
               >
+                <a
+                  href=""
+                  class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                  ><router-link tag="span" to="/">Home</router-link>
+                </a>
+              </div>
             </li>
-            <li>
-              <a
-                href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
-                ><router-link tag="span" to="/shop">Shop</router-link></a
-              >
+            <li class="group">
+              <router-link tag="span" to="/shop">
+                <div
+                  class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
+                >
+                  <button
+                    class="inline-flex justify-center px-4 py-5 text-base font-medium text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                    @click="toggle()"
+                  >
+                    Shop
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      class="w-5 h-6 ml-2 -mr-1 duration-500 group-hover:transform group-hover:rotate-180 group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </router-link>
             </li>
-            <li>
-              <a
-                href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
-                ><router-link tag="span" to="/contact"
-                  >Contact us</router-link
-                ></a
+            <li class="group">
+              <div
+                class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
               >
+                <a
+                  href=""
+                  class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                  ><router-link tag="span" to="/contact"
+                    >Contact us</router-link
+                  >
+                </a>
+              </div>
             </li>
-            <!-- <li>
-              <a
-                href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 "
-                ><router-link tag="span" to="/shop">Features</router-link></a
+            <li class="group">
+              <div
+                class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
               >
-            </li> -->
+                <a
+                  href="https://vuestorefront.io/pricing"
+                  class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                >
+                  <SfIconSearch />
+                </a>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
+
+    <transition
+                enter-active-class="transition duration-500 ease-in-out transform"
+                leave-active-class="transition duration-500 ease-in-out transform"
+                enter-from-class="-translate-x-full md:translate-x-0 md:opacity-0"
+                enter-to-class="translate-x-0 md:translate-x-0 md:opacity-100"
+                leave-from-class="translate-x-0 md:opacity-100"
+                leave-to-class="-translate-x-full md:translate-x-0 md:opacity-0"
+              >
+                <SfDrawer
+                  ref="drawerRef"
+                  v-model="isOpen"
+                  disable-click-away
+                  placement="top"
+                  class="grid grid-cols-1 md:gap-x-6 md:grid-cols-3 bg-white shadow-lg p-0 max-h-screen overflow-y-auto md:!absolute md:!top-[5rem] max-w-[376px] md:max-w-full md:p-6 mr-[50px] md:mr-0"
+                >
+                  <div
+                    class="sticky top-0 flex items-center justify-between py-2 px-4 bg-primary-700 md:hidden w-full max-w-[376px]"
+                  >
+                    <div
+                      class="flex items-center font-medium text-white typography-text-lg"
+                    >
+                      Browse products
+                    </div>
+                    <SfButton
+                      square
+                      variant="tertiary"
+                      aria-label="Close navigation menu"
+                      class="ml-2 text-white"
+                      @click="close()"
+                      @keydown.enter.space="close()"
+                    >
+                      <SfIconClose />
+                    </SfButton>
+                  </div>
+                  <div
+                    v-for="{ heading, items } in categoriesContent"
+                    :key="heading"
+                    class="[&:nth-child(2)]:pt-0 pt-6 md:pt-0 border-l-[1px]"
+                  >
+                    <ul>
+                      <li v-for="item in items" :key="item.title">
+                        <div class="flex flex-row items-center justify-center">
+                          <a
+                            href="https://vuestorefront.io/lp/workshop-registration"
+                            target="_self"
+                            class="text-black typography-text-base md:typography-text-sm py-4 md:py-1.5  hover:underline group-hover:text-500"
+                            >{{ item.title }}
+                          </a
+                          >
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <SfButton
+                    square
+                    size="sm"
+                    variant="tertiary"
+                    aria-label="Close navigation menu"
+                    class="hidden md:block md:absolute md:right-0 hover:bg-white active:bg-white"
+                    @click="close()"
+                  >
+                    <SfIconClose class="text-neutral-500" />
+                  </SfButton>
+                </SfDrawer>
+              </transition>
   </header>
 </template>
 
