@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 ">
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
       <div
         class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto"
       >
@@ -14,18 +14,15 @@
         <div class="flex items-center lg:order-2">
           <a
             href="#"
-            class="text-gray-800  hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2  focus:outline-none "
-            ><RouterLink to="/login" tag="span" >Log in</RouterLink> </a
-          >
-          <a
-            href="#"
-            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2   focus:outline-none "
-            >Get started</a
-          >
+            class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+            ><RouterLink to="/login" tag="span">Log in</RouterLink>
+          </a>
+          <LangSelect1></LangSelect1>
+
           <button
             data-collapse-toggle="mobile-menu-2"
             type="button"
-            class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
+            class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-controls="mobile-menu-2"
             aria-expanded="false"
           >
@@ -64,31 +61,27 @@
             class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0"
           >
             <li>
-              <!-- <a
-                href="#"
-                class="block py-2 pl-3 pr-4 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0"
-                aria-current="page"
-                > <router-link tag="span" to="/">Home</router-link></a
-              > -->
 
               <a
                 href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 "
+                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
                 ><router-link tag="span" to="/">Home</router-link></a
               >
             </li>
             <li>
               <a
                 href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 "
+                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
                 ><router-link tag="span" to="/shop">Shop</router-link></a
               >
             </li>
             <li>
               <a
                 href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 "
-                ><router-link tag="span" to="/contact">Contact us</router-link></a
+                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0"
+                ><router-link tag="span" to="/contact"
+                  >Contact us</router-link
+                ></a
               >
             </li>
             <!-- <li>
@@ -124,6 +117,7 @@ import {
 import { ref } from "vue";
 import { onClickOutside } from "@vueuse/core";
 import LangSelect from "./LangSelect.vue";
+import LangSelect1 from "./LangSelect1.vue";
 
 const { isOpen, toggle, close } = useDisclosure();
 const menuRef = ref();
