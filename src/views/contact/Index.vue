@@ -1,81 +1,101 @@
 <template>
   <div class="bg-white">
     <div
-      class="grid items-center max-w-2xl grid-cols-1 px-4 py-24 mx-auto gap-x-8 gap-y-16 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8"
+      class="relative items-center max-w-2xl mx-auto position lg:max-w-7xl "
     >
-      <div class="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
+      <img class="absolute " src="../../assets/images/contact/contact-bg.png" alt="" srcset="" />
+      <div class="relative max-w-2xl py-24 mx-auto text-center sm:py-32">
+        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          How Can We Help?
+        </h2>
+      </div>
+    </div>
+    <div
+      class="grid items-center max-w-2xl grid-cols-1 px-4 mx-auto gap-x-8 gap-y-16 sm:px-6 lg:max-w-7xl lg:grid-cols-2 "
+    >
+      <div class="">
+        <div>RAZZAQUI LLC</div>
+        <p class="mt-4 text-gray-500">PO BX 1976</p>
+        <p class="mt-4 text-gray-500">CHINO HILLS, CA 91709</p>
+        <p class="mt-4 text-gray-500">Email: xpetstore@razzaquiweb.com</p>
+        <p class="mt-4 text-gray-500">Ph: +1 9099255218</p>
+        <p class="mt-4 text-gray-500">Customer Service: 1300 237 672</p>
         <img
-          src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-01.jpg"
+          src="../../assets/images/contact/contact-example.png"
           alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
           class="bg-gray-100 rounded-lg"
         />
-        <img
-          src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-02.jpg"
-          alt="Top down view of walnut card tray with embedded magnets and card groove."
-          class="bg-gray-100 rounded-lg"
-        />
-        <img
-          src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-03.jpg"
-          alt="Side of walnut card tray with card groove and recessed card area."
-          class="bg-gray-100 rounded-lg"
-        />
-        <img
-          src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg"
-          alt="Walnut card tray filled with cards and card angled in dedicated groove."
-          class="bg-gray-100 rounded-lg"
-        />
+        <div>
+          <img
+            src="../../assets/images/contact/media-icon.png"
+            alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
+            class="bg-gray-100 rounded-lg"
+          />
+        </div>
       </div>
-      <div>
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Technical Specifications
-        </h2>
-        <p class="mt-4 text-gray-500">
-          The walnut wood card tray is precision milled to perfectly fit a stack
-          of Focus cards. The powder coated steel divider separates active cards
-          from new ones, or can be used to archive important task lists.
-        </p>
-
-        <dl
-          class="grid grid-cols-1 mt-16 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8"
-        >
-          <div class="pt-4 border-t border-gray-200">
-            <dt class="font-medium text-gray-900">Origin</dt>
-            <dd class="mt-2 text-sm text-gray-500">
-              Designed by Good Goods, Inc.
-            </dd>
+      <div class="px-6 py-24 bg-white isolate lg:px-8">
+        <h4 class="font-bold tracking-tight text-gray-900 text-l">
+          CONTACT US FOR ANY QUESTIONS
+        </h4>
+        <form action="#" method="POST" class="max-w-xl mx-auto mt-16 sm:mt-20">
+          <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label
+                for="Your name"
+                class="block text-sm font-semibold leading-6 text-gray-900"
+                >Your name</label
+              >
+              <div class="mt-2.5">
+                <input
+                  type="text"
+                  name="Your name"
+                  id="Your-name"
+                  autocomplete="organization"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="email"
+                class="block text-sm font-semibold leading-6 text-gray-900"
+                >Your email</label
+              >
+              <div class="mt-2.5">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  autocomplete="email"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="message"
+                class="block text-sm font-semibold leading-6 text-gray-900"
+                >Your message (optional)</label
+              >
+              <div class="mt-2.5">
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="4"
+                  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                ></textarea>
+              </div>
+            </div>
           </div>
-          <div class="pt-4 border-t border-gray-200">
-            <dt class="font-medium text-gray-900">Material</dt>
-            <dd class="mt-2 text-sm text-gray-500">
-              Solid walnut base with rare earth magnets and powder coated steel
-              card cover
-            </dd>
+          <div class="mt-10">
+            <button
+              type="submit"
+              class="block w-m rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              submit
+            </button>
           </div>
-          <div class="pt-4 border-t border-gray-200">
-            <dt class="font-medium text-gray-900">Dimensions</dt>
-            <dd class="mt-2 text-sm text-gray-500">
-              6.25&quot; x 3.55&quot; x 1.15&quot;
-            </dd>
-          </div>
-          <div class="pt-4 border-t border-gray-200">
-            <dt class="font-medium text-gray-900">Finish</dt>
-            <dd class="mt-2 text-sm text-gray-500">
-              Hand sanded and finished with natural oil
-            </dd>
-          </div>
-          <div class="pt-4 border-t border-gray-200">
-            <dt class="font-medium text-gray-900">Includes</dt>
-            <dd class="mt-2 text-sm text-gray-500">
-              Wood card tray and 3 refill packs
-            </dd>
-          </div>
-          <div class="pt-4 border-t border-gray-200">
-            <dt class="font-medium text-gray-900">Considerations</dt>
-            <dd class="mt-2 text-sm text-gray-500">
-              Made from natural materials. Grain and color vary with each item.
-            </dd>
-          </div>
-        </dl>
+        </form>
       </div>
     </div>
   </div>

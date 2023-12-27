@@ -23,7 +23,7 @@
         </div>
         <h3 class="mt-4 text-sm text-gray-700">Colorful Sunflower Plush Comfy</h3>
         <p class="mt-1 text-lg font-medium text-gray-900">$22.95 – $42.95</p>
-        <button type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-primary-800 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-primary-800 hover:text-white">buy</button>
+        <button type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-primary-800 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-primary-800 hover:text-white" @click="handleClick">buy</button>
       </div>
       <!-- More products... -->
     </div>
@@ -33,7 +33,21 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from "vue-router";
 import Pagination from "../../components/Pagination.vue";
+const router = useRouter()
+// https://bookix.madrasthemes.com/product-category/hot-deals/
+const handleClick = ()=>{
+  console.log("handleClick");
+  
+  router.push({
+  path: "/product",
+  query: {
+    mode: "edit",
+  },
+});
+  
+}
 </script>
 <style>
 .product-list .group{

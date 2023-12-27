@@ -26,12 +26,16 @@ export default createRouter({
           component: Shop,
         },
         {
-          path: "/shop",
-          component: Shop,
+          path: "/product",
+          component:import("./views/product/Index.vue") ,
         },
         {
           path: "/contact",
           component: Contact,
+        },
+        {
+          path: "/test",
+          component: import("./views/Test.vue"),
         },
       ],
     },
