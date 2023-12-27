@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-// import AppHeader from '../components/AppHeader.vue'
-import AppHeader1 from '../components/AppHeader1.vue'
-import AppFooter from '../components/AppFooter.vue'
+// import AppHeader1 from '../components/AppHeader1.vue'
+import AppHeader from '../components/layout/AppHeader.vue'
+import AppFooter from '../components/layout/AppFooter.vue'
 
 
 // AppHeader1
@@ -13,9 +13,10 @@ import AppFooter from '../components/AppFooter.vue'
 </script>
 
 <template>
+
   <!-- <h2>{{ $t("msg.test") }}</h2> -->
-  <!-- <AppHeader></AppHeader> -->
-  <AppHeader1></AppHeader1>
+  <AppHeader></AppHeader>
+  <!-- <AppHeader1></AppHeader1> -->
   <!-- <NewsletterBox></NewsletterBox> -->
   <!-- <AppFooter></AppFooter> -->
   <!-- <Home  /> -->

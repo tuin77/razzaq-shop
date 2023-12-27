@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useConfigStore } from "../stores";
+import { useConfigStore } from "../../stores";
 // import { SfSelect, SfIconUnfoldMore } from '@storefront-ui/vue';
 import { reactive, computed } from "vue";
 const appConfig = useConfigStore();

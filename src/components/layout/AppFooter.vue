@@ -4,7 +4,7 @@
       class="px-4 py-8 mx-auto max-w-7xl md:flex md:items-center md:justify-between"
     >
       <div class="mb-6 md:mb-0">
-        <img src=".././assets/images/logo.svg" alt="" class="mt-5 w-154 h-33" />
+        <img src="../.././assets/images/logo.svg" alt="" class="mt-5 w-154 h-33" />
         <p class="mt-8 text-sm text-gray-600 max-w-[480px]">
           Join our newsletter to get the latest PetBoutique updates and surprise
           discounts!
