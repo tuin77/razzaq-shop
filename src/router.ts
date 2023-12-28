@@ -30,6 +30,10 @@ export default createRouter({
           component:import("./views/product/Index.vue") ,
         },
         {
+          path: "/ProductCard",
+          component:import("./views/product/ProductCard.vue") ,
+        },
+        {
           path: "/contact",
           component: Contact,
         },

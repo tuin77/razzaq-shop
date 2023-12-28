@@ -1,33 +1,59 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-
-<section class="relative px-6 py-24 overflow-hidden bg-white isolate sm:py-32 lg:px-8">
-  <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20"></div>
-  <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
-  <div class="max-w-2xl mx-auto lg:max-w-4xl">
-    <img class="h-12 mx-auto" src="https://tailwindui.com/img/logos/workcation-logo-indigo-600.svg" alt="">
-    <figure class="mt-10">
-      <blockquote class="text-xl font-semibold leading-8 text-center text-gray-900 sm:text-2xl sm:leading-9">
-        <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”</p>
-      </blockquote>
-      <figcaption class="mt-10">
-        <img class="w-10 h-10 mx-auto rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-        <div class="flex items-center justify-center mt-4 space-x-3 text-base">
-          <div class="font-semibold text-gray-900">Judith Black</div>
-          <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-gray-900">
-            <circle cx="1" cy="1" r="1" />
-          </svg>
-          <div class="text-gray-600">CEO of Workcation</div>
+  
+    
+      <div class="items-center sm:mt-auto sm:flex">
+        <div class="flex items-center justify-between mt-4 sm:mt-0">
+          <div class="flex border border-neutral-300 rounded-md">
+            <SfButton
+              variant="tertiary"
+              :disabled="count <= min"
+              square
+              class="rounded-r-none"
+              :aria-controls="inputId"
+              aria-label="Decrease value"
+              @click="dec()"
+            >
+              <SfIconRemove />
+            </SfButton>
+            <input
+              :id="inputId"
+              v-model="count"
+              type="number"
+              class="appearance-none mx-2 w-8 text-center bg-transparent font-medium [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none disabled:placeholder-disabled-900 focus-visible:outline focus-visible:outline-offset focus-visible:rounded-sm"
+              :min="min"
+              :max="max"
+              @input="handleOnChange"
+            />
+            <SfButton
+              variant="tertiary"
+              :disabled="count >= max"
+              square
+              class="rounded-l-none"
+              :aria-controls="inputId"
+              aria-label="Increase value"
+              @click="inc()"
+            >
+              <SfIconAdd />
+            </SfButton>
+          </div>
+    
         </div>
-      </figcaption>
-    </figure>
-  </div>
-</section>
+      </div>
 </template>
-<!-- https://docs.storefrontui.io/v2/vue/blocks/NavbarTop.html -->
-<style scoped>
 
-</style>
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { SfLink, SfButton, SfIconSell, SfIconAdd, SfIconRemove, SfIconDelete, useId } from '@storefront-ui/vue';
+import { clamp } from '@storefront-ui/shared';
+import { useCounter } from '@vueuse/core';
+
+const min = ref(1);
+const max = ref(10);
+const inputId = useId();
+const { count, inc, dec, set } = useCounter(1, { min: min.value, max: max.value });
+function handleOnChange(event: Event) {
+  const currentValue = (event.target as HTMLInputElement)?.value;
+  const nextValue = parseFloat(currentValue);
+  set(clamp(nextValue, min.value, max.value));
+}
+</script>
