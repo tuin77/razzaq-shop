@@ -7,7 +7,7 @@ interface ConfigState {
 
 export const useConfigStore = defineStore('razzaqConfig', {
   state: (): ConfigState => ({
-    language: localStorage.getItem(LANG) || "zh",
+    language: localStorage.getItem(LANG) || "en",
   }),
   getters: {
     getLanguage: (state) => state.language ,

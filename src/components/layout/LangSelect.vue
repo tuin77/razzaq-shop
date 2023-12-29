@@ -69,8 +69,10 @@ const state = reactive({
 // const defalutClass = ["text-gray-700", "block", "px-4", "py-2", "text-sm"];
 
 const options = [
-  { label: "zh", value: "zh" },
-  { label: "en", value: "en" },
+  { label: 'zh', value: 'zh' },
+  { label: 'fr', value: 'fr' },
+  { label: 'de', value: 'de' },
+  { label: 'en', value: 'en' },
 ];
 
 import { useI18n } from "vue-i18n";

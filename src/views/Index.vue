@@ -14,7 +14,7 @@ import AppFooter from '../components/layout/AppFooter.vue'
 
 <template>
 
-  <!-- <h2>{{ $t("msg.test") }}</h2> -->
+  
   <AppHeader></AppHeader>
   <!-- <AppHeader1></AppHeader1> -->
   <!-- <NewsletterBox></NewsletterBox> -->

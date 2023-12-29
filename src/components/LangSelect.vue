@@ -22,6 +22,8 @@ const state = reactive({
 
 const options = [
   { label: 'zh', value: 'zh' },
+  { label: 'fr', value: 'fr' },
+  { label: 'de', value: 'de' },
   { label: 'en', value: 'en' },
 ];
 

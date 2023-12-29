@@ -74,7 +74,7 @@
                 <a
                   href=""
                   class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
-                  ><router-link tag="span" to="/">Home</router-link>
+                  ><router-link tag="span" to="/">{{ $t("nav.Home") }}</router-link>
                 </a>
               </div>
             </li>
