@@ -1,25 +1,23 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 import { LANG } from "../constant";
 
 interface ConfigState {
-  language: string
+  language: string;
 }
 
-export const useConfigStore = defineStore('razzaqConfig', {
+export const useConfigStore = defineStore("razzaqConfig", {
   state: (): ConfigState => ({
     language: localStorage.getItem(LANG) || "en",
   }),
   getters: {
-    getLanguage: (state) => state.language ,
+    getLanguage: (state) => state.language,
   },
   actions: {
-    setLanguage( lang:string) {
+    setLanguage(lang: string) {
       // 设置缓存
       localStorage.setItem(LANG, lang);
       // 修改状态
       this.language = lang;
     },
-  }
-})
-
-
+  },
+});

@@ -66,44 +66,32 @@
         :key="`${alt}-${index}`"
         class="flex justify-center h-full basis-full shrink-0 grow snap-center"
       >
-        <img
-          :aria-label="alt"
-          :aria-hidden="activeIndex !== index"
-          class="object-cover w-auto h-full"
-          :alt="alt"
-          :src="imageSrc"
-        />
+        <img :aria-label="alt" :aria-hidden="activeIndex !== index" class="object-cover w-auto h-full" :alt="alt" :src="imageSrc" />
       </div>
     </SfScrollable>
   </div>
 </template>
 <!-- https://docs.storefrontui.io/v2/vue/blocks/Gallery.html -->
 <script lang="ts" setup>
-import { ref } from 'vue';
-import {
-  SfScrollable,
-  SfButton,
-  SfIconChevronLeft,
-  SfIconChevronRight,
-  type SfScrollableOnDragEndData,
-} from '@storefront-ui/vue';
-import { unrefElement, useIntersectionObserver } from '@vueuse/core';
-import { watch, type ComponentPublicInstance } from 'vue';
+import { ref } from "vue";
+import { SfScrollable, SfButton, SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
+import { unrefElement, useIntersectionObserver } from "@vueuse/core";
+import { watch, type ComponentPublicInstance } from "vue";
 
 const withBase = (filepath: string) => `https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/${filepath}`;
 
 const images = [
-  { imageSrc: withBase('gallery_1.png'), imageThumbSrc: withBase('gallery_1_thumb.png'), alt: 'backpack1' },
-  { imageSrc: withBase('gallery_2.png'), imageThumbSrc: withBase('gallery_2_thumb.png'), alt: 'backpack2' },
-  { imageSrc: withBase('gallery_3.png'), imageThumbSrc: withBase('gallery_3_thumb.png'), alt: 'backpack3' },
-  { imageSrc: withBase('gallery_4.png'), imageThumbSrc: withBase('gallery_4_thumb.png'), alt: 'backpack4' },
-  { imageSrc: withBase('gallery_5.png'), imageThumbSrc: withBase('gallery_5_thumb.png'), alt: 'backpack5' },
-  { imageSrc: withBase('gallery_6.png'), imageThumbSrc: withBase('gallery_6_thumb.png'), alt: 'backpack6' },
-  { imageSrc: withBase('gallery_7.png'), imageThumbSrc: withBase('gallery_7_thumb.png'), alt: 'backpack7' },
-  { imageSrc: withBase('gallery_8.png'), imageThumbSrc: withBase('gallery_8_thumb.png'), alt: 'backpack8' },
-  { imageSrc: withBase('gallery_9.png'), imageThumbSrc: withBase('gallery_9_thumb.png'), alt: 'backpack9' },
-  { imageSrc: withBase('gallery_10.png'), imageThumbSrc: withBase('gallery_10_thumb.png'), alt: 'backpack10' },
-  { imageSrc: withBase('gallery_11.png'), imageThumbSrc: withBase('gallery_11_thumb.png'), alt: 'backpack11' },
+  { imageSrc: withBase("gallery_1.png"), imageThumbSrc: withBase("gallery_1_thumb.png"), alt: "backpack1" },
+  { imageSrc: withBase("gallery_2.png"), imageThumbSrc: withBase("gallery_2_thumb.png"), alt: "backpack2" },
+  { imageSrc: withBase("gallery_3.png"), imageThumbSrc: withBase("gallery_3_thumb.png"), alt: "backpack3" },
+  { imageSrc: withBase("gallery_4.png"), imageThumbSrc: withBase("gallery_4_thumb.png"), alt: "backpack4" },
+  { imageSrc: withBase("gallery_5.png"), imageThumbSrc: withBase("gallery_5_thumb.png"), alt: "backpack5" },
+  { imageSrc: withBase("gallery_6.png"), imageThumbSrc: withBase("gallery_6_thumb.png"), alt: "backpack6" },
+  { imageSrc: withBase("gallery_7.png"), imageThumbSrc: withBase("gallery_7_thumb.png"), alt: "backpack7" },
+  { imageSrc: withBase("gallery_8.png"), imageThumbSrc: withBase("gallery_8_thumb.png"), alt: "backpack8" },
+  { imageSrc: withBase("gallery_9.png"), imageThumbSrc: withBase("gallery_9_thumb.png"), alt: "backpack9" },
+  { imageSrc: withBase("gallery_10.png"), imageThumbSrc: withBase("gallery_10_thumb.png"), alt: "backpack10" },
+  { imageSrc: withBase("gallery_11.png"), imageThumbSrc: withBase("gallery_11_thumb.png"), alt: "backpack11" },
 ];
 const thumbsRef = ref<HTMLElement>();
 const firstThumbRef = ref<HTMLButtonElement>();
@@ -123,7 +111,7 @@ watch(
         },
         {
           root: unrefElement(thumbsRef),
-          rootMargin: '0px',
+          rootMargin: "0px",
           threshold: 1,
         },
       );
@@ -143,7 +131,7 @@ watch(
         },
         {
           root: unrefElement(thumbsRef),
-          rootMargin: '0px',
+          rootMargin: "0px",
           threshold: 1,
         },
       );

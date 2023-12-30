@@ -1,23 +1,17 @@
 <template>
   <header ref="referenceRef">
     <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 border-b-[1px]" ref="floatingRef">
-      <div
-        class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto"
-      >
+      <div class="flex flex-wrap items-center justify-between max-w-1620 mx-auto">
         <a href="" class="flex items-center">
-          <img
-            src="../../assets/images/logo.svg"
-            class="h-6 mr-3 sm:h-9"
-            alt="Flowbite Logo"
-          />
+          <img src="../../assets/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
         </a>
         <div class="flex items-center lg:order-2">
-         <a
+          <a
             href="#"
             class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-            ><RouterLink to="/login" tag="span">Log in</RouterLink>
+            ><RouterLink to="/login">Log in</RouterLink>
           </a>
-         <LangSelect1></LangSelect1> 
+          <LangSelect1></LangSelect1>
 
           <button
             data-collapse-toggle="mobile-menu-2"
@@ -27,24 +21,14 @@
             aria-expanded="false"
           >
             <span class="sr-only">Open main menu</span>
-            <svg
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path
                 fill-rule="evenodd"
                 d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <svg
-              class="hidden w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path
                 fill-rule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -53,19 +37,16 @@
             </svg>
           </button>
         </div>
-        <div
-          class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
-          id="mobile-menu-2"
-        >
+        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
           <ul
             class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 hidden md:flex bg-white"
             @blur="
-            (event) => {
-              if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
-                close();
+              (event) => {
+                if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
+                  close();
+                }
               }
-            }
-          "
+            "
           >
             <li class="group">
               <div
@@ -74,12 +55,12 @@
                 <a
                   href=""
                   class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
-                  ><router-link tag="span" to="/">{{ $t("nav.Home") }}</router-link>
+                  ><router-link to="/">{{ $t("nav.Home") }}</router-link>
                 </a>
               </div>
             </li>
             <li class="group">
-              <router-link tag="span" to="/shop">
+              <router-link to="/shop">
                 <div
                   class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
                 >
@@ -113,9 +94,7 @@
                 <a
                   href=""
                   class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
-                  ><router-link tag="span" to="/contact"
-                    >Contact us</router-link
-                  >
+                  ><router-link to="/contact">Contact us</router-link>
                 </a>
               </div>
             </li>
@@ -202,7 +181,7 @@ const trapFocusOptions = {
 } as const;
 useTrapFocus(
   computed(() => megaMenuRef.value?.[0]),
-  trapFocusOptions
+  trapFocusOptions,
 );
 useTrapFocus(drawerRef, trapFocusOptions);
 
@@ -210,11 +189,11 @@ const focusTrigger = () => {
   unrefElement(triggerRefs.value[0]).focus();
 };
 
-const inputValue = ref("");
+// const inputValue = ref("");
 
-const search = () => {
-  alert(`Successfully found 10 results for ${inputValue.value}`);
-};
+// const search = () => {
+//   alert(`Successfully found 10 results for ${inputValue.value}`);
+// };
 
 const categoriesContent = [
   {

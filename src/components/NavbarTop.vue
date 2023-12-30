@@ -24,11 +24,7 @@
         </template>
         <span class="hidden lg:flex whitespace-nowrap">Browse products</span>
       </SfButton>
-      <form
-        role="search"
-        class="flex flex-[100%] order-last lg:order-3 mt-2 lg:mt-0 pb-2 lg:pb-0"
-        @submit.prevent="search"
-      >
+      <form role="search" class="flex flex-[100%] order-last lg:order-3 mt-2 lg:mt-0 pb-2 lg:pb-0" @submit.prevent="search">
         <SfInput
           v-model="inputValue"
           type="search"
@@ -39,13 +35,7 @@
         >
           <template #suffix>
             <span class="flex items-center">
-              <SfButton
-                variant="tertiary"
-                square
-                aria-label="search"
-                type="submit"
-                class="rounded-l-none hover:bg-transparent active:bg-transparent"
-              >
+              <SfButton variant="tertiary" square aria-label="search" type="submit" class="rounded-l-none hover:bg-transparent active:bg-transparent">
                 <SfIconSearch />
               </SfButton>
             </span>
@@ -65,9 +55,7 @@
             <template #prefix>
               <Component :is="actionItem.icon" />
             </template>
-            <span v-if="actionItem.role === 'login'" class="hidden xl:inline-flex whitespace-nowrap">{{
-              actionItem.label
-            }}</span>
+            <span v-if="actionItem.role === 'login'" class="hidden xl:inline-flex whitespace-nowrap">{{ actionItem.label }}</span>
           </SfButton>
         </div>
       </nav>
@@ -75,40 +63,31 @@
   </header>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
-import {
-  SfButton,
-  SfIconShoppingCart,
-  SfIconFavorite,
-  SfIconPerson,
-  SfIconExpandMore,
-  SfInput,
-  SfIconSearch,
-  SfIconMenu,
-} from '@storefront-ui/vue';
+import { ref } from "vue";
+import { SfButton, SfIconShoppingCart, SfIconFavorite, SfIconPerson, SfIconExpandMore, SfInput, SfIconSearch, SfIconMenu } from "@storefront-ui/vue";
 
 const actionItems = [
   {
     icon: SfIconShoppingCart,
-    ariaLabel: 'Cart',
-    role: 'button',
-    label: '',
+    ariaLabel: "Cart",
+    role: "button",
+    label: "",
   },
   {
     icon: SfIconFavorite,
-    ariaLabel: 'Wishlist',
-    role: 'button',
-    label: '',
+    ariaLabel: "Wishlist",
+    role: "button",
+    label: "",
   },
   {
-    label: 'Log in',
+    label: "Log in",
     icon: SfIconPerson,
-    ariaLabel: 'Log in',
-    role: 'login',
+    ariaLabel: "Log in",
+    role: "login",
   },
 ];
 
-const inputValue = ref('');
+const inputValue = ref("");
 
 const search = () => {
   alert(`Successfully found 10 results for ${inputValue.value}`);

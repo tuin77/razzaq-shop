@@ -1,10 +1,10 @@
 const messages = {
   en: {
     nav: {
-      'Home': "Home",
-      'Shop': "",
+      Home: "Home",
+      Shop: "",
       "Contact Us": "Contact Us",
-      "Log In": "Log In"
+      "Log In": "Log In",
     },
     msg: {
       test: "hello world",
@@ -12,29 +12,29 @@ const messages = {
   },
   fr: {
     nav: {
-      'Home': "Accueil",
-      'Shop': "Boutique",
+      Home: "Accueil",
+      Shop: "Boutique",
       "Contact Us": "Contactez-Nous",
-      "Log In": "Connexion"
+      "Log In": "Connexion",
     },
   },
   de: {
     nav: {
-      'Home': "Startseite",
-      'Shop': "Shop",
+      Home: "Startseite",
+      Shop: "Shop",
       "Contact Us": "Kontaktieren Sie Uns",
-      "Log In": "Anmelden"
+      "Log In": "Anmelden",
     },
   },
   zh: {
     nav: {
-      'Home': "首页",
-      'Shop': "购物",
+      Home: "首页",
+      Shop: "购物",
       "Contact Us": "联系我们",
-      "Log In": "登录"
+      "Log In": "登录",
     },
     home: {
-      home: "home"
+      home: "home",
     },
     msg: {
       test: "你好世界",
@@ -54,4 +54,4 @@ const i18n = createI18n({
   messages,
 });
 
-export default i18n
+export default i18n;

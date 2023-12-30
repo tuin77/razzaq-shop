@@ -44,5 +44,5 @@
 </template>
 
 <script lang="ts" setup>
-import { SfRating, SfCounter, SfLink, SfButton, SfIconShoppingCart, SfIconFavorite } from '@storefront-ui/vue';
+import { SfRating, SfCounter, SfLink, SfButton, SfIconShoppingCart, SfIconFavorite } from "@storefront-ui/vue";
 </script>

@@ -5,7 +5,6 @@ const Shop = () => import("./views/shop/Index.vue");
 const Contact = () => import("./views/contact/Index.vue");
 const Login = () => import("./views/Login.vue");
 
-
 export default createRouter({
   history: createWebHistory(),
   routes: [
@@ -27,11 +26,19 @@ export default createRouter({
         },
         {
           path: "/product",
-          component:import("./views/product/Index.vue") ,
+          component: import("./views/product/Index.vue"),
+        },
+        {
+          path: "/cart",
+          component: import("./views/cart/Index.vue"),
+        },
+        {
+          path: "/wish",
+          component: import("./views/wish/Index.vue"),
         },
         {
           path: "/ProductCard",
-          component:import("./views/product/ProductCard.vue") ,
+          component: import("./views/product/ProductCard.vue"),
         },
         {
           path: "/contact",

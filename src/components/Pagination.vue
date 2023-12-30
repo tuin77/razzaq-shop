@@ -1,26 +1,13 @@
 <template>
-  <nav class="flex items-end justify-between border-t border-neutral-200" role="navigation" aria-label="pagination">
-    <SfButton
-      size="lg"
-      aria-label="Go to previous page"
-      :disabled="selectedPage <= 1"
-      variant="tertiary"
-      class="gap-3 !px-3 sm:px-6"
-      @click="prev"
-    >
+  <nav class="flex justify-center border-neutral-200" role="navigation" aria-label="pagination">
+    <SfButton size="lg" aria-label="Go to previous page" :disabled="selectedPage <= 1" variant="tertiary" class="gap-3 !px-3 sm:px-6" @click="prev">
       <template #prefix>
         <SfIconChevronLeft />
       </template>
-      <span class="hidden sm:inline-flex"> Previous </span>
     </SfButton>
-    <ul class="flex justify-center">
+    <ul class="flex justify-center text-2xl">
       <li v-if="!pages.includes(1)">
-        <div
-          :class="[
-            'flex pt-1 border-t-4 border-transparent',
-            { 'font-medium border-t-4 !border-primary-500': selectedPage === 1 },
-          ]"
-        >
+        <div :class="['flex pt-1 border-transparent', { 'font-medium  !border-primary-500': selectedPage === 1 }]">
           <button
             type="button"
             class="min-w-[38px] px-3 sm:px-4 py-3 md:w-12 rounded-md text-neutral-500 hover:bg-primary-100 hover:text-primary-800 active:bg-primary-200 active:text-primary-900"
@@ -32,14 +19,12 @@
         </div>
       </li>
       <li v-if="startPage > 2">
-        <div class="flex pt-1 border-t-4 border-transparent">
-          <button type="button" disabled aria-hidden="true" class="px-4 py-3 rounded-md md:w-12 text-neutral-500">
-            ...
-          </button>
+        <div class="flex pt-1 border-transparent">
+          <button type="button" disabled aria-hidden="true" class="px-4 py-3 rounded-md md:w-12 text-neutral-500">...</button>
         </div>
       </li>
       <li v-if="maxVisiblePages === 1 && selectedPage === totalPages">
-        <div class="flex pt-1 border-t-4 border-transparent">
+        <div class="flex pt-1 border-transparent">
           <button
             type="button"
             class="min-w-[38px] px-3 sm:px-4 py-3 md:w-12 rounded-md text-neutral-500 hover:bg-primary-100 hover:text-primary-800 active:bg-primary-200 active:text-primary-900"
@@ -51,12 +36,7 @@
         </div>
       </li>
       <li v-for="page in pages" :key="`page-${page}`">
-        <div
-          :class="[
-            'flex pt-1 border-t-4 border-transparent',
-            { 'font-medium border-t-4 !border-primary-700': selectedPage === page },
-          ]"
-        >
+        <div :class="['flex pt-1  border-transparent', { 'font-medium  !border-primary-700': selectedPage === page }]">
           <button
             type="button"
             :class="[
@@ -72,7 +52,7 @@
         </div>
       </li>
       <li v-if="maxVisiblePages === 1 && selectedPage === 1">
-        <div class="flex pt-1 border-t-4 border-transparent">
+        <div class="flex pt-1 border-transparent">
           <button
             type="button"
             class="min-w-[38px] px-3 sm:px-4 py-3 md:w-12 rounded-md text-neutral-500 hover:bg-primary-100 hover:text-primary-800 active:bg-primary-200 active:text-primary-900"
@@ -84,19 +64,12 @@
         </div>
       </li>
       <li v-if="endPage < totalPages - 1">
-        <div class="flex pt-1 border-t-4 border-transparent">
-          <button type="button" disabled aria-hidden="true" class="px-4 py-3 rounded-md md:w-12 text-neutral-500">
-            ...
-          </button>
+        <div class="flex pt-1 border-transparent">
+          <button type="button" disabled aria-hidden="true" class="px-4 py-3 rounded-md md:w-12 text-neutral-500">...</button>
         </div>
       </li>
       <li v-if="!pages.includes(totalPages)">
-        <div
-          :class="[
-            'flex pt-1 border-t-4 border-transparent',
-            { 'font-medium border-t-4 !border-primary-500': selectedPage === totalPages },
-          ]"
-        >
+        <div :class="['flex pt-1  border-transparent', { 'font-medium  !border-primary-500': selectedPage === totalPages }]">
           <button
             type="button"
             class="min-w-[38px] px-3 sm:px-4 py-3 md:w-12 rounded-md text-neutral-500 hover:bg-primary-100 hover:text-primary-800 active:bg-primary-200 active:text-primary-900"
@@ -116,7 +89,6 @@
       class="gap-3 !px-3 sm:px-6"
       @click="next"
     >
-      <span class="hidden sm:inline-flex"> Next </span>
       <template #suffix>
         <SfIconChevronRight />
       </template>
@@ -125,7 +97,7 @@
 </template>
 
 <script lang="ts" setup>
-import { SfButton, SfIconChevronLeft, SfIconChevronRight, usePagination } from '@storefront-ui/vue';
+import { SfButton, SfIconChevronLeft, SfIconChevronRight, usePagination } from "@storefront-ui/vue";
 
 const { totalPages, pages, selectedPage, startPage, endPage, next, prev, setPage, maxVisiblePages } = usePagination({
   totalItems: 150,
