@@ -13,6 +13,8 @@ export default {
         lg: ["18px", "24px"],
         xl: ["20px", "28px"],
         "2xl": ["24px", "32px"],
+        32: ["2rem", "2.625rem"],
+        48: ["3rem", "4rem"],
       },
       maxWidth: {
         1620: "1620px",
