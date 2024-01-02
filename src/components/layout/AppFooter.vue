@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-gray-800 bg-neutral-100 px-4 lg:px-6">
+  <footer class="px-4 text-gray-800 bg-neutral-100 lg:px-6">
     <div class="mx-auto py-14 max-w-1620 md:flex md:justify-between">
       <div class="mb-6 md:mb-0">
         <img src="../.././assets/images/logo.svg" alt="" class="w-154 h-33" />
@@ -37,9 +37,9 @@
       </div>
     </div>
 
-    <hr />
+    <hr class="border-gray-100" />
     <div class="py-6 lg:flex lg:flex-nowrap lg:items-center lg:justify-center">
-      <p class="text-sm text-gray-400 text-center relative">© 2023, PetBoutique All Rights Reserved.</p>
+      <p class="relative text-sm text-center text-gray-400">© 2023, PetBoutique All Rights Reserved.</p>
     </div>
   </footer>
 </template>

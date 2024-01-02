@@ -1,9 +1,27 @@
 <template>
-  <div class="relative flex w-full max-h-[600px] aspect-[4/3]">
+  <div class="relative flex flex-col w-full max-h-[600px] aspect-[4/3]">
+    <SfScrollable
+      class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      :active-index="activeIndex"
+      direction="horizontal"
+      wrapper-class="w-full m-auto"
+      is-active-index-centered
+      buttons-placement="none"
+      :drag="{ containerWidth: true }"
+      @on-drag-end="onDragged"
+    >
+      <div
+        v-for="({ imageSrc, alt }, index) in images"
+        :key="`${alt}-${index}`"
+        class="flex justify-center h-full basis-full shrink-0 grow snap-center"
+      >
+        <img :aria-label="alt" :aria-hidden="activeIndex !== index" class="object-cover w-auto h-full" :alt="alt" :src="imageSrc" />
+      </div>
+    </SfScrollable>
     <SfScrollable
       ref="thumbsRef"
       class="items-center w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      direction="vertical"
+      direction="horizontal"
       :active-index="activeIndex"
       :previous-disabled="activeIndex === 0"
       :next-disabled="activeIndex === images.length - 1"
@@ -14,7 +32,7 @@
           v-if="!firstThumbVisible"
           v-bind="defaultProps"
           :disabled="activeIndex === 0"
-          class="absolute !rounded-full z-10 top-4 rotate-90 bg-white"
+          class="absolute !rounded-full z-10 left-4 rotate-0 bg-white"
           variant="secondary"
           size="sm"
           square
@@ -42,7 +60,7 @@
           v-if="!lastThumbVisible"
           v-bind="defaultProps"
           :disabled="activeIndex === images.length"
-          class="absolute !rounded-full z-10 bottom-4 rotate-90 bg-white"
+          class="absolute !rounded-full z-10 right-4 rotate-270 bg-white"
           variant="secondary"
           size="sm"
           square
@@ -51,27 +69,9 @@
         </SfButton>
       </template>
     </SfScrollable>
-    <SfScrollable
-      class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      :active-index="activeIndex"
-      direction="vertical"
-      wrapper-class="h-full m-auto"
-      is-active-index-centered
-      buttons-placement="none"
-      :drag="{ containerWidth: true }"
-      @on-drag-end="onDragged"
-    >
-      <div
-        v-for="({ imageSrc, alt }, index) in images"
-        :key="`${alt}-${index}`"
-        class="flex justify-center h-full basis-full shrink-0 grow snap-center"
-      >
-        <img :aria-label="alt" :aria-hidden="activeIndex !== index" class="object-cover w-auto h-full" :alt="alt" :src="imageSrc" />
-      </div>
-    </SfScrollable>
   </div>
 </template>
-<!-- https://docs.storefrontui.io/v2/vue/blocks/Gallery.html -->
+
 <script lang="ts" setup>
 import { ref } from "vue";
 import { SfScrollable, SfButton, SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";

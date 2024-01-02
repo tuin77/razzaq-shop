@@ -7,11 +7,19 @@ export default {
   content: ["./index.html", "./**/*.vue", "./node_modules/@storefront-ui/vue/**/*.{js,mjs}"],
   theme: {
     extend: {
+      fontSize: {
+        sm: ["14px", "18px"],
+        base: ["16px", "24px"],
+        lg: ["18px", "24px"],
+        xl: ["20px", "28px"],
+        "2xl": ["24px", "32px"],
+      },
       maxWidth: {
         1620: "1620px",
       },
       borderRadius: {
-        large: "1.875rem",
+        large: "1.875rem", //30px
+        100: "6.25rem",
       },
       colors: {
         bold: {

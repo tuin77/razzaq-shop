@@ -1,7 +1,7 @@
 <template>
   <header ref="referenceRef">
-    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 border-b-[1px]" ref="floatingRef">
-      <div class="flex flex-wrap items-center justify-between max-w-1620 mx-auto">
+    <nav class="bg-white px-4 lg:px-6 py-2.5 border-b-[1px] border-gray-100" ref="floatingRef">
+      <div class="flex flex-wrap items-center justify-between mx-auto max-w-1620">
         <a href="" class="flex items-center">
           <img src="../../assets/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
         </a>
@@ -39,7 +39,7 @@
         </div>
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
           <ul
-            class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 hidden md:flex bg-white"
+            class="flex flex-col hidden mt-4 font-medium bg-white lg:flex-row lg:space-x-8 lg:mt-0 md:flex"
             @blur="
               (event) => {
                 if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
@@ -119,7 +119,7 @@
       v-if="isOpen"
       ref="megaMenuRef"
       :style="style"
-      class="hidden md:grid gap-x-6 grid-cols-3 bg-white shadow-lg p-6 left-0 right-0 outline-none"
+      class="left-0 right-0 hidden grid-cols-3 p-6 bg-white shadow-lg outline-none md:grid gap-x-6"
       tabindex="0"
       @mouseleave="close"
       @keydown.esc="focusTrigger"
