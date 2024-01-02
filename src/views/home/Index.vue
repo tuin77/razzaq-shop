@@ -19,19 +19,22 @@
     </div>
   </div> -->
 
-  <div class="mx-auto max-w-1620 mb-[5rem]">
+  <div class="mx-auto max-w-1620 my-[5rem]">
     <dl class="grid grid-cols-1 text-center gap-x-[75px] gap-y-16 lg:grid-cols-3">
-      <div class="flex flex-col border border-gray-100 rounded-[20px] gap-y-4">
-        <dt class="text-base leading-7 text-gray-600">Transactions every 24 hours</dt>
-        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">44 million</dd>
+      <div class="flex border border-gray-100 rounded-[20px] gap-y-4 py-10">
+        <img class="flex-none w-12 h-12 bg-gray-50" src="../../assets/images/home/icon-gifts.svg" alt="" />
+        <div class="flex-auto">
+          <dt class="text-lg text-primary-700">Free Shipping Worldwide</dt>
+          <dd class="text-base text-bold-900">Our products are free in delivery after shopping on $999</dd>
+        </div>
       </div>
-      <div class="flex flex-col max-w-xs mx-auto gap-y-4">
-        <dt class="text-base leading-7 text-gray-600">Assets under holding</dt>
-        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$119 trillion</dd>
+      <div class="flex flex-col py-10 gap-y-4 border border-gray-100 rounded-[20px]">
+        <dt class="text-lg text-primary-700">Weekly Gifts Members</dt>
+        <dd class="text-base text-bold-900">We are your one-stop shop for nationwide online store.</dd>
       </div>
-      <div class="flex flex-col max-w-xs mx-auto gap-y-4">
-        <dt class="text-base leading-7 text-gray-600">New users annually</dt>
-        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">46,000</dd>
+      <div class="flex flex-col py-10 gap-y-4 border border-gray-100 rounded-[20px]">
+        <dt class="text-lg text-primary-700">Money Back Guarantee</dt>
+        <dd class="text-base text-bold-900">Start saving straight away with discount offer on items.</dd>
       </div>
     </dl>
   </div>

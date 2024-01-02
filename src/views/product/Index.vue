@@ -15,7 +15,7 @@
           <div
             v-for="({ imageSrc, alt }, index) in images"
             :key="`${alt}-${index}`"
-            class="flex justify-center h-full basis-full shrink-0 grow snap-center"
+            class="flex justify-center h-[800px] basis-full shrink-0 grow snap-center"
           >
             <img
               :aria-label="alt"
