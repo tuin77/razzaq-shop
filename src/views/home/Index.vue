@@ -19,13 +19,13 @@
     </div>
   </div> -->
 
-  <div class="flex flex-col md:flex-row flex-wrap gap-6 max-w-[1540px]">
+  <!-- <div class="flex flex-col flex-wrap gap-6 mx-auto md:flex-row max-w-1620">
     <div
-      v-for="{ image, title, subtitle, description, buttonText, backgroundColor, reverse, titleClass, subtitleClass } in displayDetails"
+      v-for="{ image, title, subtitle, description, buttonText, backgroundColor, titleClass, subtitleClass } in displayDetails"
       :key="title"
       :class="['relative flex md:max-w-[1536px] md:[&:not(:first-of-type)]:flex-1 md:first-of-type:w-full', backgroundColor]"
     >
-      <div :class="['flex justify-between overflow-hidden grow', { 'flex-row-reverse': reverse }]">
+      <div :class="['flex justify-between overflow-hidden grow']">
         <div class="flex flex-col items-start justify-center p-6 lg:p-10 max-w-1/2">
           <p :class="['uppercase typography-text-xs block font-bold tracking-widest', subtitleClass]">
             {{ subtitle }}
@@ -41,19 +41,21 @@
         <img :src="image" :alt="title" class="self-end object-contain w-1/2" />
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="relative max-w-1620 max-h-[600px] flex flex-col w-full mx-auto aspect-[4/3] gap-1">
     <SfScrollable
+      ref="thumbsRef"
       class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       :active-index="activeIndex"
       wrapper-class="h-full group/scrollable"
-      is-active-index-centered
       :previous-disabled="activeIndex === 0"
       :next-disabled="activeIndex === images.length - 1"
       buttons-placement="block"
+      :drag="{ containerWidth: true }"
       @on-prev="activeIndex -= 1"
       @on-next="activeIndex += 1"
+      @on-scroll="scroll"
     >
       <template #previousButton="defaultProps">
         <SfButton
@@ -68,11 +70,26 @@
         </SfButton>
       </template>
       <div
-        v-for="({ imageSrc, alt }, index) in images"
-        :key="`${alt}-${index}`"
-        class="relative flex justify-center basis-full snap-center snap-always shrink-0 grow"
+        v-for="{ image, title, subtitle, description, buttonText, backgroundColor, titleClass, subtitleClass } in displayDetails"
+        :key="title"
+        :class="['relative flex justify-center basis-full snap-center snap-always shrink-0 grow', backgroundColor]"
       >
-        <img class="object-cover w-auto h-full" :aria-label="alt" :aria-hidden="activeIndex !== index" :alt="alt" :src="imageSrc" draggable="false" />
+        <!-- <img class="object-cover w-auto h-full" :aria-label="alt" :aria-hidden="activeIndex !== index" :alt="alt" :src="imageSrc" draggable="false" /> -->
+        <div :class="['flex justify-between overflow-hidden grow']">
+          <div class="flex flex-col items-start justify-center p-6 lg:p-10 max-w-1/2">
+            <p :class="['uppercase typography-text-xs block font-bold tracking-widest', subtitleClass]">
+              {{ subtitle }}
+            </p>
+            <h2 :class="['mb-4 mt-2 font-bold typography-display-3', titleClass]">
+              {{ title }}
+            </h2>
+            <p class="block mb-4 typography-text-base">
+              {{ description }}
+            </p>
+            <SfButton class="!bg-black">{{ buttonText }}</SfButton>
+          </div>
+          <img :src="image" :alt="title" class="self-end object-contain w-1/2" />
+        </div>
       </div>
       <template #nextButton="defaultProps">
         <SfButton
@@ -90,10 +107,9 @@
     <div class="flex-shrink-0 basis-auto">
       <div class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <button
-          v-for="({ alt }, index) in images"
+          v-for="(alt, index) in displayDetails"
           :key="`${index}-bullet`"
           :aria-current="activeIndex === index"
-          :aria-label="alt"
           :class="[
             'w-3.5 h-3.5 relative mt-1 mr-8 rounded-full transition-colors focus-visible:outline focus-visible:outline-offset-0 pointer-events-none',
             activeIndex === index ? 'bg-primary-700' : 'bg-gray-200',
@@ -188,6 +204,8 @@
 </template>
 
 <script lang="ts" setup>
+import { SfScrollable, SfButton, SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnScrollData } from "@storefront-ui/vue";
+import { ref } from "vue";
 const displayDetails = [
   {
     image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display.png",
@@ -220,13 +238,22 @@ const displayDetails = [
     backgroundColor: "bg-secondary-200",
   },
 ];
+const thumbsRef = ref<HTMLElement>();
+
+const scroll = (event: SfScrollableOnScrollData) => {
+  const { width, left } = event;
+  if (left < width && activeIndex.value !== 0) {
+    activeIndex.value = 0;
+  } else if (left > width && left < width * 2) {
+    activeIndex.value = 1;
+  } else if (left > width * 2) {
+    activeIndex.value = 2;
+  }
+};
 
 import { useRouter } from "vue-router";
 // import { reactive } from "vue";
 const router = useRouter();
-
-import { SfScrollable, SfButton, SfIconChevronLeft, SfIconChevronRight } from "@storefront-ui/vue";
-import { ref } from "vue";
 
 const withBase = (filepath: string) => `https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/${filepath}`;
 
