@@ -19,6 +19,30 @@
     </div>
   </div> -->
 
+  <div class="flex flex-col md:flex-row flex-wrap gap-6 max-w-[1540px]">
+    <div
+      v-for="{ image, title, subtitle, description, buttonText, backgroundColor, reverse, titleClass, subtitleClass } in displayDetails"
+      :key="title"
+      :class="['relative flex md:max-w-[1536px] md:[&:not(:first-of-type)]:flex-1 md:first-of-type:w-full', backgroundColor]"
+    >
+      <div :class="['flex justify-between overflow-hidden grow', { 'flex-row-reverse': reverse }]">
+        <div class="flex flex-col items-start justify-center p-6 lg:p-10 max-w-1/2">
+          <p :class="['uppercase typography-text-xs block font-bold tracking-widest', subtitleClass]">
+            {{ subtitle }}
+          </p>
+          <h2 :class="['mb-4 mt-2 font-bold typography-display-3', titleClass]">
+            {{ title }}
+          </h2>
+          <p class="block mb-4 typography-text-base">
+            {{ description }}
+          </p>
+          <SfButton class="!bg-black">{{ buttonText }}</SfButton>
+        </div>
+        <img :src="image" :alt="title" class="self-end object-contain w-1/2" />
+      </div>
+    </div>
+  </div>
+
   <div class="relative max-w-1620 max-h-[600px] flex flex-col w-full mx-auto aspect-[4/3] gap-1">
     <SfScrollable
       class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
@@ -48,14 +72,7 @@
         :key="`${alt}-${index}`"
         class="relative flex justify-center basis-full snap-center snap-always shrink-0 grow"
       >
-        <img
-          class="object-cover w-auto h-full"
-          :aria-label="alt"
-          :aria-hidden="activeIndex !== index"
-          :alt="alt"
-          :src="imageSrc"
-          draggable="false"
-        />
+        <img class="object-cover w-auto h-full" :aria-label="alt" :aria-hidden="activeIndex !== index" :alt="alt" :src="imageSrc" draggable="false" />
       </div>
       <template #nextButton="defaultProps">
         <SfButton
@@ -71,9 +88,7 @@
       </template>
     </SfScrollable>
     <div class="flex-shrink-0 basis-auto">
-      <div
-        class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      >
+      <div class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <button
           v-for="({ alt }, index) in images"
           :key="`${index}-bullet`"
@@ -89,39 +104,37 @@
     </div>
   </div>
 
-
-
   <div class="mx-auto max-w-1620 my-[5rem]">
-    <div class="grid grid-cols-1  gap-x-[75px] gap-y-16 lg:grid-cols-3">
-      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8 ">
+    <div class="grid grid-cols-1 gap-x-[75px] gap-y-16 lg:grid-cols-3">
+      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8">
         <img class="flex-none w-[57px] h-[45px]" src="../../assets/images/home/icon-delivery.svg" alt="" />
         <!-- <img class="flex-none w-12 h-12 bg-gray-50" src="../../assets/images/home/icon-gifts.svg" alt="" /> -->
         <div class="flex-auto min-w-0 pl-[1.875rem]">
           <div class="text-lg font-bold text-primary-700">Free Shipping Worldwide</div>
-          <div class="mt-5 ml-1 text-base text-bold-900" >Our products are free in delivery after shopping on $999</div>
+          <div class="mt-5 ml-1 text-base text-bold-900">Our products are free in delivery after shopping on $999</div>
         </div>
       </div>
-      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8 ">
+      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8">
         <img class="flex-none w-12 h-12" src="../../assets/images/home/icon-gifts.svg" alt="" />
         <!-- <img class="flex-none w-12 h-12 bg-gray-50" src="../../assets/images/home/icon-gifts.svg" alt="" /> -->
         <div class="flex-auto min-w-0 pl-9">
           <div class="text-lg font-bold text-primary-700">Weekly Gifts Members</div>
-          <div class="mt-5 ml-1 text-base text-bold-900" >We are your one-stop shop for nationwide online store.</div>
+          <div class="mt-5 ml-1 text-base text-bold-900">We are your one-stop shop for nationwide online store.</div>
         </div>
       </div>
 
-      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8 ">
+      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8">
         <img class="flex-none w-[2.75rem] h-[2.75rem]" src="../../assets/images/home/icon-money-back.svg" alt="" />
         <div class="flex-auto min-w-0 pl-[2.625rem]">
           <div class="text-lg font-bold text-primary-700">Weekly Gifts Members</div>
-          <div class="mt-5 ml-1 text-base text-bold-900" >We are your one-stop shop for nationwide online store.</div>
+          <div class="mt-5 ml-1 text-base text-bold-900">We are your one-stop shop for nationwide online store.</div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="mx-auto max-w-1620 mb-[5rem]">
-    <h2 class=" font-bold text-black mb-[7.5rem] text-48">Featured products</h2>
+    <h2 class="font-bold text-black mb-[7.5rem] text-48">Featured products</h2>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 product-list">
       <div v-for="i in 4" :key="i" href="#" class="group rounded-[1.25rem]">
         <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
@@ -175,22 +188,53 @@
 </template>
 
 <script lang="ts" setup>
+const displayDetails = [
+  {
+    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display.png",
+    title: "Sunny Days Ahead",
+    subtitle: "Be inspired",
+    description: "Step out in style with our sunglasses collection",
+    buttonText: "Discover now",
+    reverse: false,
+    backgroundColor: "bg-negative-200",
+    titleClass: "md:typography-display-2",
+    subtitleClass: "md:typography-headline-6",
+    descriptionClass: "md:typography-text-lg",
+  },
+  {
+    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-2.png",
+    title: "Pack it Up",
+    subtitle: "Be active",
+    description: "Explore the great outdoors with our backpacks",
+    buttonText: "Discover now",
+    reverse: true,
+    backgroundColor: "bg-warning-200",
+  },
+  {
+    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-3.png",
+    title: "Fresh and Bold",
+    subtitle: "New collection",
+    description: "Add a pop up color to your outfit",
+    buttonText: "Discover now",
+    reverse: false,
+    backgroundColor: "bg-secondary-200",
+  },
+];
+
 import { useRouter } from "vue-router";
 // import { reactive } from "vue";
 const router = useRouter();
 
-
-
-import { SfScrollable, SfButton, SfIconChevronLeft, SfIconChevronRight } from '@storefront-ui/vue';
-import { ref } from 'vue';
+import { SfScrollable, SfButton, SfIconChevronLeft, SfIconChevronRight } from "@storefront-ui/vue";
+import { ref } from "vue";
 
 const withBase = (filepath: string) => `https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/${filepath}`;
 
 const images = [
-  { imageSrc: withBase('gallery_8.png'), alt: 'backpack8' },
-  { imageSrc: withBase('gallery_9.png'), alt: 'backpack9' },
-  { imageSrc: withBase('gallery_10.png'), alt: 'backpack10' },
-  { imageSrc: withBase('gallery_11.png'), alt: 'backpack11' },
+  { imageSrc: withBase("gallery_8.png"), alt: "backpack8" },
+  { imageSrc: withBase("gallery_9.png"), alt: "backpack9" },
+  { imageSrc: withBase("gallery_10.png"), alt: "backpack10" },
+  { imageSrc: withBase("gallery_11.png"), alt: "backpack11" },
 ];
 
 const activeIndex = ref(0);
