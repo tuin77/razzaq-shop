@@ -42,8 +42,8 @@
       </div>
     </div>
   </div> -->
-
-  <div class="relative max-w-1620 max-h-[600px] flex flex-col w-full mx-auto aspect-[4/3] gap-1">
+  <!-- max-w-1620 -->
+  <div class="relative max-h-[980px] flex flex-col w-full mx-auto">
     <SfScrollable
       ref="thumbsRef"
       class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
@@ -70,23 +70,19 @@
         </SfButton>
       </template>
       <div
-        v-for="{ image, title, subtitle, description, buttonText, backgroundColor, titleClass, subtitleClass } in displayDetails"
+        v-for="{ image, title, description, buttonText, backgroundColor, titleClass } in displayDetails"
         :key="title"
-        :class="['relative flex justify-center basis-full snap-center snap-always shrink-0 grow', backgroundColor]"
+        :class="['relative flex justify-center basis-full snap-center snap-always shrink-0 grow h-[980px]', backgroundColor]"
       >
-        <!-- <img class="object-cover w-auto h-full" :aria-label="alt" :aria-hidden="activeIndex !== index" :alt="alt" :src="imageSrc" draggable="false" /> -->
         <div :class="['flex justify-between overflow-hidden grow']">
-          <div class="flex flex-col items-start justify-center p-6 lg:p-10 max-w-1/2">
-            <p :class="['uppercase typography-text-xs block font-bold tracking-widest', subtitleClass]">
-              {{ subtitle }}
-            </p>
-            <h2 :class="['mb-4 mt-2 font-bold typography-display-3', titleClass]">
+          <div class="flex flex-col items-start justify-center pt-[12.25rem] lg:p-10 max-w-1/2">
+            <h2 :class="['mb-4  text-48 w-[29rem] font-bold typography-display-3', titleClass]">
               {{ title }}
             </h2>
-            <p class="block mb-4 typography-text-base">
+            <p class="mb-4 text-lg text-gray-200 w-[30rem] mt-[40px] typography-text-base">
               {{ description }}
             </p>
-            <SfButton class="!bg-black">{{ buttonText }}</SfButton>
+            <SfButton size="lg" class="!text-2xl !font-bold py-[28px] px-[52px] bg-primary-950 !rounded-100 mt-[4.625rem]">{{ buttonText }}</SfButton>
           </div>
           <img :src="image" :alt="title" class="self-end object-contain w-1/2" />
         </div>
@@ -104,7 +100,7 @@
         </SfButton>
       </template>
     </SfScrollable>
-    <div class="flex-shrink-0 basis-auto">
+    <div class="absolute top-[46.3125rem]">
       <div class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <button
           v-for="(alt, index) in displayDetails"
@@ -209,14 +205,14 @@ import { ref } from "vue";
 const displayDetails = [
   {
     image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display.png",
-    title: "Sunny Days Ahead",
-    subtitle: "Be inspired",
-    description: "Step out in style with our sunglasses collection",
-    buttonText: "Discover now",
-    reverse: false,
-    backgroundColor: "bg-negative-200",
+    title: "NEW ARRIVALS ‘21 Delicious Snack",
+    // subtitle: "Be inspired",
+    description: "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad.",
+    buttonText: "Buy Product",
+    // reverse: false,
+    backgroundColor: "bg-neutral-100",
     titleClass: "md:typography-display-2",
-    subtitleClass: "md:typography-headline-6",
+    // subtitleClass: "md:typography-headline-6",
     descriptionClass: "md:typography-text-lg",
   },
   {
