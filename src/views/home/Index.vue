@@ -43,78 +43,8 @@
     </div>
   </div> -->
   <!-- max-w-1620 -->
-  <div class="relative max-h-[980px] flex flex-col w-full mx-auto">
-    <SfScrollable
-      ref="thumbsRef"
-      class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      :active-index="activeIndex"
-      wrapper-class="h-full group/scrollable"
-      :previous-disabled="activeIndex === 0"
-      :next-disabled="activeIndex === images.length - 1"
-      buttons-placement="block"
-      :drag="{ containerWidth: true }"
-      @on-prev="activeIndex -= 1"
-      @on-next="activeIndex += 1"
-      @on-scroll="scroll"
-    >
-      <template #previousButton="defaultProps">
-        <SfButton
-          v-bind="defaultProps"
-          :disabled="activeIndex === 0"
-          class="absolute hidden group-hover/scrollable:block disabled:!hidden !rounded-full !p-3 z-10 top-1/2 left-4 bg-white"
-          variant="secondary"
-          size="lg"
-          square
-        >
-          <SfIconChevronLeft />
-        </SfButton>
-      </template>
-      <div
-        v-for="{ image, title, description, buttonText, backgroundColor, titleClass } in displayDetails"
-        :key="title"
-        :class="['relative flex justify-center basis-full snap-center snap-always shrink-0 grow h-[980px]', backgroundColor]"
-      >
-        <div :class="['flex justify-between overflow-hidden grow']">
-          <div class="flex flex-col items-start justify-center pt-[12.25rem] lg:p-10 max-w-1/2">
-            <h2 :class="['mb-4  text-48 w-[29rem] font-bold typography-display-3', titleClass]">
-              {{ title }}
-            </h2>
-            <p class="mb-4 text-lg text-gray-200 w-[30rem] mt-[40px] typography-text-base">
-              {{ description }}
-            </p>
-            <SfButton size="lg" class="!text-2xl !font-bold py-[28px] px-[52px] bg-primary-950 !rounded-100 mt-[4.625rem]">{{ buttonText }}</SfButton>
-          </div>
-          <img :src="image" :alt="title" class="self-end object-contain w-1/2" />
-        </div>
-      </div>
-      <template #nextButton="defaultProps">
-        <SfButton
-          v-bind="defaultProps"
-          :disabled="activeIndex === images.length - 1"
-          class="absolute hidden group-hover/scrollable:block disabled:!hidden !rounded-full !p-3 z-10 top-1/2 right-4 bg-white"
-          variant="secondary"
-          size="lg"
-          square
-        >
-          <SfIconChevronRight />
-        </SfButton>
-      </template>
-    </SfScrollable>
-    <div class="absolute top-[46.3125rem]">
-      <div class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        <button
-          v-for="(alt, index) in displayDetails"
-          :key="`${index}-bullet`"
-          :aria-current="activeIndex === index"
-          :class="[
-            'w-3.5 h-3.5 relative mt-1 mr-8 rounded-full transition-colors focus-visible:outline focus-visible:outline-offset-0 pointer-events-none',
-            activeIndex === index ? 'bg-primary-700' : 'bg-gray-200',
-          ]"
-          @click="activeIndex = index"
-        />
-      </div>
-    </div>
-  </div>
+  <CarouselPosters></CarouselPosters>
+  <CarouselProducts></CarouselProducts>
 
   <div class="mx-auto max-w-1620 my-[5rem]">
     <div class="grid grid-cols-1 gap-x-[75px] gap-y-16 lg:grid-cols-3">
@@ -200,70 +130,14 @@
 </template>
 
 <script lang="ts" setup>
-import { SfScrollable, SfButton, SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnScrollData } from "@storefront-ui/vue";
-import { ref } from "vue";
-const displayDetails = [
-  {
-    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display.png",
-    title: "NEW ARRIVALS ‘21 Delicious Snack",
-    // subtitle: "Be inspired",
-    description: "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad.",
-    buttonText: "Buy Product",
-    // reverse: false,
-    backgroundColor: "bg-neutral-100",
-    titleClass: "md:typography-display-2",
-    // subtitleClass: "md:typography-headline-6",
-    descriptionClass: "md:typography-text-lg",
-  },
-  {
-    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-2.png",
-    title: "Pack it Up",
-    subtitle: "Be active",
-    description: "Explore the great outdoors with our backpacks",
-    buttonText: "Discover now",
-    reverse: true,
-    backgroundColor: "bg-warning-200",
-  },
-  {
-    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-3.png",
-    title: "Fresh and Bold",
-    subtitle: "New collection",
-    description: "Add a pop up color to your outfit",
-    buttonText: "Discover now",
-    reverse: false,
-    backgroundColor: "bg-secondary-200",
-  },
-];
-const thumbsRef = ref<HTMLElement>();
-
-const scroll = (event: SfScrollableOnScrollData) => {
-  const { width, left } = event;
-  if (left < width && activeIndex.value !== 0) {
-    activeIndex.value = 0;
-  } else if (left > width && left < width * 2) {
-    activeIndex.value = 1;
-  } else if (left > width * 2) {
-    activeIndex.value = 2;
-  }
-};
+import CarouselPosters from "./CarouselPosters.vue";
+import CarouselProducts from "./CarouselProducts.vue";
+//
 
 import { useRouter } from "vue-router";
 // import { reactive } from "vue";
 const router = useRouter();
 
-const withBase = (filepath: string) => `https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/${filepath}`;
-
-const images = [
-  { imageSrc: withBase("gallery_8.png"), alt: "backpack8" },
-  { imageSrc: withBase("gallery_9.png"), alt: "backpack9" },
-  { imageSrc: withBase("gallery_10.png"), alt: "backpack10" },
-  { imageSrc: withBase("gallery_11.png"), alt: "backpack11" },
-];
-
-const activeIndex = ref(0);
-// const state = reactive({
-//   sort: "default",
-// });
 const handleClick = () => {
   console.log("handleClick");
 
