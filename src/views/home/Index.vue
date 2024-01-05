@@ -109,7 +109,7 @@
   </div>
 
   <div class="mx-auto max-w-1620">
-    <h2 class="text-2xl font-bold text-black mb-[7.5rem] text-48">Must-have Products</h2>
+    <h2 class="font-bold text-black mb-[7.5rem] text-48">Must-have Products</h2>
     <div class="grid grid-cols-1 gap-x-[30px] gap-y-[30px] gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <!-- First item -->
       <div class="relative group" v-for="i in 6" :key="i">

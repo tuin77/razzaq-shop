@@ -27,6 +27,9 @@ export default {
         bold: {
           100: "#1A1A1A",
         },
+        red: {
+          500: "#F93B3B",
+        },
         gray: {
           100: "#E6E6E6",
           200: "#666666",
