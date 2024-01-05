@@ -36,6 +36,7 @@
               ></path>
             </svg>
           </button>
+          <RightDrawer></RightDrawer>
         </div>
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
           <ul
@@ -145,6 +146,7 @@
 
 <script lang="ts" setup>
 import LangSelect1 from "./LangSelect.vue";
+import RightDrawer from "./RightDrawer.vue";
 
 import {
   // SfIconShoppingCart,
