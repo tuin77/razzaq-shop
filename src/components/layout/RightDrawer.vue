@@ -1,5 +1,7 @@
 <template>
-  <SfButton @click="open = true"> Open Drawer </SfButton>
+  <SfButton tag="span" class="!text-bold-100 relative" square variant="tertiary" @click="open = true" aria-controls="mobile-menu-2">
+    <SfIconMenu /> <SfBadge class="!bg-primary-700" :content="content"
+  /></SfButton>
 
   <transition
     enter-active-class="transition duration-200 ease-out"
@@ -45,8 +47,9 @@
 </template>
 
 <script lang="ts" setup>
-import { SfDrawer, SfButton, SfIconClose, SfCounter, SfListItem } from "@storefront-ui/vue";
+import { SfDrawer, SfButton, SfIconClose, SfCounter, SfListItem, SfIconMenu, SfBadge } from "@storefront-ui/vue";
 import { ref } from "vue";
+const content = ref(10);
 
 const open = ref(false);
 
