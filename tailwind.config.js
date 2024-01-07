@@ -19,7 +19,15 @@ export default {
       maxWidth: {
         1620: "1620px",
       },
+      margin: {
+        30: "1.875rem",
+      },
+      padding: {
+        30: "1.875rem",
+      },
+
       borderRadius: {
+        20: "20px",
         large: "1.875rem", //30px
         100: "6.25rem",
       },
@@ -30,9 +38,14 @@ export default {
         red: {
           500: "#F93B3B",
         },
+        neutral: {
+          100: "#f5f5f5",
+        },
         gray: {
           100: "#E6E6E6",
+          e6e: "#E6E6E6",
           200: "#666666",
+          666: "#666666",
           400: "#999999",
         },
         primary: {
