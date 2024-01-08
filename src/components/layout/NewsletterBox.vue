@@ -1,5 +1,6 @@
 <template>
-  <div class="relative">
+  <div class="">
+    <!-- relative -->
     <div class="text-right bg-neutral-100">
       <form class="mb-4 flex flex-col sm:flex-row justify-end gap-4 max-w-[720px] ml-auto" @submit.prevent="subscribeNewsletter(inputValue)">
         <SfInput

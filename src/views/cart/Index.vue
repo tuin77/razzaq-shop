@@ -1,16 +1,41 @@
 <template>
-  <div class="flex justify-between mx-auto mt-20 table-fixed mb-36 max-w-1620">
+  <div class="flex items-start justify-between mx-auto mt-20 table-fixed mb-36 max-w-1620">
     <table class="">
       <thead>
-        <tr>
-          <th class="font-normal text-left">PRODUCT</th>
-          <th class="font-normal text-left">PRICE</th>
-          <th class="font-normal">QUANTITY</th>
-          <th class="font-normal text-right">SUBTOTAL</th>
+        <tr class="border-b border-gray-100">
+          <th class="font-normal text-left pb-7">PRODUCT</th>
+          <th class="font-normal text-left pb-7">PRICE</th>
+          <th class="font-normal pb-7">QUANTITY</th>
+          <th class="font-normal text-right pb-7">SUBTOTAL</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="py-10">
+        <tr class="py-10 border-b border-gray-100">
+          <td class="pr-[47px] py-10">
+            <div class="flex items-center">
+              <button>
+                <SfIconClose size="lg" class="text-gray-200 mr-30"></SfIconClose>
+              </button>
+              <img src="../../assets/images/shop/product-img1.png" class="w-[208px] h-[208px]" alt="" srcset="" />
+              <p class="w-[320px] ml-30 text-bold-100">Wall Suction Soft Durable Bath Massage Brush – BlueFrom wishlist:Default wishlist</p>
+            </div>
+          </td>
+          <td class="pr-[83px]">HK$272.95</td>
+          <td>
+            <input v-model="count" type="number" min="0" class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-lg text-bold-100" />
+          </td>
+          <td class="text-right pl-[70px]">
+            <div class="text-lg text-bold-100">HK$272.95</div>
+            <button
+              type="button"
+              class="flex items-center justify-center w-full py-1 mt-6 text-sm text-gray-200 transition-colors duration-200 bg-white gap-x-2 sm:w-auto"
+            >
+              <SfIconFavorite size="sm" />
+              <span>Save for later</span>
+            </button>
+          </td>
+        </tr>
+        <tr class="py-10 border-b border-gray-100">
           <td class="pr-[47px] py-10">
             <div class="flex items-center">
               <button>
@@ -108,7 +133,7 @@
   >
     <SfModal
       v-model="isOpen"
-      class="max-w-[456px] md:max-w-lg py-30 px-12 text-center"
+      class="w-[28.5rem] !py-30 !px-[52px] text-center"
       tag="section"
       role="alertdialog"
       aria-labelledby="promoModalTitle"
@@ -118,9 +143,7 @@
       <p id="promoModalDesc" class="mt-6 text-lg text-center">
         “Stainless Steel Sink Dish Storage Countertop Organizer - Basic Set Silver” has been added to your cart.
       </p>
-      <footer class="flex gap-4 mt-4">
-        <button class="w-full text-lg py-[13px] rounded-100 text-bold-100 mt-30 bg-neutral-100">closure</button>
-      </footer>
+      <button class="w-full text-lg py-[13px] rounded-100 text-bold-100 mt-30 bg-neutral-100">closure</button>
     </SfModal>
   </transition>
 </template>

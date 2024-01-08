@@ -1,6 +1,6 @@
 <template>
-  <div class="grid w-full grid-cols-1 lg:grid-cols-2">
-    <div style="padding-left: calc((100% - 1620px) / 2)">
+  <div class="flex w-full">
+    <div class="w-1/2" style="padding-left: calc((100% - 1620px) / 2)">
       <form class="flex flex-wrap gap-4 p-4 text-neutral-900" @submit.prevent="onSubmit">
         <h2 class="w-full font-bold typography-headline-4 md:typography-headline-3">BILLING DETAILS</h2>
         <label class="w-full md:w-auto flex-grow flex flex-col gap-0.5 mt-4 md:mt-0">
@@ -10,73 +10,87 @@
           <SfInput name="lastName" placeholder="surname*" autocomplete="family-name" required />
         </label>
         <label class="w-full flex flex-col gap-0.5">
-          <span class="font-medium typography-text-sm">Phone</span>
-          <SfInput name="phone" type="tel" autocomplete="tel" required />
+          <SfInput name="phone" type="tel" autocomplete="tel" placeholder="Company name (optional)" required />
         </label>
-        <label class="w-full flex flex-col gap-0.5 flex flex-col gap-0.5">
+        <label class="w-full flex flex-col gap-0.5">
           <span class="font-medium typography-text-sm">Country</span>
           <SfSelect name="country" placeholder="-- Select --" autocomplete="country-name" required>
             <option v-for="countryName in countries" :key="countryName">{{ countryName }}</option>
           </SfSelect>
         </label>
-        <div class="w-full md:w-auto flex-grow flex flex-col gap-0.5">
-          <label>
-            <span class="font-medium typography-text-sm">Street</span>
-            <SfInput
-              name="street"
-              autocomplete="address-line1"
-              class="mt-0.5"
-              required
-              :invalid="!streetIsValid"
-              @blur="streetIsValid = !!$event.target.value"
-              @update:model-value="streetIsValid = !!$event"
-            />
-          </label>
-          <div class="flex flex-colr mt-0.5">
-            <strong v-if="!streetIsValid" class="font-medium typography-error-sm text-negative-700"> Please provide a valid street name </strong>
-            <small class="typography-hint-xs text-neutral-500">Street address or P.O. Box</small>
-          </div>
-        </div>
-        <div class="w-full flex flex-col gap-0.5 md:w-[120px]">
-          <label>
-            <span class="font-medium typography-text-sm">Apt#, Suite, etc</span>
-            <SfInput name="aptNo" class="mt-0.5" />
-          </label>
-          <small class="typography-hint-xs text-neutral-500 mt-0.5">Optional</small>
-        </div>
+
+        <label class="w-full md:w-auto flex-grow flex flex-col gap-0.5 mt-4 md:mt-0">
+          <SfInput name="firstName" placeholder="Street address*" autocomplete="given-name" required />
+        </label>
+        <label class="w-full md:w-auto flex-grow flex flex-col gap-0.5">
+          <SfInput name="lastName" placeholder="apartment" autocomplete="family-name" required />
+        </label>
         <label class="w-full flex flex-col gap-0.5">
-          <span class="font-medium typography-text-sm">City</span>
-          <SfInput name="city" autocomplete="address-level2" required />
+          <SfInput name="city" autocomplete="address-level2" required placeholder="city address*" />
         </label>
-        <label class="w-full md:w-auto flex flex-col gap-0.5 flex-grow">
-          <span class="font-medium typography-text-sm">State</span>
-          <SfSelect name="state" placeholder="-- Select --" autocomplete="address-level1" required>
-            <option v-for="stateName in states" :key="stateName">{{ stateName }}</option>
-          </SfSelect>
+
+        <label class="w-full md:w-auto flex-grow flex flex-col gap-0.5 mt-4 md:mt-0">
+          <SfInput name="firstName" placeholder="post code*" autocomplete="given-name" required />
         </label>
-        <label class="w-full flex flex-col gap-0.5 md:w-[120px]">
-          <span class="font-medium typography-text-sm">ZIP Code</span>
-          <SfInput name="zipCode" placeholder="eg. 12345" autocomplete="postal-code" required />
+        <label class="w-full md:w-auto flex-grow flex flex-col gap-0.5">
+          <SfInput name="lastName" placeholder="Telephone*" autocomplete="family-name" required />
+        </label>
+
+        <label class="w-full flex flex-col gap-0.5">
+          <SfInput name="phone" type="tel" autocomplete="tel" required placeholder="email address*" />
         </label>
 
         <label class="flex items-center w-full gap-2">
           <SfCheckbox name="useAsShippingAddress" />
-          Use as shipping address
+          Ship to a different address?
         </label>
+        <label class="w-full flex flex-col gap-0.5">
+          <SfTextarea
+            ref="textareaRef"
+            placeholder="Notes about your order, such as special delivery instructions"
+            class="w-full h-max-[500px] block"
+          />
+        </label>
+        <p class="text-lg text-gray-400">Notes about your order, such as special delivery instructions</p>
 
-        <div class="flex w-full gap-4 mt-4 md:mt-0 md:justify-end">
-          <SfButton type="reset" variant="secondary" class="w-full md:w-auto">Clear all</SfButton>
-          <SfButton type="submit" class="w-full md:w-auto">Save</SfButton>
-        </div>
+        <label class="flex w-full">
+          <div class="flex-1">
+            <SfInput name="city" autocomplete="address-level2" required placeholder="city address*" />
+          </div>
+          <SfButton type="submit" class="ml-5 px-[67px]">Save</SfButton>
+        </label>
       </form>
     </div>
-    <div></div>
+    <div class="w-1/2 bg-zinc-50 pt-[80px] pl-[60px]" style="padding-right: calc((100% - 1620px) / 2)">
+      <div>YOUR ORDER</div>
+      <div class="pt-[27px] pb-[25px]">
+        <span class="text-2xl text-blod-100">Cart totals</span>
+
+        <div class="flex text-lg mt-[26px]">
+          <span class="text-gray-666">Subtotal</span>
+          <span class="flex-1 text-right text-blod-100">HK$1,403.95</span>
+        </div>
+
+        <div class="flex text-lg mt-[26px]">
+          <span class="text-gray-666">Shipping</span> <span class="flex-1 text-right text-blod-100">Free shipping</span>
+        </div>
+        <div class="flex text-lg mt-[26px]">
+          <span class="text-gray-666">Shipping</span> <span class="flex-1 text-right text-blod-100">Free shipping</span>
+        </div>
+        <div class="flex text-lg mt-[26px]">
+          <span class="text-gray-666">Total</span> <span class="flex-1 text-right text-blod-100">$1,537.85</span>
+        </div>
+
+        <div class="text-sm mt-9 text-gary-666">*All orders are processed in USD</div>
+        <button class="mt-[77px] w-full py-[13px] text-lg text-white rounded-100 bg-primary-700" @click="open">Place an order $1,537.85</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { SfSelect, SfInput, SfCheckbox, SfButton } from "@storefront-ui/vue";
+import { SfSelect, SfInput, SfCheckbox, SfButton, SfTextarea } from "@storefront-ui/vue";
 
 // Here you should provide a list of countries you want to support
 // or use an up-to-date country list like: https://www.npmjs.com/package/country-list
