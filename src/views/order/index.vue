@@ -62,9 +62,14 @@
       </form>
     </div>
     <div class="w-1/2 bg-zinc-50 pt-[80px] pl-[60px]" style="padding-right: calc((100% - 1620px) / 2)">
-      <div>YOUR ORDER</div>
       <div class="pt-[27px] pb-[25px]">
-        <span class="text-2xl text-blod-100">Cart totals</span>
+        <div class="text-2xl text-blod-100">YOUR ORDER</div>
+
+        <div class="flex items-center border-b border-gray-100 py-30">
+          <img src="../../assets/images/shop/product-img1.png" alt="" srcset="" class="w-[150px] h-[150px] rounded-20" />
+          <span class="w-[320px] ml-30">Wall Suction Soft Durable Bath Massage Brush – BlueFrom wishlist:Default wishlist</span>
+          <span class="ml-auto">×1</span>
+        </div>
 
         <div class="flex text-lg mt-[26px]">
           <span class="text-gray-666">Subtotal</span>
@@ -75,13 +80,36 @@
           <span class="text-gray-666">Shipping</span> <span class="flex-1 text-right text-blod-100">Free shipping</span>
         </div>
         <div class="flex text-lg mt-[26px]">
-          <span class="text-gray-666">Shipping</span> <span class="flex-1 text-right text-blod-100">Free shipping</span>
+          <span class="text-gray-666">Route Shipping Protection</span> <span class="flex-1 text-right text-blod-100">$33.10</span>
         </div>
-        <div class="flex text-lg mt-[26px]">
+
+        <div class="flex text-lg mt-[26px] border-b border-gray-100 py-30">
           <span class="text-gray-666">Total</span> <span class="flex-1 text-right text-blod-100">$1,537.85</span>
         </div>
 
-        <div class="text-sm mt-9 text-gary-666">*All orders are processed in USD</div>
+        <div class="text-2xl text-blod-100">Payment</div>
+
+        <div class="bg-white border rounded-[10px] border-gray-100">
+          <div class="flex border-b border-gray-100 py-[14px] pl-30 pr-[24px]">
+            <SfRadio v-for="{ name, value } in radioOptions" :key="value" v-model="radioModel" class="block mt-4" :value="value" :name="name" />
+            <img src="../../assets/images/order/icon-bank-payment.png" alt="" srcset="" class="h-[53px] w-[368px] ml-auto" />
+          </div>
+          <label class="flex flex-col mx-30 mt-30">
+            <span class="font-medium typography-text-sm">Card number</span>
+
+            <SfInput name="phone" type="tel" autocomplete="tel" required placeholder="email address*" />
+          </label>
+
+          <label class="w-full md:w-auto flex-grow flex flex-col gap-0.5 mx-30 mt-30">
+            <span class="font-medium typography-text-sm">Validity period</span>
+            <SfInput name="firstName" placeholder="name*" autocomplete="given-name" required />
+          </label>
+          <label class="w-full md:w-auto flex-grow flex flex-col gap-0.5 mx-30 mt-30 mb-[37px]">
+            <span class="font-medium typography-text-sm">CVR</span>
+            <SfInput name="lastName" placeholder="surname*" autocomplete="family-name" required />
+          </label>
+        </div>
+
         <button class="mt-[77px] w-full py-[13px] text-lg text-white rounded-100 bg-primary-700" @click="open">Place an order $1,537.85</button>
       </div>
     </div>
@@ -90,7 +118,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { SfSelect, SfInput, SfCheckbox, SfButton, SfTextarea } from "@storefront-ui/vue";
+import { SfSelect, SfInput, SfCheckbox, SfButton, SfTextarea, SfRadio } from "@storefront-ui/vue";
 
 // Here you should provide a list of countries you want to support
 // or use an up-to-date country list like: https://www.npmjs.com/package/country-list
@@ -109,4 +137,7 @@ const onSubmit = (e: Event) => {
   const formJSON = Object.fromEntries(formData.entries());
   console.log(formJSON);
 };
+
+const radioModel = ref("value-1");
+const radioOptions = [{ value: "value-1", name: "radio-1" }];
 </script>
