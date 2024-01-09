@@ -64,6 +64,7 @@
   </div>
 </template> -->
 <template>
+  <label class="font-medium typography-label-sm" :for="id">Product</label>
   <div ref="referenceRef" class="relative">
     <div
       :id="id"
@@ -73,7 +74,7 @@
       :aria-expanded="isOpen"
       aria-label="Select one option"
       :aria-activedescendant="selectedOption ? `${listboxId}-${selectedOption.value}` : undefined"
-      class="mt-0.5 flex items-center gap-8 relative text-2xl font-normal typography-text-base py-2 px-4 cursor-pointer"
+      class="mt-0.5 flex items-center gap-8 relative font-normal typography-text-base ring-1 ring-neutral-300 ring-inset rounded-md py-2 px-4 hover:ring-primary-700 active:ring-primary-700 active:ring-2 focus:ring-primary-700 focus:ring-2 focus-visible:outline focus-visible:outline-offset cursor-pointer"
       tabindex="0"
       @keydown.space="toggle()"
       @click="toggle()"
@@ -125,6 +126,13 @@ const state = reactive({
 });
 // const defalutClass = ["text-gray-700", "block", "px-4", "py-2", "text-sm"];
 
+const options = [
+  { label: "zh", value: "zh" },
+  { label: "fr", value: "fr" },
+  { label: "de", value: "de" },
+  { label: "en", value: "en" },
+];
+
 import { useI18n } from "vue-i18n";
 // import { defineProps, computed } from "vue";
 // import { useStore } from "vuex";
@@ -135,6 +143,13 @@ import { useI18n } from "vue-i18n";
 
 // 切换语言的方法
 const i18n = useI18n();
+const handleSetLanguage = (value: string) => {
+  state.lang = value;
+  i18n.locale.value = value;
+  state.visible = false;
+  // store.commit("setLanguage", lang);
+  // ElMessage.success(`语言成功切换为${lang === "zh" ? "中文" : "英文"}`);
+};
 
 import { ref, type Ref } from "vue";
 import { unrefElement } from "@vueuse/core";
@@ -144,15 +159,23 @@ type SelectOption = {
   label: string;
   value: string;
 };
-const options: SelectOption[] = [
-  { label: "zh", value: "zh" },
-  { label: "fr", value: "fr" },
-  { label: "de", value: "de" },
-  { label: "En", value: "en" },
-];
 
+const options: SelectOption[] = [
+  {
+    label: "Startup",
+    value: "startup",
+  },
+  {
+    label: "Business",
+    value: "business",
+  },
+  {
+    label: "Enterprise",
+    value: "enterprise",
+  },
+];
 const { close, toggle, isOpen } = useDisclosure({ initialValue: false });
-const selectedOption = ref<SelectOption>({ label: "En", value: "en" });
+const selectedOption = ref<SelectOption>(options[0]);
 const id = useId();
 const listboxId = `select-dropdown-${id}`;
 const selectTriggerRef = ref<HTMLDivElement>();
@@ -171,17 +194,9 @@ useTrapFocus(floatingRef as Ref<HTMLUListElement>, {
   activeState: isOpen,
   initialFocusContainerFallback: true,
 });
-// const handleSetLanguage = (value: string) => {
-//   state.lang = value;
-//   i18n.locale.value = value;
-//   state.visible = false;
-//   // ElMessage.success(`语言成功切换为${lang === "zh" ? "中文" : "英文"}`);
-// };
+
 const selectOption = (option: SelectOption) => {
-  state.lang = option.value;
-  i18n.locale.value = option.value;
   selectedOption.value = option;
-  appConfig.setLanguage(option.value);
   close();
   unrefElement(selectTriggerRef as Ref<HTMLDivElement>)?.focus();
 };

@@ -10,7 +10,7 @@
       <p class="mb-4 text-2xl text-black w-[30rem] mt-[40px] typography-text-base">
         {{ currentProduct.price }}
       </p>
-      <p class="mb-4 text-lg text-gray-200 w-[635px] mt-[40px] whitespace-pre-line">
+      <p class="mb-4 text-lg text-gray-200 max-w-[40rem] mt-[40px] whitespace-pre-line">
         {{ currentProduct.description }}
       </p>
       <SfButton class="!text-2xl !font-normal py-[9px] !px-[62px] bg-primary-950 !rounded-100 mt-[54px] ml-0 mr-auto" @click="handleClick">{{

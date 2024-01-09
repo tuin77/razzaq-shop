@@ -78,7 +78,7 @@
   <div class="mx-auto max-w-1620 mb-[5rem]">
     <h2 class="font-bold text-black mb-[7.5rem] text-48">Featured products</h2>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 product-list">
-      <div v-for="i in 4" :key="i" href="#" class="group rounded-[1.25rem]">
+      <div v-for="i in 4" :key="i" href="#" class="group rounded-[1.25rem] text-center">
         <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
           <img
             src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"

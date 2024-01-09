@@ -20,9 +20,11 @@ export default {
         1620: "1620px",
       },
       margin: {
+        4.5: "1.125rem",
         30: "1.875rem",
       },
       padding: {
+        4.5: "1.125rem",
         30: "1.875rem",
       },
 

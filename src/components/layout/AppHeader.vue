@@ -1,14 +1,14 @@
 <template>
   <header ref="referenceRef">
-    <nav class="bg-white px-4 lg:px-6 py-2.5 border-b-[1px] border-gray-100" ref="floatingRef">
+    <nav class="bg-white px-4 lg:px-6 py-4 border-b-[1px] border-gray-100" ref="floatingRef">
       <div class="flex flex-wrap items-center justify-between mx-auto max-w-1620">
         <a href="" class="flex items-center">
-          <img src="../../assets/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
+          <img src="../../assets/images/logo.svg" class="w-[9.625rem] h-[2.125rem] sm:h-9" alt="Flowbite Logo" />
         </a>
         <div class="flex items-center lg:order-2">
           <a
             href="#"
-            class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+            class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
             ><RouterLink to="/login">Log in</RouterLink>
           </a>
           <LangSelect1></LangSelect1>
@@ -17,7 +17,7 @@
         </div>
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
           <ul
-            class="flex flex-col hidden mt-4 font-medium bg-white lg:flex-row lg:space-x-8 lg:mt-0 md:flex"
+            class="flex flex-col hidden text-2xl font-light text-black bg-white lg:flex-row lg:space-x-8 lg:mt-0 md:flex"
             @blur="
               (event) => {
                 if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
@@ -27,23 +27,19 @@
             "
           >
             <li class="group">
-              <div
-                class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
-              >
+              <div class="relative mx-4">
                 <a
                   href=""
-                  class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                  class="inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
                   ><router-link to="/">{{ $t("nav.Home") }}</router-link>
                 </a>
               </div>
             </li>
             <li class="group">
               <router-link to="/shop">
-                <div
-                  class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
-                >
+                <div class="relative mx-4">
                   <button
-                    class="inline-flex justify-center px-4 py-5 text-base font-medium text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                    class="inline-flex justify-center items-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
                     @mouseenter="open"
                     @click="open"
                   >
@@ -66,26 +62,17 @@
               </router-link>
             </li>
             <li class="group">
-              <div
-                class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
-              >
+              <div class="relative mx-4">
                 <a
                   href=""
-                  class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
+                  class="inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
                   ><router-link to="/contact">Contact us</router-link>
                 </a>
               </div>
             </li>
             <li class="group">
-              <div
-                class="relative group-hover:after:content-[&#39;&#39;] group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-0 group-hover:after:border-b-2 group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
-              >
-                <a
-                  href=""
-                  class="inline-flex justify-center px-4 py-5 text-base text-black group-hover:text-primary-600 group-hover:focus:text-primary-500"
-                >
-                  <SfIconSearch />
-                </a>
+              <div class="relative flex justify-center mx-4 py-4.5 mt-1.5">
+                <img src="../../assets/images/home/icon-nav-search.svg" class="w-5 h-5 cursor-pointer" />
               </div>
             </li>
           </ul>
