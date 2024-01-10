@@ -22,10 +22,12 @@ export default {
       margin: {
         4.5: "1.125rem",
         30: "1.875rem",
+        120: "7.5rem",
       },
       padding: {
         4.5: "1.125rem",
         30: "1.875rem",
+        120: "7.5rem",
       },
 
       borderRadius: {
