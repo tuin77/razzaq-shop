@@ -1,6 +1,6 @@
 <template>
   <SfButton tag="span" class="!text-bold-100 relative" square variant="tertiary" @click="open = true" aria-controls="mobile-menu-2">
-    <SfIconMenu /> <SfBadge class="!bg-red-500" :content="content"
+    <SfIconMenu size="lg" /> <SfBadge class="!bg-red-500 !text-base top-[-8px] right-[-8px] px-2 py-0.5" :content="content"
   /></SfButton>
 
   <transition
@@ -80,7 +80,7 @@
 import { useRouter } from "vue-router";
 import { SfDrawer, SfButton, SfIconClose, SfCounter, SfListItem, SfIconMenu, SfBadge } from "@storefront-ui/vue";
 import { ref } from "vue";
-const content = ref(10);
+const content = ref(2);
 const router = useRouter();
 
 const open = ref(false);

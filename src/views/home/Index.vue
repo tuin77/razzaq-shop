@@ -112,11 +112,11 @@
     <h2 class="font-bold text-black mb-[7.5rem] text-48">Must-have Products</h2>
     <div class="grid grid-cols-1 gap-x-[30px] gap-y-[30px] gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <!-- First item -->
-      <div class="relative group" v-for="i in 6" :key="i">
+      <div class="relative overflow-hidden group" v-for="i in 6" :key="i">
         <img
           src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
           alt="Automatic Feeders"
-          class="object-cover w-full h-full rounded-lg"
+          class="object-cover w-full h-full rounded-lg group-hover:scale-125"
         />
         <div
           class="absolute bottom-0 left-0 flex items-center justify-center w-full h-full p-4 text-white transition bg-gray-900 bg-opacity-50 rounded-lg opacity-100"
@@ -157,5 +157,5 @@ const products = Array.from(Array(4), (_, i) => ({
     alt: "White sneaker shoe",
   },
 }));
-console.log(products);
+// console.log(products);
 </script>

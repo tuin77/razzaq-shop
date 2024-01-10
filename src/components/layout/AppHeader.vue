@@ -1,6 +1,6 @@
 <template>
   <header ref="referenceRef">
-    <nav class="bg-white px-4 lg:px-6 py-4 border-b-[1px] border-gray-100" ref="floatingRef">
+    <nav :class="['bg-white px-4 lg:px-6 py-4  border-gray-100', currentRouteName === 'contact' ? '' : 'border-b-[1px]']" ref="floatingRef">
       <div class="flex flex-wrap items-center justify-between mx-auto max-w-1620">
         <a href="" class="flex items-center">
           <img src="../../assets/images/logo.svg" class="w-[9.625rem] h-[2.125rem] sm:h-9" alt="Flowbite Logo" />
@@ -28,18 +28,26 @@
           >
             <li class="group">
               <div class="relative mx-4">
-                <a
-                  href=""
-                  class="inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
-                  ><router-link to="/">{{ $t("nav.Home") }}</router-link>
-                </a>
+                <router-link to="/">
+                  <a
+                    href=""
+                    :class="[
+                      'inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
+                      isActiveClass('home'),
+                    ]"
+                    >{{ $t("nav.Home") }}
+                  </a></router-link
+                >
               </div>
             </li>
             <li class="group">
               <router-link to="/shop">
                 <div class="relative mx-4">
                   <button
-                    class="inline-flex justify-center items-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
+                    :class="[
+                      'inline-flex justify-center items-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
+                      isActiveClass('shop'),
+                    ]"
                     @mouseenter="open"
                     @click="open"
                   >
@@ -63,11 +71,16 @@
             </li>
             <li class="group">
               <div class="relative mx-4">
-                <a
-                  href=""
-                  class="inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500"
-                  ><router-link to="/contact">Contact us</router-link>
-                </a>
+                <router-link to="/contact"
+                  ><a
+                    href=""
+                    :class="[
+                      'inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
+                      isActiveClass('contact'),
+                    ]"
+                    >Contact us
+                  </a></router-link
+                >
               </div>
             </li>
             <li class="group">
@@ -123,7 +136,6 @@ import {
   useTrapFocus,
   useDropdown,
   // SfInput,
-  SfIconSearch,
 } from "@storefront-ui/vue";
 import { ref, computed } from "vue";
 import { unrefElement } from "@vueuse/core";
@@ -139,6 +151,7 @@ const { referenceRef, floatingRef, style } = useDropdown({
 const drawerRef = ref();
 const megaMenuRef = ref();
 const triggerRefs = ref();
+const _activeClass = "text-primary-600 after:w-full after:absolute after:bottom-4 after:border-b after:left-0 after:border-primary-600";
 
 const trapFocusOptions = {
   activeState: isOpen,
@@ -254,4 +267,13 @@ const categoriesContent = [
     ],
   },
 ];
+
+import { toRaw } from "vue";
+import { useRouter } from "vue-router";
+
+let router = useRouter();
+const currentRouteName = computed(() => toRaw(router).currentRoute.value.name);
+console.log(currentRouteName.value);
+
+const isActiveClass = computed(() => (tab: string) => (currentRouteName.value === tab ? _activeClass : ""));
 </script>

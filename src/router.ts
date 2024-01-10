@@ -15,18 +15,22 @@ export default createRouter({
       children: [
         {
           path: "/",
+          name: "home",
           component: Home,
         },
         {
           path: "/login",
+          name: "login",
           component: Login,
         },
         {
           path: "/shop",
+          name: "shop",
           component: Shop,
         },
         {
           path: "/product",
+          name: "product",
           component: import("./views/product/Index.vue"),
         },
         {
@@ -43,6 +47,7 @@ export default createRouter({
         },
         {
           path: "/contact",
+          name: "contact",
           component: Contact,
         },
         {
