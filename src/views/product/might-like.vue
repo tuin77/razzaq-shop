@@ -13,21 +13,21 @@
 </template>
 <script lang="ts" setup>
 import { SfScrollable } from "@storefront-ui/vue";
-import { ref } from "vue";
-import { SfButton, SfIconAdd, SfIconRemove, useId } from "@storefront-ui/vue";
-import { clamp } from "@storefront-ui/shared";
-import { useCounter } from "@vueuse/core";
+// import { ref } from "vue";
+// import { SfButton, SfIconAdd, SfIconRemove, useId } from "@storefront-ui/vue";
+// import { clamp } from "@storefront-ui/shared";
+// import { useCounter } from "@vueuse/core";
 
-const min = ref(1);
-const max = ref(10);
-const inputId = useId();
-const { count, inc, dec, set } = useCounter(1, {
-  min: min.value,
-  max: max.value,
-});
-function handleOnChange(event: Event) {
-  const currentValue = (event.target as HTMLInputElement)?.value;
-  const nextValue = parseFloat(currentValue);
-  set(clamp(nextValue, min.value, max.value));
-}
+// const min = ref(1);
+// const max = ref(10);
+// const inputId = useId();
+// const { count, inc, dec, set } = useCounter(1, {
+//   min: min.value,
+//   max: max.value,
+// });
+// function handleOnChange(event: Event) {
+//   const currentValue = (event.target as HTMLInputElement)?.value;
+//   const nextValue = parseFloat(currentValue);
+//   set(clamp(nextValue, min.value, max.value));
+// }
 </script>

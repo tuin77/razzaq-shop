@@ -109,10 +109,10 @@
 import { SfModal, SfIconClose, useDisclosure, SfCheckbox } from "@storefront-ui/vue";
 import SelectDropdown from "./SelectDropdown.vue";
 
-const { isOpen, open, close } = useDisclosure({ initialValue: false });
+const { isOpen, open } = useDisclosure({ initialValue: false });
 
 const modelValue = ref([]);
-import { SfIconFavorite } from "@storefront-ui/vue";
+// import { SfIconFavorite } from "@storefront-ui/vue";
 import { ref } from "vue";
 // https://tailwind.nodejs.cn/docs/table-layout
 const count = ref(1);

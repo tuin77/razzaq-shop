@@ -31,19 +31,19 @@ export default createRouter({
         {
           path: "/product",
           name: "product",
-          component: import("./views/product/Index.vue"),
+          component: () => import("./views/product/Index.vue"),
         },
         {
           path: "/cart",
-          component: import("./views/cart/Index.vue"),
+          component: () => import("./views/cart/Index.vue"),
         },
         {
           path: "/wish",
-          component: import("./views/wish/Index.vue"),
+          component: () => import("./views/wish/Index.vue"),
         },
         {
           path: "/ProductCard",
-          component: import("./views/product/ProductCard.vue"),
+          component: () => import("./views/product/ProductCard.vue"),
         },
         {
           path: "/contact",
@@ -56,10 +56,12 @@ export default createRouter({
         },
         {
           path: "/test",
-          component: import("./views/Test.vue"),
+          component: () => import("./views/Test.vue"),
         },
       ],
     },
   ],
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
+
+// https://juejin.cn/post/6931318429420879879

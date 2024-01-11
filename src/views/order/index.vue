@@ -110,7 +110,7 @@
           </label>
         </div>
 
-        <button class="mt-[77px] w-full py-[13px] text-lg text-white rounded-100 bg-primary-700" @click="open">Place an order $1,537.85</button>
+        <button class="mt-[77px] w-full py-[13px] text-lg text-white rounded-100 bg-primary-700">Place an order $1,537.85</button>
       </div>
     </div>
   </div>
@@ -123,9 +123,9 @@ import { SfSelect, SfInput, SfCheckbox, SfButton, SfTextarea, SfRadio } from "@s
 // Here you should provide a list of countries you want to support
 // or use an up-to-date country list like: https://www.npmjs.com/package/country-list
 const countries = ["Germany", "Great Britain", "Poland", "United States of America"] as const;
-const states = ["California", "Florida", "New York", "Texas"] as const;
+// const states = ["California", "Florida", "New York", "Texas"] as const;
 
-const streetIsValid = ref(true);
+// const streetIsValid = ref(true);
 
 const onSubmit = (e: Event) => {
   /* your submit handler, e.g.: */

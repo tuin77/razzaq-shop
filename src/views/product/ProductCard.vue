@@ -3,7 +3,7 @@
     <div class="relative">
       <SfLink href="#" class="block">
         <img
-          src="../assets/images/production/sneakers.png"
+          src="@/assets/images/production/sneakers.png"
           alt="Great product"
           class="block object-cover h-auto rounded-md aspect-square"
           width="300"

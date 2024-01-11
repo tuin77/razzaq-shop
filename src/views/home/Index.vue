@@ -148,14 +148,4 @@ const handleClick = () => {
     },
   });
 };
-const products = Array.from(Array(4), (_, i) => ({
-  id: i.toString(),
-  name: "Athletic mens walking sneakers",
-  price: "$2,345.99 - $2,365.99 ",
-  img: {
-    src: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/sneakers.png",
-    alt: "White sneaker shoe",
-  },
-}));
-// console.log(products);
 </script>

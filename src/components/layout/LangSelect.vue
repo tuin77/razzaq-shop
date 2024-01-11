@@ -87,7 +87,7 @@ const i18n = useI18n();
 
 import { ref, type Ref } from "vue";
 import { unrefElement } from "@vueuse/core";
-import { useDropdown, useDisclosure, SfIconExpandMore, SfListItem, SfIconCheck, useId, useTrapFocus } from "@storefront-ui/vue";
+import { useDropdown, useDisclosure, SfIconExpandMore, SfListItem, useId, useTrapFocus } from "@storefront-ui/vue";
 
 type SelectOption = {
   label: string;

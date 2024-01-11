@@ -34,7 +34,7 @@
     <div class="absolute top-[46.3125rem]" style="left: calc((100% - 1620px) / 2)">
       <div class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <button
-          v-for="(item, index) in displayDetails"
+          v-for="(_item, index) in displayDetails"
           :key="`${index}-thumbnail`"
           type="button"
           :aria-current="activeIndex === index"
@@ -55,8 +55,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { SfScrollable, SfButton, type SfScrollableOnScrollData, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
-
+import { SfScrollable, SfButton, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
+// type SfScrollableOnScrollData,
 const displayDetails = [
   {
     image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display.png",
@@ -116,7 +116,9 @@ const onDragged = (event: SfScrollableOnDragEndData) => {
     activeIndex.value += 1;
   }
 };
-const onScroll = debounce((event: SfScrollableOnScrollData) => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const onScroll = debounce((event: any) => {
   const { width, left } = event;
   console.log(width, left);
   let index = 0;
