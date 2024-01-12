@@ -1,6 +1,6 @@
 <template>
   <header ref="referenceRef">
-    <nav :class="['bg-white px-4 lg:px-6 py-4  border-gray-100', currentRouteName === 'contact' ? '' : 'border-b-[1px]']" ref="floatingRef">
+    <nav :class="['relative bg-white px-4 lg:px-6    z-30']" ref="floatingRef">
       <div class="flex flex-wrap items-center justify-between mx-auto max-w-1620">
         <a href="" class="flex items-center">
           <img src="../../assets/images/logo.svg" class="w-[9.625rem] h-[2.125rem] sm:h-9" alt="Flowbite Logo" />
@@ -9,30 +9,29 @@
           <a
             href="#"
             class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-            ><RouterLink to="/login">Log in</RouterLink>
+          >
+            <RouterLink to="/login">Log in</RouterLink>
           </a>
           <LangSelect1></LangSelect1>
 
           <RightDrawer></RightDrawer>
         </div>
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-          <ul
-            class="flex flex-col hidden text-2xl font-light text-black bg-white lg:flex-row lg:space-x-8 lg:mt-0 md:flex"
-            @blur="
-              (event) => {
-                if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
-                  close();
-                }
-              }
-            "
-          >
+          <ul class="flex flex-col hidden text-2xl font-light text-black bg-white lg:flex-row lg:space-x-8 lg:mt-0 md:flex">
             <li class="group">
               <div class="relative mx-4">
                 <router-link to="/">
                   <a
                     href=""
+                    @blur="
+                      (event) => {
+                        if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
+                          close();
+                        }
+                      }
+                    "
                     :class="[
-                      'inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
+                      'inline-flex justify-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
                       isActiveClass('home'),
                     ]"
                     >{{ $t("nav.Home") }}
@@ -45,7 +44,7 @@
                 <div class="relative mx-4">
                   <button
                     :class="[
-                      'inline-flex justify-center items-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
+                      'inline-flex justify-center items-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
                       isActiveClass('shop'),
                     ]"
                     @mouseenter="open"
@@ -75,7 +74,7 @@
                   ><a
                     href=""
                     :class="[
-                      'inline-flex justify-center py-4.5 group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
+                      'inline-flex justify-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
                       isActiveClass('contact'),
                     ]"
                     >Contact us
@@ -84,7 +83,7 @@
               </div>
             </li>
             <li class="group">
-              <div class="relative flex justify-center mx-4 py-4.5 mt-1.5">
+              <div class="relative flex justify-center mx-4 py-34px mt-1.5">
                 <img src="../../assets/images/home/icon-nav-search.svg" class="w-5 h-5 cursor-pointer" />
               </div>
             </li>
@@ -97,7 +96,7 @@
       v-if="isOpen"
       ref="megaMenuRef"
       :style="style"
-      class="left-0 right-0 hidden grid-cols-3 p-6 bg-white shadow-lg outline-none md:grid gap-x-6"
+      class="left-0 right-0 z-30 hidden grid-cols-3 p-6 bg-white shadow-lg outline-none md:grid gap-x-6"
       tabindex="0"
       @mouseleave="close"
       @keydown.esc="focusTrigger"
@@ -119,6 +118,25 @@
       </template>
     </div>
   </header>
+
+  <transition
+    enter-active-class="transition duration-200 ease-out"
+    leave-active-class="transition duration-200 ease-out"
+    enter-from-class="opacity-0"
+    enter-to-class="opacity-100"
+    leave-from-class="opacity-100"
+    leave-to-class="opacity-0"
+  >
+    <div
+      v-if="isOpen"
+      class="fixed inset-0 z-20 bg-opacity-50 bg-neutral-700"
+      @wheel.prevent
+      @mousewheel.prevent
+      @touchmove.prevent
+      @touchstart.prevent
+      @click.stop
+    />
+  </transition>
 </template>
 
 <script lang="ts" setup>
