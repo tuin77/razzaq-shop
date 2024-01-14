@@ -21,13 +21,17 @@ export default {
       },
       margin: {
         30: "1.875rem",
+        "30px": "1.875rem",
         "34px": "2.125rem",
+        "72px": "4.5rem",
         120: "7.5rem",
       },
       padding: {
         4.5: "1.125rem",
         30: "1.875rem",
+        "30px": "1.875rem",
         "34px": "2.125rem",
+        "72px": "4.5rem",
         120: "7.5rem",
       },
 

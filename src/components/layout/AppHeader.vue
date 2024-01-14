@@ -17,144 +17,190 @@
           <RightDrawer></RightDrawer>
         </div>
         <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-          <ul class="flex flex-col hidden text-2xl font-light text-black bg-white lg:flex-row lg:space-x-8 lg:mt-0 md:flex">
-            <li class="group">
-              <div class="relative mx-4">
-                <router-link to="/">
-                  <a
-                    href=""
-                    @blur="
-                      (event) => {
-                        if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
-                          close();
-                        }
-                      }
-                    "
-                    :class="[
-                      'inline-flex justify-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
-                      isActiveClass('home'),
-                    ]"
-                    >{{ $t("nav.Home") }}
-                  </a></router-link
+          <nav ref="floatingRef">
+            <ul
+              class="hidden px-6 text-2xl font-light text-black bg-white md:flex"
+              @blur="
+                (event) => {
+                  if (!(event.currentTarget as Element).contains(event.relatedTarget as Element)) {
+                    close();
+                  }
+                }
+              "
+            >
+              <li v-for="menuNode in menus" :key="menuNode.key" class="relative mx-4 group">
+                <button
+                  v-if="menuNode.key !== 'search'"
+                  ref="triggerRefs"
+                  variant="tertiary"
+                  @mouseenter="openMenu(menuNode.key)"
+                  :class="[
+                    'inline-flex justify-center items-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-8 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
+                    isActiveClass(menuNode.key),
+                  ]"
+                  @click="openMenu(menuNode.key)"
                 >
-              </div>
-            </li>
-            <li class="group">
-              <router-link to="/shop">
-                <div class="relative mx-4">
-                  <button
+                  <span>{{ menuNode.label }}</span>
+                  <svg
+                    v-if="menuNode.key === 'shop'"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
                     :class="[
-                      'inline-flex justify-center items-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
-                      isActiveClass('shop'),
+                      'w-5 h-6 ml-2 -mr-1 duration-500 group-hover:transform  group-hover:text-primary-600 group-hover:focus:text-primary-500',
+                      isOpen ? 'rotate-180' : '',
                     ]"
-                    @mouseenter="open"
-                    @click="open"
                   >
-                    Shop
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      class="w-5 h-6 ml-2 -mr-1 duration-500 group-hover:transform group-hover:rotate-180 group-hover:text-primary-600 group-hover:focus:text-primary-500"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+                <div v-else class="relative flex justify-center mx-4 py-34px mt-1.5" @click="openMenu(menuNode.key)">
+                  <img src="../../assets/images/home/icon-nav-search.svg" class="w-5 h-5 cursor-pointer" />
                 </div>
-              </router-link>
-            </li>
-            <li class="group">
-              <div class="relative mx-4">
-                <router-link to="/contact"
-                  ><a
-                    href=""
-                    :class="[
-                      'inline-flex justify-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-4 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
-                      isActiveClass('contact'),
-                    ]"
-                    >Contact us
-                  </a></router-link
-                >
+              </li>
+            </ul>
+          </nav>
+
+          <div
+            v-if="isOpen && activeNode === 'shop'"
+            key="Shop"
+            ref="megaMenuRef"
+            :style="style"
+            class="left-0 right-0 hidden grid-cols-3 p-6 bg-white shadow-lg outline-none md:grid gap-x-6"
+            tabindex="0"
+            @mouseleave="close()"
+            @keydown.esc="focusTrigger(1)"
+          >
+            <template v-for="node in categoriesContent" :key="node.key">
+              <ul class="mt-2 border-l-[1px] first:border-none">
+                <li v-for="child in node.children" :key="child.key">
+                  <div class="flex flex-row items-center justify-center">
+                    <a
+                      href=""
+                      target="_self"
+                      class="text-black typography-text-base md:typography-text-sm py-4 md:py-1.5 hover:underline group-hover:text-500"
+                    >
+                      {{ child.value.label }}
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </template>
+          </div>
+          <div
+            v-if="isOpen && activeNode === 'search'"
+            key="Search"
+            ref="megaMenuRef"
+            class="absolute h-[700px] left-0 top-0 w-full z-40 flex flex-col bg-white shadow-lg outline-none"
+            tabindex="0"
+            @mouseleave="close()"
+            @keydown.esc="focusTrigger(3)"
+          >
+            <div class="flex items-center h-[100px] w-full border-b border-gray-100" style="padding: 0 calc(50% - 810px)">
+              <SfInput
+                wrapper-class="!ring-0 flex-1 w-full"
+                size="lg"
+                ref="inputRef"
+                v-model="inputModel"
+                aria-label="Search"
+                placeholder="please enter"
+                @focus="open"
+              >
+                <template #prefix><SfIconSearch /> </template
+              ></SfInput>
+              <SfButton
+                square
+                variant="tertiary"
+                aria-label="Close navigation menu"
+                class="ml-2 text-block"
+                @click="close()"
+                @keydown.enter.space="close()"
+              >
+                <SfIconClose />
+              </SfButton>
+            </div>
+            <div class="flex-1 h-[600px] flex" style="padding: 0 calc(50% - 810px)">
+              <ul class="overflow-y-auto max-h-[600px] h-[600px] w-[357px]">
+                <li class="pt-[72px] mb-34px">MOST POPULAR SEARCHES</li>
+                <template v-for="{ children } in categoriesContent">
+                  <li v-for="{ value } in children" :key="value.label" class="text-lg mb-34px">
+                    {{ value.label }}
+                  </li>
+                </template>
+              </ul>
+              <div class="pt-72px">
+                <p class="text-lg font-bold text-bold-100">MOST POPULAR SEARCHES</p>
+
+                <div class="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-[130px] lg:space-y-0">
+                  <div class="relative group">
+                    <div class="relative w-[333px] h-[348px] overflow-hidden rounded-20">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg"
+                        alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+                        class="object-cover object-center w-full h-full group-hover:opacity-75"
+                      />
+                      <img
+                        src="../../assets/images/shop/collect-icon.svg"
+                        class="group-hover:visible invisible w-[28px] h-[24px] absolute right-5 top-5"
+                        alt=""
+                        srcset=""
+                      />
+                      <div class="absolute bottom-0 left-0 invisible w-full py-4 text-lg text-center group-hover:visible">
+                        <button class="text-2xl text-white px-[62px] py-[9px] bg-primary-600 rounded-100">Buy</button>
+                      </div>
+                    </div>
+                    <p class="text-lg mt-30px text-blod-100">Colorful Sunflower Plush Comfy</p>
+                  </div>
+                  <div class="relative group">
+                    <div class="relative w-[333px] h-[348px] overflow-hidden rounded-20 group-hover:opacity-75">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg"
+                        alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+                        class="object-cover object-center w-full h-full"
+                      />
+                    </div>
+                    <p class="text-lg mt-30px text-blod-100">Colorful Sunflower Plush Comfy</p>
+                  </div>
+                  <div class="relative group">
+                    <div class="relative w-[333px] h-[348px] overflow-hidden rounded-20 group-hover:opacity-75">
+                      <img
+                        src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg"
+                        alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+                        class="object-cover object-center w-full h-full"
+                      />
+                    </div>
+                    <p class="text-lg mt-30px text-blod-100">Colorful Sunflower Plush Comfy</p>
+                  </div>
+                </div>
               </div>
-            </li>
-            <li class="group">
-              <div class="relative flex justify-center mx-4 py-34px mt-1.5">
-                <img src="../../assets/images/home/icon-nav-search.svg" class="w-5 h-5 cursor-pointer" />
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-    <!-- shop 底部弹窗 -->
-    <div
-      v-if="isOpen"
-      ref="megaMenuRef"
-      :style="style"
-      class="left-0 right-0 z-30 hidden grid-cols-3 p-6 bg-white shadow-lg outline-none md:grid gap-x-6"
-      tabindex="0"
-      @mouseleave="close"
-      @keydown.esc="focusTrigger"
-    >
-      <template v-for="node in categoriesContent" :key="node.key">
-        <ul class="mt-2 border-l-[1px] first:border-none">
-          <li v-for="child in node.children" :key="child.key">
-            <div class="flex flex-row items-center justify-center">
-              <a
-                href=""
-                target="_self"
-                class="text-black typography-text-base md:typography-text-sm py-4 md:py-1.5 hover:underline group-hover:text-500"
-              >
-                {{ child.value.label }}
-              </a>
-            </div>
-          </li>
-        </ul>
-      </template>
-    </div>
   </header>
-
-  <transition
-    enter-active-class="transition duration-200 ease-out"
-    leave-active-class="transition duration-200 ease-out"
-    enter-from-class="opacity-0"
-    enter-to-class="opacity-100"
-    leave-from-class="opacity-100"
-    leave-to-class="opacity-0"
-  >
-    <div
-      v-if="isOpen"
-      class="fixed inset-0 z-20 bg-opacity-50 bg-neutral-700"
-      @wheel.prevent
-      @mousewheel.prevent
-      @touchmove.prevent
-      @touchstart.prevent
-      @click.stop
-    />
-  </transition>
+  <!-- -->
+  <div
+    v-if="isOpen"
+    class="fixed inset-0 z-10 bg-opacity-50 bg-neutral-500"
+    @wheel.prevent
+    @mousewheel.prevent
+    @touchmove.prevent
+    @touchstart.prevent
+    @click.stop
+  ></div>
 </template>
 
 <script lang="ts" setup>
 import LangSelect1 from "./LangSelect.vue";
 import RightDrawer from "./RightDrawer.vue";
 
-import {
-  // SfIconShoppingCart,
-  // SfIconFavorite,
-  // SfIconPerson,
-  // SfIconClose,
-  // SfDrawer,
-  // SfListItem,
-  useDisclosure,
-  useTrapFocus,
-  useDropdown,
-  // SfInput,
-} from "@storefront-ui/vue";
+import { SfListItem, useDisclosure, useTrapFocus, useDropdown, SfIconSearch, SfInput, SfIconClose } from "@storefront-ui/vue";
 import { ref, computed } from "vue";
 import { unrefElement } from "@vueuse/core";
 
@@ -166,10 +212,12 @@ const { referenceRef, floatingRef, style } = useDropdown({
   middleware: [],
 });
 
+const inputModel = ref("");
+
 const drawerRef = ref();
 const megaMenuRef = ref();
 const triggerRefs = ref();
-const _activeClass = "text-primary-600 after:w-full after:absolute after:bottom-4 after:border-b after:left-0 after:border-primary-600";
+const activeNode = ref<string>("");
 
 const trapFocusOptions = {
   activeState: isOpen,
@@ -182,16 +230,35 @@ useTrapFocus(
 );
 useTrapFocus(drawerRef, trapFocusOptions);
 
-const focusTrigger = () => {
-  unrefElement(triggerRefs.value[0]).focus();
+const openMenu = (menuType: string) => {
+  activeNode.value = menuType;
+  if (menuType === "search" || menuType === "shop") {
+    open();
+  } else {
+    close();
+  }
 };
 
-// const inputValue = ref("");
+const focusTrigger = (index: number) => {
+  unrefElement(triggerRefs.value[index]).focus();
+};
 
-// const search = () => {
-//   alert(`Successfully found 10 results for ${inputValue.value}`);
-// };
+const menus = [
+  { key: "home", label: "Home" },
+  { key: "shop", label: "Shop" },
+  { key: "contact", label: "Contact us" },
+  { key: "search", label: "Search" },
+];
 
+import { toRaw } from "vue";
+import { useRouter } from "vue-router";
+const _activeClass = "text-primary-600 after:w-full after:absolute after:bottom-8 after:border-b after:left-0 after:border-primary-600";
+
+let router = useRouter();
+const currentRouteName = computed(() => toRaw(router).currentRoute.value.name);
+console.log(currentRouteName.value);
+
+const isActiveClass = computed(() => (tab: string) => (currentRouteName.value === tab.toLocaleLowerCase() ? _activeClass : ""));
 const categoriesContent = [
   {
     key: "CATEGORIES",
@@ -285,13 +352,4 @@ const categoriesContent = [
     ],
   },
 ];
-
-import { toRaw } from "vue";
-import { useRouter } from "vue-router";
-
-let router = useRouter();
-const currentRouteName = computed(() => toRaw(router).currentRoute.value.name);
-console.log(currentRouteName.value);
-
-const isActiveClass = computed(() => (tab: string) => (currentRouteName.value === tab ? _activeClass : ""));
 </script>
