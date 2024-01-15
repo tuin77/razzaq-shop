@@ -85,18 +85,18 @@
         </section>
 
         <section aria-labelledby="options-heading" class="mt-8">
-          <template v-for="spec in goods?.specs" :key="spec.id">
+          <template v-for="spec in goods?.specs_list" :key="spec.id">
             <!-- Colors -->
             <div class="mt-7" v-if="spec.name === 'Color'">
               <h4 class="text-lg text-blod-100">Color：</h4>
               <fieldset class="mt-5">
                 <span class="flex items-center space-x-3">
+                  <!-- v-for="({ imageThumbSrc, alt }, index) in images.slice(0, 3)" -->
                   <button
-                    v-for="({ imageThumbSrc, alt }, index) in images.slice(0, 3)"
-                    :key="`${alt}-${index}-thumbnail`"
+                    v-for="(spec_value, index) in spec.spec_values"
+                    :key="`${index}-thumbnail`"
                     :ref="(el) => assignRef(el, index)"
                     type="button"
-                    :aria-label="alt"
                     :aria-current="activeIndex === index"
                     :class="`w-[100px] h-[100px] mr-3 last:mr-0  relative shrink-0 border border-2 rounded-[1.25rem]  snap-start cursor-pointer focus-visible:outline focus-visible:outline-offset transition-colors flex-grow md:flex-grow-0  ${
                       activeIndex === index ? 'border-primary-700' : 'border-transparent'
@@ -104,7 +104,7 @@
                     @mouseover="activeIndex = index"
                     @focus="activeIndex = index"
                   >
-                    <img :alt="alt" class="rounded-[1.25rem]" width="150" height="150" :src="imageThumbSrc" />
+                    <img class="rounded-[1.25rem]" width="150" height="150" :src="spec_value.picture || ''" />
                   </button>
                 </span>
               </fieldset>
@@ -115,64 +115,19 @@
                 <div class="grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
                   <!-- Active: "ring-2 ring-indigo-500" -->
                   <label
+                    v-for="(spec_value, index) in spec.spec_values"
+                    :key="`${index}-thumbnail`"
                     class="relative flex items-center justify-center px-4 py-3 text-sm border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1"
                   >
                     <input type="radio" name="size-choice" value="XXS" class="sr-only" aria-labelledby="size-choice-0-label" />
-                    <span id="size-choice-0-label">28.0L x 210W x 7.0Th</span>
+                    <span id="size-choice-0-label">{{ spec_value.name }}</span>
                     <!--
                             Active: "border", Not Active: "border-2"
                             Checked: "border-indigo-500", Not Checked: "border-transparent"
                           -->
                     <span class="absolute rounded-[100px] pointer-events-none -inset-px" aria-hidden="true"></span>
                   </label>
-                  <!-- Active: "ring-2 ring-indigo-500" -->
-                  <label
-                    class="relative flex items-center justify-center px-4 py-3 text-sm border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1"
-                  >
-                    <input type="radio" name="size-choice" value="M" class="sr-only" aria-labelledby="size-choice-3-label" />
-                    <span id="size-choice-3-label">28.0L x 210W x 7.0Th</span>
-                    <!--
-                            Active: "border", Not Active: "border-2"
-                            Checked: "border-indigo-500", Not Checked: "border-transparent"
-                          -->
-                    <span class="absolute rounded-[100px] pointer-events-none -inset-px" aria-hidden="true"></span>
-                  </label>
-                  <!-- Active: "ring-2 ring-indigo-500" -->
-                  <label
-                    class="relative flex items-center justify-center px-4 py-3 text-sm font-medium text-gray-900 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:bg-gray-50 focus:outline-none sm:flex-1"
-                  >
-                    <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label" />
-                    <span id="size-choice-4-label">L</span>
-                    <!--
-                            Active: "border", Not Active: "border-2"
-                            Checked: "border-indigo-500", Not Checked: "border-transparent"
-                          -->
-                    <span class="absolute rounded-[100px] pointer-events-none -inset-px" aria-hidden="true"></span>
-                  </label>
-                  <!-- Active: "ring-2 ring-indigo-500" -->
-                  <label
-                    class="relative flex items-center justify-center px-4 py-3 text-sm font-medium text-gray-900 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:bg-gray-50 focus:outline-none sm:flex-1"
-                  >
-                    <input type="radio" name="size-choice" value="XL" class="sr-only" aria-labelledby="size-choice-5-label" />
-                    <span id="size-choice-5-label">XL</span>
-                    <!--
-                            Active: "border", Not Active: "border-2"
-                            Checked: "border-indigo-500", Not Checked: "border-transparent"
-                          -->
-                    <span class="absolute rounded-[100px] pointer-events-none -inset-px" aria-hidden="true"></span>
-                  </label>
-                  <!-- Active: "ring-2 ring-indigo-500" -->
-                  <label
-                    class="relative flex items-center justify-center px-4 py-3 text-sm font-medium text-gray-900 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:bg-gray-50 focus:outline-none sm:flex-1"
-                  >
-                    <input type="radio" name="size-choice" value="XXL" class="sr-only" aria-labelledby="size-choice-6-label" />
-                    <span id="size-choice-6-label">XXL</span>
-                    <!--
-                            Active: "border", Not Active: "border-2"
-                            Checked: "border-indigo-500", Not Checked: "border-transparent"
-                          -->
-                    <span class="absolute rounded-[100px] pointer-events-none -inset-px" aria-hidden="true"></span>
-                  </label>
+
                   <!-- Active: "ring-2 ring-indigo-500" -->
                   <label
                     class="relative flex items-center justify-center px-4 py-3 text-sm font-medium text-gray-200 uppercase border rounded-[100px] cursor-not-allowed group hover:bg-gray-50 focus:outline-none sm:flex-1 bg-gray-50"

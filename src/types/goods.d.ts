@@ -1,55 +1,36 @@
-export interface Price_range {
+interface PriceRange {
   min_amount: string;
   max_amount: string;
 }
 
-export interface Value {
+interface SpecValue {
   name: string;
-  picture: string;
+  picture: string | null;
   desc: string;
 }
 
-export interface Spec {
+interface Spec {
   name: string;
   id: string;
-  values: Value[];
+  spec_values: SpecValue[];
 }
 
-export interface SkuSpec {
-  name: string;
-  valueName: string;
-}
-
-export interface Sku {
+interface SKU {
   id: string;
   skuCode: string;
   price: string;
   oldPrice: string;
   inventory: number;
   picture: string;
-  specs: SkuSpec[];
+  specs: { name: string; valueName: string }[];
 }
 
-export interface Property {
+interface ProductProperty {
   name: string;
   value: string;
 }
 
-export interface Detail {
-  pictures: string[];
-  properties: Property[];
-}
-
-export interface SimilarProduct {
-  id: string;
-  name: string;
-  desc: string;
-  price: string;
-  picture: string;
-  orderNum: number;
-}
-
-export interface HotByDay {
+interface SimilarProduct {
   id: string;
   name: string;
   desc: string;
@@ -65,24 +46,27 @@ export interface GoodsDetail {
   spuCode: string;
   short_description: string;
   currency_symbol: string;
-  price_range: Price_range;
+  price_range: PriceRange;
   discount: number;
   inventory: number;
   salesCount: number;
   commentCount: number;
   collectCount: number;
-  // mainVideos: any[];
+  mainVideos: string[];
   videoScale: number;
   mainPictures: string[];
-  specs: Spec[];
-  skus: Sku[];
-  details: Detail;
+  specs_list: Spec[];
+  skus: SKU[];
+  details: {
+    pictures: string[];
+    properties: ProductProperty[];
+  };
   isPreSale: boolean;
   isCollect: boolean;
-  // recommends?: any;
-  // userAddresses?: any;
+  recommends: SimilarProduct[] | null;
+  // userAddresses: any[] | null; // 这里可以根据具体地址对象的结构进一步定义类型
   similarProducts: SimilarProduct[];
-  hotByDay: HotByDay[];
-  // evaluationInfo?: any;
+  hotByDay: SimilarProduct[];
+  // evaluationInfo: any | null; // 根据具体评估信息的结构定义类型
   description: string;
 }

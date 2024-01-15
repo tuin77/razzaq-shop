@@ -23,11 +23,11 @@ export const goods = {
     "https://yanxuan-item.nosdn.127.net/121c2e9978766dce2593489adf94c969.jpg",
     "https://yanxuan-item.nosdn.127.net/8fea973176f18e95dafb56beb8c30ba9.jpg",
   ],
-  specs: [
+  specs_list: [
     {
       name: "Color",
       id: "1482372728260526083",
-      values: [
+      spec_values: [
         {
           name: "绿桔白格",
           picture: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/gallery_1_thumb.png",
@@ -58,14 +58,14 @@ export const goods = {
     {
       name: "Size",
       id: "1482372729053249538",
-      values: [
+      spec_values: [
         {
-          name: "120/6T",
+          name: "28.0L X 210W X 7.0TH",
           picture: null,
           desc: "T恤/polo/衬衫-销售属性尺码-120/6T-规格属性图片",
         },
         {
-          name: "130/8T",
+          name: "28.0L X 210W X 7.0TH",
           picture: null,
           desc: "T恤/polo/衬衫-销售属性尺码-130/8T-规格属性图片",
         },
