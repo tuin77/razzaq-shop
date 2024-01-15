@@ -79,15 +79,15 @@
       </div>
       <div class="">
         <section aria-labelledby="information-heading " class="sm:pr-12">
-          <h2 class="text-[2rem] text-bold-100">Warm Winter Cozy Washable Dog House</h2>
+          <h2 class="text-[2rem] text-bold-100">{{ goods?.name }}</h2>
           <p class="text-[2rem] font-bold-100 font-bold mt-4">$29.95 – $90.95</p>
-          <p class="text-lg text-gray-500 mt-7">Give your pet a snug retreat with this warm, washable dog house.</p>
+          <p class="text-lg text-gray-500 mt-7">{{ goods?.short_description }}</p>
         </section>
 
         <section aria-labelledby="options-heading" class="mt-8">
-          <form>
+          <template v-for="spec in goods?.specs" :key="spec.id">
             <!-- Colors -->
-            <div>
+            <div class="mt-7" v-if="spec.name === 'Color'">
               <h4 class="text-lg text-blod-100">Color：</h4>
               <fieldset class="mt-5">
                 <span class="flex items-center space-x-3">
@@ -109,47 +109,8 @@
                 </span>
               </fieldset>
             </div>
-
-            <!-- <div>
-              <h4 class="text-lg text-blod-100">Color：</h4>
-              <fieldset class="mt-5">
-                <legend class="sr-only">Choose a color</legend>
-                <span class="flex items-center space-x-3">
-                  
-                          Active and Checked: "ring ring-offset-1"
-                          Not Active and Checked: "ring-2"
-                       
-                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                    <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label" />
-                    <span id="color-choice-0-label" class="sr-only">White</span>
-                    <span aria-hidden="true" class="w-8 h-8 bg-white border border-black rounded-full border-opacity-10"></span>
-                  </label>
-                  
-                          Active and Checked: "ring ring-offset-1"
-                          Not Active and Checked: "ring-2"
-                       
-                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                    <input type="radio" name="color-choice" value="Gray" class="sr-only" aria-labelledby="color-choice-1-label" />
-                    <span id="color-choice-1-label" class="sr-only">Gray</span>
-                    <span aria-hidden="true" class="w-8 h-8 bg-gray-200 border border-black rounded-full border-opacity-10"></span>
-                  </label>
-                  
-                          Active and Checked: "ring ring-offset-1"
-                          Not Active and Checked: "ring-2"
-                       
-                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
-                    <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-2-label" />
-                    <span id="color-choice-2-label" class="sr-only">Black</span>
-                    <span aria-hidden="true" class="w-8 h-8 bg-gray-900 border border-black rounded-full border-opacity-10"></span>
-                  </label>
-                </span>
-              </fieldset>
-            </div> -->
-
-            <!-- Sizes -->
-            <div class="mt-7">
+            <div class="mt-7" v-if="spec.name === 'Size'">
               <h4 class="text-lg text-blod-100">Size：</h4>
-
               <fieldset class="mt-5">
                 <div class="grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
                   <!-- Active: "ring-2 ring-indigo-500" -->
@@ -232,16 +193,55 @@
                 </div>
               </fieldset>
             </div>
-            <!-- Quantity -->
-            <div class="mt-7">
-              <div class="flex items-center justify-between">
-                <h4 class="text-sm font-medium text-gray-900">Quantity：</h4>
-              </div>
+          </template>
 
+          <!-- <div>
+              <h4 class="text-lg text-blod-100">Color：</h4>
               <fieldset class="mt-5">
-                <div class="grid gap-4">
-                  <div class="flex">
-                    <!-- <input
+                <legend class="sr-only">Choose a color</legend>
+                <span class="flex items-center space-x-3">
+                  
+                          Active and Checked: "ring ring-offset-1"
+                          Not Active and Checked: "ring-2"
+                       
+                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                    <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label" />
+                    <span id="color-choice-0-label" class="sr-only">White</span>
+                    <span aria-hidden="true" class="w-8 h-8 bg-white border border-black rounded-full border-opacity-10"></span>
+                  </label>
+                  
+                          Active and Checked: "ring ring-offset-1"
+                          Not Active and Checked: "ring-2"
+                       
+                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                    <input type="radio" name="color-choice" value="Gray" class="sr-only" aria-labelledby="color-choice-1-label" />
+                    <span id="color-choice-1-label" class="sr-only">Gray</span>
+                    <span aria-hidden="true" class="w-8 h-8 bg-gray-200 border border-black rounded-full border-opacity-10"></span>
+                  </label>
+                  
+                          Active and Checked: "ring ring-offset-1"
+                          Not Active and Checked: "ring-2"
+                       
+                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
+                    <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-2-label" />
+                    <span id="color-choice-2-label" class="sr-only">Black</span>
+                    <span aria-hidden="true" class="w-8 h-8 bg-gray-900 border border-black rounded-full border-opacity-10"></span>
+                  </label>
+                </span>
+              </fieldset>
+            </div> -->
+
+          <!-- Sizes -->
+          <!-- Quantity -->
+          <div class="mt-7">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-medium text-gray-900">Quantity：</h4>
+            </div>
+
+            <fieldset class="mt-5">
+              <div class="grid gap-4">
+                <div class="flex">
+                  <!-- <input
                       :id="inputId"
                       v-model="count"
                       type="number"
@@ -251,62 +251,61 @@
                       @input="handleOnChange"
                     /> -->
 
-                    <input
-                      :id="inputId"
-                      v-model="count"
-                      type="number"
-                      class="flex-1 w-12 px-6 mr-2.5 text-lg py-4 text-gray-900 bg-transparent border rounded-100 appearance-none disabled:placeholder-disabled-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none"
-                      :min="min"
-                      :max="max"
-                      @input="handleOnChange"
-                    />
-                    <SfButton
-                      square
-                      size="lg"
-                      class="!rounded-full mr-2.5"
-                      :disabled="count <= min"
-                      :aria-controls="inputId"
-                      aria-label="Decrease value"
-                      @click="dec()"
-                    >
-                      <SfIconRemove />
-                    </SfButton>
-                    <SfButton
-                      square
-                      size="lg"
-                      class="!rounded-full"
-                      :disabled="count >= max"
-                      :aria-controls="inputId"
-                      aria-label="Increase value"
-                      @click="inc()"
-                    >
-                      <SfIconAdd />
-                    </SfButton>
-                  </div>
+                  <input
+                    :id="inputId"
+                    v-model="count"
+                    type="number"
+                    class="flex-1 w-12 px-6 mr-2.5 text-lg py-4 text-gray-900 bg-transparent border rounded-100 appearance-none disabled:placeholder-disabled-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none"
+                    :min="min"
+                    :max="max"
+                    @input="handleOnChange"
+                  />
+                  <SfButton
+                    square
+                    size="lg"
+                    class="!rounded-full mr-2.5"
+                    :disabled="count <= min"
+                    :aria-controls="inputId"
+                    aria-label="Decrease value"
+                    @click="dec()"
+                  >
+                    <SfIconRemove />
+                  </SfButton>
+                  <SfButton
+                    square
+                    size="lg"
+                    class="!rounded-full"
+                    :disabled="count >= max"
+                    :aria-controls="inputId"
+                    aria-label="Increase value"
+                    @click="inc()"
+                  >
+                    <SfIconAdd />
+                  </SfButton>
                 </div>
-              </fieldset>
-            </div>
-            <button
-              type="submit"
-              class="flex items-center justify-center w-full py-[18px] text-lg text-white bg-primary-700 border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Buy it now
-            </button>
+              </div>
+            </fieldset>
+          </div>
+          <button
+            type="submit"
+            class="flex items-center justify-center w-full py-[18px] text-lg text-white bg-primary-700 border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Buy it now
+          </button>
 
-            <button
-              type="submit"
-              class="flex items-center justify-center w-full py-3 text-base text-white bg-black border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Add to bag
-            </button>
-            <div class="flex mt-10">
-              <SfButton variant="tertiary" size="sm" square class="mr-6 !p-0 !text-bold-100 !bg-transparent" aria-label="Add to wishlist">
-                <SfIconFavorite size="sm" />
-                <!-- bg-white ring-1 ring-inset ring-neutral-200 !rounded-full -->
-              </SfButton>
-              <span class="text-lg text-blod-100">Add to wishlist</span>
-            </div>
-          </form>
+          <button
+            type="submit"
+            class="flex items-center justify-center w-full py-3 text-base text-white bg-black border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Add to bag
+          </button>
+          <div class="flex mt-10">
+            <SfButton variant="tertiary" size="sm" square class="mr-6 !p-0 !text-bold-100 !bg-transparent" aria-label="Add to wishlist">
+              <SfIconFavorite size="sm" />
+              <!-- bg-white ring-1 ring-inset ring-neutral-200 !rounded-full -->
+            </SfButton>
+            <span class="text-lg text-blod-100">Add to wishlist</span>
+          </div>
         </section>
       </div>
     </div>
@@ -406,10 +405,11 @@
 </template>
 <script lang="ts" setup>
 import { SfScrollable } from "@storefront-ui/vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
 import { clamp } from "@storefront-ui/shared";
 import { useCounter } from "@vueuse/core";
+import { goods as _product } from "../../assets/json/goods";
 
 import { useRouter } from "vue-router";
 const min = ref(1);
@@ -518,4 +518,14 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
     firstThumbRef.value = el as HTMLButtonElement;
   }
 };
+
+import type { GoodsDetail } from "../../types/goods";
+const goods = ref<GoodsDetail>();
+onMounted(async () => {
+  console.log(JSON.stringify(_product));
+
+  // const res = await http<GoodsDetail>("GET", "/goods", { id: id });
+  // console.log("/goods", res.data.result);
+  goods.value = _product;
+});
 </script>

@@ -6,13 +6,10 @@
           <img src="../../assets/images/logo.svg" class="w-[9.625rem] h-[2.125rem] sm:h-9" alt="Flowbite Logo" />
         </a>
         <div class="flex items-center lg:order-2">
-          <a
-            href="#"
-            class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+          <RouterLink to="/login">
+            <span href="#" class="text-2xl font-light text-black px-4 lg:px-5 py-2 lg:py-2.5 mr-2"> Sign in </span></RouterLink
           >
-            <RouterLink to="/login">Log in</RouterLink>
-          </a>
-          <LangSelect1></LangSelect1>
+          <LangSelect></LangSelect>
 
           <RightDrawer></RightDrawer>
         </div>
@@ -38,7 +35,7 @@
                     'inline-flex justify-center items-center py-34px group-hover:text-primary-600 group-hover:focus:text-primary-500 group-hover:after:w-full group-hover:after:absolute group-hover:after:bottom-8 group-hover:after:border-b group-hover:after:left-0 group-hover:after:border-primary-600 group-hover:after:focus:border-primary-500',
                     isActiveClass(menuNode.key),
                   ]"
-                  @click="openMenu(menuNode.key)"
+                  @click="handleMenuClick(menuNode.key)"
                 >
                   <span>{{ menuNode.label }}</span>
                   <svg
@@ -65,7 +62,7 @@
               </li>
             </ul>
           </nav>
-
+          <!-- Shop -->
           <div
             v-if="isOpen && activeNode === 'shop'"
             key="Shop"
@@ -77,7 +74,7 @@
             @keydown.esc="focusTrigger(1)"
           >
             <template v-for="node in categoriesContent" :key="node.key">
-              <ul class="mt-2 border-l-[1px] first:border-none">
+              <ul class="mt-2 border-l-[1px] border-gray-100 first:border-none">
                 <li v-for="child in node.children" :key="child.key">
                   <div class="flex flex-row items-center justify-center">
                     <a
@@ -128,7 +125,11 @@
               <ul class="overflow-y-auto max-h-[600px] h-[600px] w-[357px]">
                 <li class="pt-[72px] mb-34px">MOST POPULAR SEARCHES</li>
                 <template v-for="{ children } in categoriesContent">
-                  <li v-for="{ value } in children" :key="value.label" class="text-lg mb-34px">
+                  <li
+                    v-for="{ value } in children"
+                    :key="value.label"
+                    class="text-lg mb-34px hover:underline hover:decoration-primary-700 group-hover:font-bold"
+                  >
                     {{ value.label }}
                   </li>
                 </template>
@@ -197,10 +198,10 @@
 </template>
 
 <script lang="ts" setup>
-import LangSelect1 from "./LangSelect.vue";
+import LangSelect from "./LangSelect.vue";
 import RightDrawer from "./RightDrawer.vue";
 
-import { SfListItem, useDisclosure, useTrapFocus, useDropdown, SfIconSearch, SfInput, SfIconClose } from "@storefront-ui/vue";
+import { useDisclosure, useTrapFocus, useDropdown, SfIconSearch, SfInput, SfIconClose } from "@storefront-ui/vue";
 import { ref, computed } from "vue";
 import { unrefElement } from "@vueuse/core";
 
@@ -229,9 +230,15 @@ useTrapFocus(
   trapFocusOptions,
 );
 useTrapFocus(drawerRef, trapFocusOptions);
-
+const handleMenuClick = (menuType: string) => {
+  if (menuType === "home") router.push("/");
+  if (menuType === "shop") router.push("/shop");
+  if (menuType === "contact") router.push("/contact");
+  openMenu(menuType);
+};
 const openMenu = (menuType: string) => {
   activeNode.value = menuType;
+
   if (menuType === "search" || menuType === "shop") {
     open();
   } else {

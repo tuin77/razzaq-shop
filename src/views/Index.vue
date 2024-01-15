@@ -8,5 +8,4 @@ import AppFooter from "../components/layout/AppFooter.vue";
   <RouterView></RouterView>
   <AppFooter></AppFooter>
 </template>
-<!-- https://docs.storefrontui.io/v2/vue/blocks/NavbarTop.html -->
 <style scoped></style>

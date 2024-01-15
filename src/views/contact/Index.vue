@@ -4,7 +4,7 @@
       <img class="absolute w-full rounded-20" src="../../assets/images/contact/contact-bg.png" alt="" srcset="" />
       <p class="relative font-bold tracking-tight text-white text-48">How Can We Help?</p>
     </div>
-    <div class="grid items-center grid-cols-1 px-4 mx-auto mt-120 gap-x-8 gap-y-16 sm:px-6 lg:grid-cols-2 max-w-1620">
+    <div class="grid grid-cols-1 mx-auto mt-120 mb-[150px] gap-x-5 gap-y-16 lg:grid-cols-2 max-w-1620">
       <div class="">
         <div class="font-bold text-32">RAZZAQUI LLC</div>
         <p class="mt-4 text-gray-500">PO BX 1976</p>
@@ -15,71 +15,68 @@
         <img
           src="../../assets/images/contact/contact-example.png"
           alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
-          class="bg-white rounded-lg"
+          class="bg-white rounded-20 w-[600px] h-[422px] mt-[44px]"
         />
-        <div>
-          <img
-            src="../../assets/images/contact/media-icon.png"
-            alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
-            class="bg-gray-100 rounded-lg"
-          />
-        </div>
+
+        <img
+          src="../../assets/images/contact/media-icon.png"
+          alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
+          class="my-[50px] h-[40px] cursor-pointer"
+        />
       </div>
       <form action="#" method="POST" class="">
-        <div class="font-bold tracking-tight text-gray-900 text-l">CONTACT US FOR ANY QUESTIONS</div>
-        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-          <div class="sm:col-span-2">
-            <label for="Your name" class="block text-sm font-semibold leading-6 text-gray-900">Your name</label>
-            <div class="mt-2.5">
-              <input
-                type="text"
-                name="Your name"
-                id="Your-name"
-                autocomplete="organization"
-                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Your email</label>
-            <div class="mt-2.5">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                autocomplete="email"
-                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="Your name" class="block text-sm font-semibold leading-6 text-gray-900">Subject</label>
-            <div class="mt-2.5">
-              <input
-                type="text"
-                name="Your name"
-                id="Your-name"
-                autocomplete="organization"
-                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Your message (optional)</label>
-            <div class="mt-2.5">
-              <textarea
-                name="message"
-                id="message"
-                rows="4"
-                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              ></textarea>
-            </div>
+        <div class="font-bold text-32">CONTACT US FOR ANY QUESTIONS</div>
+        <div class="mt-10">
+          <label for="Your name" class="text-lg text-gray-200">Your name</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="Your name"
+              id="Your-name"
+              autocomplete="organization"
+              class="block w-full rounded-md border-0 px-3.5 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
           </div>
         </div>
-        <div class="mt-10">
+        <div class="mt-30px">
+          <label for="email" class="text-lg text-gray-200">Your email</label>
+          <div class="mt-2">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              autocomplete="email"
+              class="block text-xl w-full rounded-md border-0 px-3.5 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="mt-30px">
+          <label for="Your name" class="text-lg text-gray-200">Subject</label>
+          <div class="mt-2">
+            <input
+              type="text"
+              name="Your name"
+              id="Your-name"
+              autocomplete="organization"
+              class="block text-lg w-full rounded-md border-0 px-3.5 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="mt-30px">
+          <label for="message" class="text-lg text-gray-200">Your message (optional)</label>
+          <div class="mt-2">
+            <textarea
+              name="message"
+              id="message"
+              rows="14"
+              class="block text-lg w-full rounded-md border-0 px-3.5 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            ></textarea>
+          </div>
+        </div>
+        <div class="my-30px">
           <button
             type="submit"
-            class="block w-m rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="rounded-100 bg-primary-700 py-[18px] px-14 text-center text-lg text-white shadow-sm hover:bg-primary-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             submit
           </button>
