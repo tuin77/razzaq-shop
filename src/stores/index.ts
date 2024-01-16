@@ -1,23 +1,16 @@
-import { defineStore } from "pinia";
-import { LANG } from "../constant";
+// 合并 Pinia 模块
+import useCartStore from "./modules/cart";
+import useHomeStore from "./modules/home";
+import useMemberStore from "./modules/member";
 
-interface ConfigState {
-  language: string;
-}
+// 封装 useStore 合并管理所有模块
+const useStore = () => {
+  return {
+    home: useHomeStore(),
+    member: useMemberStore(),
+    cart: useCartStore(),
+  };
+};
 
-export const useConfigStore = defineStore("razzaqConfig", {
-  state: (): ConfigState => ({
-    language: localStorage.getItem(LANG) || "en",
-  }),
-  getters: {
-    getLanguage: (state) => state.language,
-  },
-  actions: {
-    setLanguage(lang: string) {
-      // 设置缓存
-      localStorage.setItem(LANG, lang);
-      // 修改状态
-      this.language = lang;
-    },
-  },
-});
+// 默认导出
+export default useStore;

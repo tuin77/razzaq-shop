@@ -14,7 +14,7 @@
       @click="toggle()"
     >
       <template v-if="selectedOption">{{ selectedOption.name }}</template>
-      <span v-else class="text-neutral-500">Choose from the list</span>
+      <span v-else class="text-neutral-500">Choose Language</span>
       <SfIconExpandMore class="ml-auto transition-transform duration-300 ease-in-out text-neutral-500" :class="{ 'rotate-180': isOpen }" />
     </div>
     <span
@@ -70,13 +70,15 @@
 </template>
 
 <script lang="ts" setup>
-import { useConfigStore } from "../../stores";
+import useStore from "@/stores";
+const { home } = useStore();
+
 // import { SfSelect, SfIconUnfoldMore } from '@storefront-ui/vue';
 import { reactive, computed } from "vue";
-const appConfig = useConfigStore();
-const language = computed(() => appConfig.getLanguage);
+// const appConfig = useConfigStore();
+// const language = computed(() => home.getLanguage);
 const state = reactive({
-  lang: language.value,
+  lang: home.getLanguage || "en",
   visible: false,
 });
 
@@ -99,9 +101,11 @@ const options: SelectOption[] = [
   { label: "French", name: "Fr", value: "fr" },
   { label: "German", name: "De", value: "de" },
 ];
+console.log("state.lang", state.lang);
+
+const selectedOption = computed(() => options.find((option) => option.value === state.lang));
 
 const { close, toggle, isOpen } = useDisclosure({ initialValue: false });
-const selectedOption = ref<SelectOption>({ label: "English", name: "En", value: "en" });
 const id = useId();
 const listboxId = `select-dropdown-${id}`;
 const selectTriggerRef = ref<HTMLDivElement>();
@@ -125,8 +129,7 @@ useTrapFocus(floatingRef as Ref<HTMLUListElement>, {
 const selectOption = (option: SelectOption) => {
   state.lang = option.value;
   i18n.locale.value = option.value;
-  selectedOption.value = option;
-  appConfig.setLanguage(option.value);
+  home.setLanguage(option.value);
   close();
   unrefElement(selectTriggerRef as Ref<HTMLDivElement>)?.focus();
 };

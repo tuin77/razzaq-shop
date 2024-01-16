@@ -41,7 +41,13 @@ const messages = {
     },
   },
 };
-const locale = "en";
+
+// import useStore from "@/stores";
+// const { home } = useStore();
+const appConf = JSON.parse(localStorage.getItem("razzaq-shop-home") || "{}");
+console.log("appConf", appConf);
+
+const locale = appConf.language || "en";
 
 import { createI18n } from "vue-i18n";
 
@@ -50,7 +56,7 @@ const i18n = createI18n({
   legacy: false,
   // 全局注入 $t 函数
   globalInjection: true,
-  locale,
+  locale: locale,
   messages,
 });
 

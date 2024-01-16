@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { resolve } from "path";
 import eslintPlugin from "vite-plugin-eslint";
+import { fileURLToPath, URL } from "url";
 // const pathResolve = (dir) => path.resolve(__dirname, dir);
 // https://juejin.cn/post/7031414748721889294
 // https://vitejs.dev/config/
@@ -15,7 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       // '@': fileURLToPath(new URL('./src', import.meta.url)),
-      "@": resolve(__dirname, "src"), // 设置 `@` 指向 `src` 目录
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
 });
