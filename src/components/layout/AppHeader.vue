@@ -37,7 +37,7 @@
                   ]"
                   @click="handleMenuClick(menuNode.key)"
                 >
-                  <span>{{ menuNode.label }}</span>
+                  {{ $t(`nav.${menuNode.label}`) }}
                   <svg
                     v-if="menuNode.key === 'shop'"
                     xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@
                     :key="value.label"
                     class="text-lg mb-34px hover:underline hover:decoration-primary-700 group-hover:font-bold"
                   >
-                    {{ value.label }}
+                    {{ $t(`nav.${value.label}`) }}
                   </li>
                 </template>
               </ul>

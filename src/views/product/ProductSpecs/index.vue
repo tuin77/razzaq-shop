@@ -37,6 +37,7 @@
                 }`"
                 @mouseover="activeIndex = index"
                 @focus="activeIndex = index"
+                @click="clickSpecs(item, spec_value)"
               >
                 <img class="rounded-[1.25rem]" width="150" height="150" :src="spec_value.picture || ''" />
               </button>
@@ -46,7 +47,11 @@
               <label
                 v-for="(spec_value, index) in item.spec_values"
                 :key="`${index}-thumbnail`"
-                class="relative flex items-center justify-center px-4 py-3 text-sm border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1"
+                :class="[
+                  'relative flex items-center justify-center px-4 py-3 text-sm  border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1',
+                  spec_value.selected ? 'border-indigo-500' : '',
+                ]"
+                @click="clickSpecs(item, spec_value)"
               >
                 <input type="radio" name="size-choice" value="XXS" class="sr-only" aria-labelledby="size-choice-0-label" />
                 <span id="size-choice-0-label">{{ spec_value.name }}</span>
@@ -196,14 +201,16 @@
 </template>
 
 <script setup lang="ts">
-// import getPowerSet from "./power-set";
-import { watch, type ComponentPublicInstance, ref } from "vue";
+import getPowerSet from "./power-set";
+import { type ComponentPublicInstance, ref } from "vue";
 
 import { useCounter } from "@vueuse/core";
 import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
 import type { PropType } from "vue";
-import type { GoodsDetail, Sku } from "./goods";
+import type { Sku } from "./goods";
+import type { GoodsDetail, SpecValue, Spec } from "@/types";
 import { getPriceRange } from "@/utils/index";
+import { clamp } from "@storefront-ui/shared";
 
 const min = ref(1);
 const max = ref(10);
@@ -212,6 +219,11 @@ const { count, inc, dec, set } = useCounter(1, {
   min: min.value,
   max: max.value,
 });
+function handleOnChange(event: Event) {
+  const currentValue = (event.target as HTMLInputElement)?.value;
+  const nextValue = parseFloat(currentValue);
+  set(clamp(nextValue, min.value, max.value));
+}
 const firstThumbRef = ref<HTMLButtonElement>();
 const lastThumbRef = ref<HTMLButtonElement>();
 const withBase = (filepath: string) => `https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/${filepath}`;
@@ -249,33 +261,33 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
 // // type SpecsItem = Omit<Spec, 'values'> & { values: SpecValue[] }
 // // type Specs = SpecsItem[]
 // type Specs = GoodsDetail["specs"];
-// type PathMap = { [key: string]: string[] };
+type PathMap = { [key: string]: string[] };
 
-// const spliter = "★";
+const spliter = "★";
 // // 根据skus数据得到路径字典对象
-// const getPathMap = (skus: GoodsDetail["skus"]) => {
-//   const pathMap = {} as PathMap;
-//   skus.forEach((sku) => {
-//     // 1. 过滤出有库存有效的sku
-//     if (sku.inventory) {
-//       // 2. 得到sku属性值数组
-//       const specs = sku.specs.map((spec) => spec.valueName);
-//       // 3. 得到sku属性值数组的子集
-//       const powerSet = getPowerSet(specs);
-//       // 4. 设置给路径字典对象
-//       powerSet.forEach((set) => {
-//         const key = set.join(spliter);
-//         // 如果没有就先初始化一个空数组
-//         if (!pathMap[key]) {
-//           pathMap[key] = [];
-//         }
-//         pathMap[key].push(sku.id);
-//       });
-//     }
-//   });
-//   console.log("🔔根据后端返回的skus集合得到用于查询路径字典", pathMap);
-//   return pathMap;
-// };
+const getPathMap = (skus: GoodsDetail["skus"]) => {
+  const pathMap = {} as PathMap;
+  skus.forEach((sku) => {
+    // 1. 过滤出有库存有效的sku
+    if (sku.inventory) {
+      // 2. 得到sku属性值数组
+      const specs = sku.specs.map((spec) => spec.valueName);
+      // 3. 得到sku属性值数组的子集
+      const powerSet = getPowerSet(specs);
+      // 4. 设置给路径字典对象
+      powerSet.forEach((set) => {
+        const key = set.join(spliter);
+        // 如果没有就先初始化一个空数组
+        if (!pathMap[key]) {
+          pathMap[key] = [];
+        }
+        pathMap[key].push(sku.id);
+      });
+    }
+  });
+  console.log("🔔根据后端返回的skus集合得到用于查询路径字典", pathMap);
+  return pathMap;
+};
 
 // // 初始化禁用状态
 // function initDisabledStatus(specs: Specs, pathMap: PathMap) {
@@ -288,37 +300,37 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
 // }
 
 // // 得到当前选中规格集合
-// const getSelectedArr = (specs: Specs) => {
-//   const selectedArr: (string | undefined)[] = [];
-//   specs.forEach((spec, index) => {
-//     const selectedVal = spec.values.find((val) => val.selected);
-//     if (selectedVal) {
-//       selectedArr[index] = selectedVal.name;
-//     } else {
-//       selectedArr[index] = undefined;
-//     }
-//   });
-//   return selectedArr;
-// };
+const getSelectedArr = (specs: Spec[]) => {
+  const selectedArr: (string | undefined)[] = [];
+  specs.forEach((spec, index) => {
+    const selectedVal = spec.spec_values.find((val) => val.selected);
+    if (selectedVal) {
+      selectedArr[index] = selectedVal.name;
+    } else {
+      selectedArr[index] = undefined;
+    }
+  });
+  return selectedArr;
+};
 
 // // 🔔 更新按钮的禁用状态
 // // 🔔 更新禁用状态核心：获取当前用户选中的规格，再模拟用户下一次的规格选择，去字典中查询，查询不到设置为禁用状态
-// const updateDisabledStatus = (specs: Specs, pathMap: PathMap) => {
-//   // 遍历每一种规格
-//   specs.forEach((item, i) => {
-//     // 拿到当前选择的项目
-//     const selectedArr = getSelectedArr(specs);
-//     // 遍历每一个按钮
-//     item.values.forEach((val) => {
-//       if (!val.selected) {
-//         selectedArr[i] = val.name;
-//         // 去掉undefined之后组合成key
-//         const key = selectedArr.filter((value) => value).join(spliter);
-//         val.disabled = !pathMap[key];
-//       }
-//     });
-//   });
-// };
+const updateDisabledStatus = (specs: Spec[], pathMap: PathMap) => {
+  // 遍历每一种规格
+  specs.forEach((item, i) => {
+    // 拿到当前选择的项目
+    const selectedArr = getSelectedArr(specs);
+    // 遍历每一个按钮
+    item.spec_values.forEach((val) => {
+      if (!val.selected) {
+        selectedArr[i] = val.name;
+        // 去掉undefined之后组合成key
+        const key = selectedArr.filter((value) => value).join(spliter);
+        val.disabled = !pathMap[key];
+      }
+    });
+  });
+};
 
 // // 初始化选中状态
 // const initSelectedStatus = (goods: GoodsDetail, skuId: string) => {
@@ -352,7 +364,7 @@ const props = defineProps({
 // const emit = defineEmits<Emit>();
 
 // // 🔔 得到所有字典集合
-// const pathMap = getPathMap(props.goods.skus);
+const pathMap = getPathMap(props.goods.skus);
 // // 组件初始化的时候更新禁用状态
 // initDisabledStatus(props.goods.specs, pathMap);
 // // 根据传入的skuId默认选中规格按钮
@@ -360,40 +372,43 @@ const props = defineProps({
 //   initSelectedStatus(props.goods, props.skuId);
 // }
 // // 🔔 用户点击选择规格 - 模拟下次点击
-// const clickSpecs = (item: GoodsDetail["specs"][number], val: any) => {
-//   if (val.disabled) return false;
-//   // 选中与取消选中逻辑
-//   if (val.selected) {
-//     val.selected = false;
-//   } else {
-//     item.values.forEach((bv) => {
-//       bv.selected = false;
-//     });
-//     val.selected = true;
-//   }
-//   // 🔔 点击之后再次更新选中状态
-//   updateDisabledStatus(props.goods.specs, pathMap);
-//   // 把选择的sku信息传出去给父组件
-//   // 触发change事件将sku数据传递出去
-//   const selectedArr = getSelectedArr(props.goods.specs).filter((value) => value);
-//   // 如果选中得规格数量和传入得规格总数相等则传出完整信息(都选择了)
-//   // 否则传出空对象
-//   if (selectedArr.length === props.goods.specs.length) {
-//     // 从路径字典中得到skuId
-//     const skuId = pathMap[selectedArr.join(spliter)][0];
-//     const sku = props.goods.skus.find((sku) => sku.id === skuId) as Sku;
-//     // 传递数据给父组件
-//     emit("change", {
-//       skuId: sku.id,
-//       price: sku.price,
-//       oldPrice: sku.oldPrice,
-//       inventory: sku.inventory,
-//       specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, "").trim(),
-//     });
-//   } else {
-//     emit("change", {} as SkuEmit);
-//   }
-// };
+const clickSpecs = (item: Spec, val: SpecValue) => {
+  if (val.disabled) return false;
+  // 选中与取消选中逻辑
+  if (val.selected) {
+    val.selected = false;
+  } else {
+    item.spec_values.forEach((bv) => {
+      bv.selected = false;
+    });
+    val.selected = true;
+  }
+  console.log("val.selected", val.selected);
+  // 🔔 点击之后再次更新选中状态
+  updateDisabledStatus(props.goods.specs_list, pathMap);
+  // 把选择的sku信息传出去给父组件
+  // 触发change事件将sku数据传递出去
+  const selectedArr = getSelectedArr(props.goods.specs_list).filter((value) => value);
+  // 如果选中得规格数量和传入得规格总数相等则传出完整信息(都选择了)
+  // 否则传出空对象
+  if (selectedArr.length === props.goods.specs_list.length) {
+    // 从路径字典中得到skuId
+    const skuId = pathMap[selectedArr.join(spliter)][0];
+    const sku = props.goods.skus.find((sku) => sku.id === skuId) as Sku;
+    console.log("sku", sku);
+
+    // 传递数据给父组件
+    // emit("change", {
+    //   skuId: sku.id,
+    //   price: sku.price,
+    //   oldPrice: sku.oldPrice,
+    //   inventory: sku.inventory,
+    //   specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, "").trim(),
+    // });
+  } else {
+    // emit("change", {} as SkuEmit);
+  }
+};
 </script>
 
 <!-- <style scoped lang="less">

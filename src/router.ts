@@ -29,7 +29,7 @@ export default createRouter({
           component: Shop,
         },
         {
-          path: "/product",
+          path: "/product/:id",
           name: "product",
           component: () => import("./views/product/Index.vue"),
         },

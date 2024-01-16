@@ -2,8 +2,8 @@ const messages = {
   en: {
     nav: {
       Home: "Home",
-      Shop: "",
-      "Contact Us": "Contact Us",
+      Shop: "Shop",
+      "Contact us": "Contact us",
       "Log In": "Log In",
     },
     msg: {
@@ -14,7 +14,7 @@ const messages = {
     nav: {
       Home: "Accueil",
       Shop: "Boutique",
-      "Contact Us": "Contactez-Nous",
+      "Contact us": "Contactez-Nous",
       "Log In": "Connexion",
     },
   },
@@ -22,7 +22,7 @@ const messages = {
     nav: {
       Home: "Startseite",
       Shop: "Shop",
-      "Contact Us": "Kontaktieren Sie Uns",
+      "Contact us": "Kontaktieren Sie Uns",
       "Log In": "Anmelden",
     },
   },
@@ -45,9 +45,6 @@ const messages = {
 // import useStore from "@/stores";
 // const { home } = useStore();
 const appConf = JSON.parse(localStorage.getItem("razzaq-shop-home") || "{}");
-console.log("appConf", appConf);
-
-const locale = appConf.language || "en";
 
 import { createI18n } from "vue-i18n";
 
@@ -56,7 +53,7 @@ const i18n = createI18n({
   legacy: false,
   // 全局注入 $t 函数
   globalInjection: true,
-  locale: locale,
+  locale: appConf.language || "en",
   messages,
 });
 

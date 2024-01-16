@@ -184,7 +184,6 @@ import ProductSpecs from "./ProductSpecs/index.vue";
 import { useRouter } from "vue-router";
 const min = ref(1);
 const max = ref(10);
-const inputId = useId();
 const { count, inc, dec, set } = useCounter(1, {
   min: min.value,
   max: max.value,
@@ -199,12 +198,8 @@ const router = useRouter();
 const handleClick = () => {
   console.log("handleClick");
 
-  router.push({
-    path: "/product",
-    query: {
-      mode: "edit",
-    },
-  });
+  const slug = "kitchen-cabinet-sliding-storage-dish-rack";
+  router.push({ path: `/product/${slug}` });
 };
 import { SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
 import { unrefElement, useIntersectionObserver } from "@vueuse/core";

@@ -5,8 +5,10 @@ interface PriceRange {
 
 interface SpecValue {
   name: string;
-  picture: string | null;
+  picture?: string | null;
   desc: string;
+  selected?: boolean;
+  disabled?: boolean;
 }
 
 interface Spec {
