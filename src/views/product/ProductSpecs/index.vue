@@ -37,6 +37,7 @@
                 :class="[
                   'relative flex items-center justify-center px-4 py-3 text-sm  border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1',
                   spec_value.selected ? 'border-primary-700 ' : '',
+                  spec_value.disabled ? 'cursor-not-allowed' : '',
                 ]"
               >
                 <input name="size-choice" :value="spec_value.name" class="sr-only" @click="clickSpecs(item, spec_value)" />
