@@ -118,7 +118,7 @@ const activeArrowNavigation = ($event: KeyboardEvent, index: number) => {
 const handleClick = () => {
   console.log("handleClick");
 
-  const slug = "kitchen-cabinet-sliding-storage-dish-rack";
+  const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/${slug}` });
 };
 </script>

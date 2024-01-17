@@ -1,16 +1,4 @@
 <template>
-  <!-- <div class="goods-sku">
-    
-    <dl v-for="item in goods.specs" :key="item.name">
-      <dt>{{ item.name }}</dt>
-      <dd>
-        <template v-for="val in item.values" :key="val.name">
-          <img :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)" v-if="val.picture" :src="val.picture" />
-          <span :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)" v-else>{{ val.name }}</span>
-        </template>
-      </dd>
-    </dl>
-  </div> -->
   <div class="">
     <section aria-labelledby="information-heading " class="sm:pr-12">
       <h2 class="text-[2rem] text-bold-100">{{ goods?.name }}</h2>
@@ -31,39 +19,32 @@
                 :key="`${index}-thumbnail`"
                 :ref="(el) => assignRef(el, index)"
                 type="button"
-                :aria-current="activeIndex === index"
+                :aria-current="spec_value.selected"
                 :class="`w-[100px] h-[100px] mr-3 last:mr-0  relative shrink-0 border border-2 rounded-[1.25rem]  snap-start cursor-pointer focus-visible:outline focus-visible:outline-offset transition-colors flex-grow md:flex-grow-0  ${
-                  activeIndex === index ? 'border-primary-700' : 'border-transparent'
+                  spec_value.selected ? 'border-primary-700' : 'border-transparent'
                 }`"
-                @mouseover="activeIndex = index"
-                @focus="activeIndex = index"
                 @click="clickSpecs(item, spec_value)"
               >
+                <!-- @mouseover="clickSpecs(item, spec_value)"
+                @focus="clickSpecs(item, spec_value)" -->
                 <img class="rounded-[1.25rem]" width="150" height="150" :src="spec_value.picture || ''" />
               </button>
             </span>
             <div v-else class="grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
-              <!-- Active: "ring-2 ring-indigo-500" -->
               <label
                 v-for="(spec_value, index) in item.spec_values"
                 :key="`${index}-thumbnail`"
                 :class="[
                   'relative flex items-center justify-center px-4 py-3 text-sm  border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1',
-                  spec_value.selected ? 'border-indigo-500' : '',
+                  spec_value.selected ? 'border-primary-700 ' : '',
                 ]"
-                @click="clickSpecs(item, spec_value)"
               >
-                <input type="radio" name="size-choice" value="XXS" class="sr-only" aria-labelledby="size-choice-0-label" />
-                <span id="size-choice-0-label">{{ spec_value.name }}</span>
-                <!--
-                            Active: "border", Not Active: "border-2"
-                            Checked: "border-indigo-500", Not Checked: "border-transparent"
-                          -->
-                <span class="absolute rounded-[100px] pointer-events-none -inset-px" aria-hidden="true"></span>
+                <input name="size-choice" :value="spec_value.name" class="sr-only" @click="clickSpecs(item, spec_value)" />
+                <span>{{ spec_value.name }}</span>
               </label>
 
               <!-- Active: "ring-2 ring-indigo-500" -->
-              <label
+              <!-- <label
                 class="relative flex items-center justify-center px-4 py-3 text-sm font-medium text-gray-200 uppercase border rounded-[100px] cursor-not-allowed group hover:bg-gray-50 focus:outline-none sm:flex-1 bg-gray-50"
               >
                 <input type="radio" name="size-choice" value="XXXL" disabled class="sr-only" aria-labelledby="size-choice-7-label" />
@@ -78,7 +59,7 @@
                     <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
                   </svg>
                 </span>
-              </label>
+              </label> -->
             </div>
           </fieldset>
         </div>
@@ -201,6 +182,7 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: "ProductSpecs" });
 import getPowerSet from "./power-set";
 import { type ComponentPublicInstance, ref } from "vue";
 
@@ -208,7 +190,7 @@ import { useCounter } from "@vueuse/core";
 import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
 import type { PropType } from "vue";
 import type { Sku } from "./goods";
-import type { GoodsDetail, SpecValue, Spec } from "@/types";
+import type { GoodsDetail, SpecValue, Spec, SKU } from "@/types";
 import { getPriceRange } from "@/utils/index";
 import { clamp } from "@storefront-ui/shared";
 
@@ -249,59 +231,68 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
     firstThumbRef.value = el as HTMLButtonElement;
   }
 };
-// export interface SkuEmit {
-//   skuId: string;
-//   price: string;
-//   oldPrice: string;
-//   inventory: number;
-//   specsText: string;
-// }
+export interface SkuEmit {
+  skuId: string;
+  price: string;
+  oldPrice: string;
+  inventory: number;
+  specsText: string;
+}
 
-// // type SpecValue = Value & { selected?: boolean; disabled?: boolean }
-// // type SpecsItem = Omit<Spec, 'values'> & { values: SpecValue[] }
-// // type Specs = SpecsItem[]
-// type Specs = GoodsDetail["specs"];
 type PathMap = { [key: string]: string[] };
 
 const spliter = "★";
 // // 根据skus数据得到路径字典对象
-const getPathMap = (skus: GoodsDetail["skus"]) => {
+const getPathMap = (skus: SKU[]) => {
+  // debugger;
+  console.log("getPathMap", skus);
+
   const pathMap = {} as PathMap;
-  skus.forEach((sku) => {
+  skus.forEach((sku: SKU) => {
+    // console.log(2323);
+
     // 1. 过滤出有库存有效的sku
-    if (sku.inventory) {
-      // 2. 得到sku属性值数组
-      const specs = sku.specs.map((spec) => spec.valueName);
-      // 3. 得到sku属性值数组的子集
-      const powerSet = getPowerSet(specs);
-      // 4. 设置给路径字典对象
-      powerSet.forEach((set) => {
-        const key = set.join(spliter);
-        // 如果没有就先初始化一个空数组
-        if (!pathMap[key]) {
-          pathMap[key] = [];
-        }
-        pathMap[key].push(sku.id);
-      });
-    }
+    // console.log("sku", JSON.parse(JSON.stringify(sku)));
+    // console.log("sku.inventory", sku.inventory);
+    // console.log("sku.inventory", sku.inventory);
+
+    if (!sku.inventory) return;
+    // 2. 得到sku属性值数组
+    const specs = sku.specs.map((spec) => spec.valueName);
+    // 3. 得到sku属性值数组的子集
+    const powerSet = getPowerSet(specs);
+    // console.log("powerSet", powerSet);
+
+    // 4. 设置给路径字典对象
+    powerSet.forEach((set) => {
+      const key = set.join(spliter);
+      // 如果没有就先初始化一个空数组
+      if (!pathMap[key]) {
+        pathMap[key] = [];
+      }
+      pathMap[key].push(sku.id);
+    });
   });
   console.log("🔔根据后端返回的skus集合得到用于查询路径字典", pathMap);
   return pathMap;
 };
 
 // // 初始化禁用状态
-// function initDisabledStatus(specs: Specs, pathMap: PathMap) {
-//   specs.forEach((spec) => {
-//     spec.values.forEach((val) => {
-//       // 设置禁用状态
-//       val.disabled = !pathMap[val.name];
-//     });
-//   });
-// }
+function initDisabledStatus(specs: Spec[], pathMap: PathMap) {
+  console.log("initDisabledStatus", specs);
+
+  specs.forEach((spec: Spec) => {
+    spec.spec_values.forEach((val: SpecValue) => {
+      // 设置禁用状态
+      val.disabled = !pathMap[val.name];
+    });
+  });
+}
 
 // // 得到当前选中规格集合
 const getSelectedArr = (specs: Spec[]) => {
   const selectedArr: (string | undefined)[] = [];
+
   specs.forEach((spec, index) => {
     const selectedVal = spec.spec_values.find((val) => val.selected);
     if (selectedVal) {
@@ -333,16 +324,16 @@ const updateDisabledStatus = (specs: Spec[], pathMap: PathMap) => {
 };
 
 // // 初始化选中状态
-// const initSelectedStatus = (goods: GoodsDetail, skuId: string) => {
-//   // 找到当前的sku对象
-//   const sku = goods.skus.find((sku) => sku.id === skuId);
-//   if (sku) {
-//     goods.specs.forEach((item, i) => {
-//       const val = item.values.find((val) => val.name === sku.specs[i].valueName);
-//       if (val) val.selected = true;
-//     });
-//   }
-// };
+const initSelectedStatus = (goods: GoodsDetail, skuId: string) => {
+  // 找到当前的sku对象
+  const sku = goods.skus.find((sku) => sku.id === skuId);
+  if (sku) {
+    goods.specs_list.forEach((item: Spec, i) => {
+      const val = item.spec_values.find((val: SpecValue) => val.name === sku.specs[i].valueName);
+      if (val) val.selected = true;
+    });
+  }
+};
 
 // // 使用组件 <XtxGoodSku :goods="xxx" :skuId="xxx"  @change="xxx"  />
 const props = defineProps({
@@ -358,21 +349,25 @@ const props = defineProps({
   },
 });
 
-// interface Emit {
-//   (e: "change", value: SkuEmit): void;
-// }
-// const emit = defineEmits<Emit>();
+interface Emit {
+  (e: "change", value: SkuEmit): void;
+}
+const emit = defineEmits<Emit>();
 
 // // 🔔 得到所有字典集合
+console.log("skus", props.goods.skus);
+
 const pathMap = getPathMap(props.goods.skus);
 // // 组件初始化的时候更新禁用状态
-// initDisabledStatus(props.goods.specs, pathMap);
+initDisabledStatus(props.goods.specs_list, pathMap);
 // // 根据传入的skuId默认选中规格按钮
-// if (props.skuId) {
-//   initSelectedStatus(props.goods, props.skuId);
-// }
-// // 🔔 用户点击选择规格 - 模拟下次点击
+if (props.skuId) {
+  initSelectedStatus(props.goods, props.skuId);
+}
+// 🔔 用户点击选择规格 - 模拟下次点击
 const clickSpecs = (item: Spec, val: SpecValue) => {
+  console.log("val.disabled", val.disabled);
+
   if (val.disabled) return false;
   // 选中与取消选中逻辑
   if (val.selected) {
@@ -398,17 +393,18 @@ const clickSpecs = (item: Spec, val: SpecValue) => {
     console.log("sku", sku);
 
     // 传递数据给父组件
-    // emit("change", {
-    //   skuId: sku.id,
-    //   price: sku.price,
-    //   oldPrice: sku.oldPrice,
-    //   inventory: sku.inventory,
-    //   specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, "").trim(),
-    // });
+    emit("change", {
+      skuId: sku.id,
+      price: sku.price,
+      oldPrice: sku.oldPrice,
+      inventory: sku.inventory,
+      specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, "").trim(),
+    });
   } else {
-    // emit("change", {} as SkuEmit);
+    emit("change", {} as SkuEmit);
   }
 };
+const addToBag = () => {};
 </script>
 
 <!-- <style scoped lang="less">

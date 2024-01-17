@@ -77,7 +77,7 @@
           </template>
         </SfScrollable>
       </div>
-      <ProductSpecs :goods="goods" @change="changeSku" class="w-[710px]"></ProductSpecs>
+      <ProductSpecs v-if="goods?.id" :goods="goods" @change="changeSku" class="w-[710px]"></ProductSpecs>
     </div>
     <div class="">
       <h3 class="mb-12 text-5xl font-bold text-black">About Products</h3>
@@ -198,7 +198,7 @@ const router = useRouter();
 const handleClick = () => {
   console.log("handleClick");
 
-  const slug = "kitchen-cabinet-sliding-storage-dish-rack";
+  const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/${slug}` });
 };
 import { SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
@@ -287,14 +287,14 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
 import type { GoodsDetail } from "@/types/goods";
 const goods = ref<GoodsDetail>();
 onMounted(async () => {
-  console.log(JSON.stringify(_product));
+  // console.log(JSON.stringify(_product));
 
   // const res = await http<GoodsDetail>("GET", "/goods", { id: id });
   // console.log("/goods", res.data.result);
   goods.value = _product;
 });
 
-const addToBag = () => {};
+// const addToBag = () => {};
 const changeSku = () => {
   // 🔔存储 skuId 用于加入购物车
   // skuId.value = value.skuId || "";

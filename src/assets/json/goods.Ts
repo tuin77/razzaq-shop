@@ -1,7 +1,7 @@
 export const goods = {
   id: "4026178",
   name: "Warm Winter Cozy Washable Dog House",
-  slug: "kitchen-cabinet-sliding-storage-dish-rack",
+  slug: "warm-winter-cozy-washable-dog-house",
   spuCode: "4026178",
   short_description: "Give your pet a snug retreat with this warm, washable dog house.",
   currency_symbol: "$",
