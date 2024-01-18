@@ -7,8 +7,8 @@ export interface CartItem {
   // specs: any[];
   picture: string;
   price: string;
-  nowPrice: string;
-  nowOriginalPrice: string;
+  // nowPrice: string;
+  // nowOriginalPrice: string;
   selected: boolean;
   stock: number;
   count: number;

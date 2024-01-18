@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="py-10 border-b border-gray-100">
+        <tr v-for="item in cart.effectiveList" :key="item.skuId" class="py-10 border-b border-gray-100">
           <td class="pr-[47px] py-10">
             <div class="flex items-center">
               <button>
@@ -20,7 +20,7 @@
               <p class="w-[320px] ml-30 text-bold-100">Wall Suction Soft Durable Bath Massage Brush – BlueFrom wishlist:Default wishlist</p>
             </div>
           </td>
-          <td class="pr-[83px]">HK$272.95</td>
+          <td class="pr-[83px]">{{ item.price }}</td>
           <td>
             <input v-model="count" type="number" min="0" class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-lg text-bold-100" />
           </td>
@@ -157,4 +157,9 @@ import { SfIconFavorite } from "@storefront-ui/vue";
 import { ref } from "vue";
 // https://tailwind.nodejs.cn/docs/table-layout
 const count = ref(1);
+
+import useStore from "@/stores";
+
+const { cart } = useStore();
+cart.getCartList();
 </script>

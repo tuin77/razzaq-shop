@@ -1,6 +1,6 @@
 <template>
   <SfButton tag="span" class="!text-bold-100 relative" square variant="tertiary" @click="open = true" aria-controls="mobile-menu-2">
-    <SfIconMenu size="lg" /> <SfBadge class="!bg-red-500 !text-base top-[-8px] right-[-8px] px-2 py-0.5" :content="content"
+    <SfIconMenu size="lg" /> <SfBadge class="!bg-red-500 !text-base top-[-8px] right-[-8px] px-2 py-0.5" :content="cart.effectiveListCounts"
   /></SfButton>
 
   <transition
@@ -66,7 +66,9 @@
           <img src="../../assets/images/home/icon-nav-wishlist.svg" class="object-contain w-[21px] h-[21px] text-blod" />
         </template>
         <span class="text-lg font-bold text-bold-100 ml-[24px]"> shopping cart </span>
-        <template #suffix> <SfCounter size="sm" pill class="text-white !px-1.5 bg-red-500 ring-white"> 2 </SfCounter></template>
+        <template #suffix>
+          <SfCounter size="sm" pill class="text-white !px-1.5 bg-red-500 ring-white"> {{ cart.effectiveListCounts }} </SfCounter></template
+        >
       </SfListItem>
       <div class="flex items-center justify-between px-[30px] mt-auto mb-[57px]">
         <span class="text-lg text-gray-200">contact us</span>
@@ -104,4 +106,9 @@ const toPageCart = () => {
   });
   open.value = false;
 };
+
+import useStore from "@/stores";
+
+const { cart } = useStore();
+cart.getCartList();
 </script>

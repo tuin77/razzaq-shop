@@ -1,0 +1,188 @@
+/* @message-cls: ~"@{prefix}-message"; */
+
+.bp-mask-message {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+}
+
+.bp-message-bottom {
+  bottom: 0;
+}
+.bp-message-bottom .bp-message-list {
+  bottom: 40px;
+}
+
+.bp-message-top {
+  top: 0;
+}
+.bp-message-top .bp-message-list {
+  top: 40px;
+}
+.bp-message-list .bp-message {
+  min-width: 80px;
+  width: max-content;
+  height: 46px;
+  border-radius: 6px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  line-height: 1;
+  text-align: center;
+  list-style: none;
+  overflow: hidden;
+  /* .no-select; */
+}
+.bp-message-content {
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.2px;
+  color: #262626;
+}
+
+.bp-message-close {
+  margin-left: 6px;
+}
+.bp-icon {
+  width: 18px;
+  height: 18px;
+  fill: #8c8c8c;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.bp-icon &:hover {
+  fill: #434343;
+  background-color: #f5f5f5;
+  transition: all 0.2s ease;
+}
+.icon-success .bp-icon {
+  fill: #52c41a;
+}
+.icon-error .bp-icon {
+  fill: #f5222d;
+}
+.icon-warning .bp-icon {
+  fill: #fa8c16;
+}
+.bp-message-list .bp-message-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+}
+.icon-loading .bp-icon {
+  display: inline-block;
+  fill: #1677ff;
+  animation: rotating 0.8s linear infinite;
+  -webkit-animation: rotating 0.8s linear infinite;
+}
+
+.bp-message-list .bp-message-text,
+.bp-message-list .bp-message-loading {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+}
+.bp-message-loading .bp-message-content {
+  color: #262626;
+}
+.bp-message-list .bp-message-success {
+  background-color: #edfceb;
+  border: 1px solid #209124;
+  box-shadow: 0 4px 12px rgba(32, 145, 36, 0.1);
+}
+.bp-message-success .bp-message-content {
+  color: #209124;
+}
+.bp-message-list .bp-message-warning {
+  background-color: #fff7e6;
+  border: 1px solid #d46b08;
+  box-shadow: 0 4px 12px rgba(212, 107, 8, 0.1);
+}
+.bp-message-warning .bp-message-content {
+  color: #d46b08;
+}
+.bp-message-error {
+  background-color: #fff1f0;
+  border: 1px solid #cf1322;
+  box-shadow: 0 4px 12px rgba(207, 19, 43, 0.1);
+}
+.bp-message-error .bp-message-content {
+  color: #cf1322;
+}
+.bp-message-plain {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+}
+.bp-message-plain-content {
+  color: #262626;
+}
+
+.bp-message-plain-close .bp-icon {
+  fill: #8c8c8c;
+}
+.bp-message-plain-close .bp-icon &:hover {
+  fill: #595959;
+}
+.bp-message-plain-close .bp-icon &::before {
+  background-color: #f0f0f0;
+}
+.bp-message-plain-icon .bp-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.bp-message-plain-icon .icon-success .bp-icon {
+  fill: #52c41a;
+}
+.bp-message-plain-icon .icon-error .bp-icon {
+  fill: #f5222d;
+}
+.bp-message-plain-icon .icon-warning .bp-icon {
+  fill: #fa8c16;
+}
+.bp-message-plain-icon .icon-loading .bp-icon {
+  fill: #1677ff;
+}
+.bp-message-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(365deg);
+  }
+}
+
+.fademsg-move,
+.fademsg-enter-active,
+.fademsg-leave-active {
+  transition: all 0.2s cubic-bezier(0, 0, 1, 1);
+}
+.fademsg-enter-from,
+.fademsg-leave-to {
+  opacity: 0;
+}
+.fademsg-leave-active {
+  position: absolute;
+}

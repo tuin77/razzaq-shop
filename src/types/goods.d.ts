@@ -64,7 +64,7 @@ export interface GoodsDetail {
     properties: ProductProperty[];
   };
   isPreSale: boolean;
-  isCollect: boolean;
+  isCollect: boolean | null;
   recommends: SimilarProduct[] | null;
   // userAddresses: any[] | null; // 这里可以根据具体地址对象的结构进一步定义类型
   similarProducts: SimilarProduct[];

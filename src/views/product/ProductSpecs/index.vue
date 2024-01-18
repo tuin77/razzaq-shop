@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <section aria-labelledby="information-heading " class="sm:pr-12">
       <h2 class="text-[2rem] text-bold-100">{{ goods?.name }}</h2>
       <p v-if="goods.price_range" class="text-[2rem] font-bold-100 font-bold mt-4">
@@ -37,20 +37,12 @@
                 :class="[
                   'relative flex items-center justify-center px-4 py-3 text-sm  border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1',
                   spec_value.selected ? 'border-primary-700 ' : '',
-                  spec_value.disabled ? 'cursor-not-allowed' : '',
+                  spec_value.disabled ? '!cursor-not-allowed !border-gray-200' : '',
                 ]"
               >
                 <input name="size-choice" :value="spec_value.name" class="sr-only" @click="clickSpecs(item, spec_value)" />
                 <span>{{ spec_value.name }}</span>
-              </label>
-
-              <!-- Active: "ring-2 ring-indigo-500" -->
-              <!-- <label
-                class="relative flex items-center justify-center px-4 py-3 text-sm font-medium text-gray-200 uppercase border rounded-[100px] cursor-not-allowed group hover:bg-gray-50 focus:outline-none sm:flex-1 bg-gray-50"
-              >
-                <input type="radio" name="size-choice" value="XXXL" disabled class="sr-only" aria-labelledby="size-choice-7-label" />
-                <span id="size-choice-7-label">XXXL</span>
-                <span aria-hidden="true" class="absolute border-2 border-gray-200 rounded-[100px] pointer-events-none -inset-px">
+                <span v-show="spec_value.disabled" class="absolute mx-4 pointer-events-none -inset-px">
                   <svg
                     class="absolute inset-0 w-full h-full text-gray-200 stroke-2"
                     viewBox="0 0 100 100"
@@ -60,47 +52,11 @@
                     <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
                   </svg>
                 </span>
-              </label> -->
+              </label>
             </div>
           </fieldset>
         </div>
       </template>
-
-      <!-- <div>
-              <h4 class="text-lg text-blod-100">Color：</h4>
-              <fieldset class="mt-5">
-                <legend class="sr-only">Choose a color</legend>
-                <span class="flex items-center space-x-3">
-                  
-                          Active and Checked: "ring ring-offset-1"
-                          Not Active and Checked: "ring-2"
-                       
-                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                    <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label" />
-                    <span id="color-choice-0-label" class="sr-only">White</span>
-                    <span aria-hidden="true" class="w-8 h-8 bg-white border border-black rounded-full border-opacity-10"></span>
-                  </label>
-                  
-                          Active and Checked: "ring ring-offset-1"
-                          Not Active and Checked: "ring-2"
-                       
-                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                    <input type="radio" name="color-choice" value="Gray" class="sr-only" aria-labelledby="color-choice-1-label" />
-                    <span id="color-choice-1-label" class="sr-only">Gray</span>
-                    <span aria-hidden="true" class="w-8 h-8 bg-gray-200 border border-black rounded-full border-opacity-10"></span>
-                  </label>
-                  
-                          Active and Checked: "ring ring-offset-1"
-                          Not Active and Checked: "ring-2"
-                       
-                  <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
-                    <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-2-label" />
-                    <span id="color-choice-2-label" class="sr-only">Black</span>
-                    <span aria-hidden="true" class="w-8 h-8 bg-gray-900 border border-black rounded-full border-opacity-10"></span>
-                  </label>
-                </span>
-              </fieldset>
-            </div> -->
 
       <!-- Sizes -->
       <!-- Quantity -->
@@ -112,16 +68,6 @@
         <fieldset class="mt-5">
           <div class="grid gap-4">
             <div class="flex">
-              <!-- <input
-                      :id="inputId"
-                      v-model="count"
-                      type="number"
-                      class="flex-1 appearance-none px-2 mx-2 font-medium text-gray-900 w-12 bg-transparent [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none disabled:placeholder-disabled-900 focus-visible:outline focus-visible:outline-offset focus-visible:rounded-sm"
-                      :min="min"
-                      :max="max"
-                      @input="handleOnChange"
-                    /> -->
-
               <input
                 :id="inputId"
                 v-model="count"
@@ -167,7 +113,7 @@
       <button
         type="submit"
         class="flex items-center justify-center w-full py-3 text-base text-white bg-black border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        @click="addToBag"
+        @click="$emit('add')"
       >
         Add to bag
       </button>
@@ -187,6 +133,7 @@ defineOptions({ name: "ProductSpecs" });
 import getPowerSet from "./power-set";
 import { type ComponentPublicInstance, ref } from "vue";
 
+import useStore from "@/store";
 import { useCounter } from "@vueuse/core";
 import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
 import type { PropType } from "vue";
@@ -352,6 +299,8 @@ const props = defineProps({
 
 interface Emit {
   (e: "change", value: SkuEmit): void;
+  (e: "add"): void;
+  // addCart
 }
 const emit = defineEmits<Emit>();
 
