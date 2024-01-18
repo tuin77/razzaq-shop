@@ -32,7 +32,7 @@ class MessageManager {
     const id = config.id ?? `_bp_message_${Math.random().toString(36).slice(-8)}`;
     this.mask.setAttribute("class", `bp-mask-message bp-message-${config.position || "top"}`);
 
-    const message: MessageItem = reactive({ id, ...config });
+    const message: MessageItem = reactive({ ...config, id });
 
     // Check whether the message instance already exists. If has, update the message config, or push new one.
     const updateIdx = arrayIndexOf(this.messageList.value, "id", id);

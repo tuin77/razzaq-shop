@@ -35,7 +35,7 @@
             </button>
           </td>
         </tr>
-        <tr class="py-10 border-b border-gray-100">
+        <!-- <tr class="py-10 border-b border-gray-100">
           <td class="pr-[47px] py-10">
             <div class="flex items-center">
               <button>
@@ -59,7 +59,7 @@
               <span>Save for later</span>
             </button>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
       <tfoot>
         <tr>

@@ -39,15 +39,15 @@ const useCartStore = defineStore("cart", {
       return this.effectiveList.reduce((sum, item) => sum + item.count, 0);
     },
     // 总钱数  = 所有单项的钱数累加  单项的钱数 = 数量 * 单价
-    effectiveListPrice(): string {
-      return (
-        this.effectiveList
-          // 叠加 单价 * 数量
-          .reduce((sum, item) => sum + item.count * Number(item.nowPrice), 0)
-          // 转换成字符串并保留两位小数
-          .toFixed(2)
-      );
-    },
+    // effectiveListPrice(): string {
+    //   return (
+    //     this.effectiveList
+    //       // 叠加 单价 * 数量
+    //       .reduce((sum, item) => sum + item.count * Number(item.nowPrice), 0)
+    //       // 转换成字符串并保留两位小数
+    //       .toFixed(2)
+    //   );
+    // },
     // 计算全选状态
     isAllSelected(): boolean {
       return this.effectiveList.length !== 0 && this.effectiveList.every((item) => item.selected);
@@ -61,9 +61,9 @@ const useCartStore = defineStore("cart", {
       return this.selectedList.reduce((sum, item) => sum + item.count, 0);
     },
     // 计算选中商品总钱数
-    selectedListPrice(): string {
-      return this.selectedList.reduce((sum, item) => sum + item.count * Number(item.nowPrice), 0).toFixed(2);
-    },
+    // selectedListPrice(): string {
+    //   return this.selectedList.reduce((sum, item) => sum + item.count * Number(item.nowPrice), 0).toFixed(2);
+    // },
   },
   // 方法
   actions: {
@@ -93,15 +93,17 @@ const useCartStore = defineStore("cart", {
     // 获取购物车列表
     async getCartList() {
       if (this.isLogin) {
-        const res = await http<CartList>("GET", "/member/cart");
+        // const res = await http<CartList>("GET", "/member/cart");
         // console.log("GET", "/member/cart", res.data.result);
         // 保存购物车列表数据
-        this.list = res.data.result;
+        // this.list = res.data.result;
       } else {
         // console.log("未登录-本地操作");
         // 本地存储的库存信息和价格**不是服务器最新的**，所以需**要主动获取**最新商品信息。
         this.list.forEach(async (cartItem) => {
           const { skuId } = cartItem;
+          console.log(skuId);
+
           // 根据 skuId 获取最新商品信息
           // const res = await http<CartItem>("GET", `/goods/stock/${skuId}`);
           // console.log("GET", `/goods/stock/${skuId}`, res.data.result);
@@ -189,6 +191,8 @@ const useCartStore = defineStore("cart", {
         selected,
         count,
       }));
+      console.log(data);
+
       // 合并本地购物车到服务器
       // const res = await http("POST", "/member/cart/merge", data);
       // console.log("POST", "/member/cart/merge", res.data.result);

@@ -133,7 +133,6 @@ defineOptions({ name: "ProductSpecs" });
 import getPowerSet from "./power-set";
 import { type ComponentPublicInstance, ref } from "vue";
 
-import useStore from "@/store";
 import { useCounter } from "@vueuse/core";
 import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
 import type { PropType } from "vue";
@@ -354,50 +353,4 @@ const clickSpecs = (item: Spec, val: SpecValue) => {
     emit("change", {} as SkuEmit);
   }
 };
-const addToBag = () => {};
 </script>
-
-<!-- <style scoped lang="less">
-.sku-state-mixin() {
-  border: 1px solid #e4e4e4;
-  margin-right: 10px;
-  cursor: pointer;
-  &.selected {
-    border-color: @xtxColor;
-  }
-  &.disabled {
-    opacity: 0.6;
-    border-style: dashed;
-    cursor: not-allowed;
-  }
-}
-.goods-sku {
-  padding-left: 10px;
-  padding-top: 20px;
-  dl {
-    display: flex;
-    padding-bottom: 20px;
-    align-items: center;
-    dt {
-      width: 50px;
-      color: #999;
-    }
-    dd {
-      flex: 1;
-      color: #666;
-      > img {
-        width: 50px;
-        height: 50px;
-        .sku-state-mixin();
-      }
-      > span {
-        display: inline-block;
-        height: 30px;
-        line-height: 28px;
-        padding: 0 20px;
-        .sku-state-mixin();
-      }
-    }
-  }
-}
-</style> -->

@@ -31,7 +31,7 @@ const useMemberStore = defineStore({
       saveStorageProfile(this.profile);
       // 📌主动合并本地购物车
       const { cart } = useStore();
-      // cart.mergeLocalCart();
+      cart.mergeLocalCart();
       // 登录成功提示
       // message({ type: "success", text: "登录成功" });
       // console.log(router);
@@ -50,6 +50,7 @@ const useMemberStore = defineStore({
     },
     // 用户名密码登录
     async login(data: { account: string; password: string }) {
+      console.log(data);
       // 发送请求
       // const res = await http<Profile>("POST", "/login", data);
       // console.log("/login", res.data.result);
@@ -68,7 +69,7 @@ const useMemberStore = defineStore({
       router.push("/login");
       // 退出登录-主动清空购物车数据
       const { cart } = useStore();
-      // cart.clearCart();
+      cart.clearCart();
     },
   },
 });

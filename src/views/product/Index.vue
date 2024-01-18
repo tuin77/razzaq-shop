@@ -176,8 +176,11 @@
 <script lang="ts" setup>
 import { SfScrollable } from "@storefront-ui/vue";
 import { ref, onMounted } from "vue";
-import { SfButton, useId } from "@storefront-ui/vue";
-import { clamp } from "@storefront-ui/shared";
+import {
+  SfButton,
+  //  useId
+} from "@storefront-ui/vue";
+// import { clamp } from "@storefront-ui/shared";
 import { useCounter } from "@vueuse/core";
 import { goods as _product } from "../../assets/json/goods1";
 import ProductSpecs from "./ProductSpecs/index.vue";
@@ -187,23 +190,26 @@ import type { GoodsDetail, CartItem } from "@/types";
 import Message from "@/components/message/index";
 const min = ref(1);
 const max = ref(10);
-const { count, inc, dec, set } = useCounter(1, {
+const {
+  count,
+  // inc, dec, set
+} = useCounter(1, {
   min: min.value,
   max: max.value,
 });
-function handleOnChange(event: Event) {
-  const currentValue = (event.target as HTMLInputElement)?.value;
-  const nextValue = parseFloat(currentValue);
-  set(clamp(nextValue, min.value, max.value));
-}
+// function handleOnChange(event: Event) {
+//   const currentValue = (event.target as HTMLInputElement)?.value;
+//   const nextValue = parseFloat(currentValue);
+//   set(clamp(nextValue, min.value, max.value));
+// }
 
 const router = useRouter();
 const handleClick = () => {
   Message.text("这是一条文本类型的消息提示");
   // console.log("handleClick");
 
-  // const slug = "warm-winter-cozy-washable-dog-house";
-  // router.push({ path: `/product/${slug}` });
+  const slug = "warm-winter-cozy-washable-dog-house";
+  router.push({ path: `/product/${slug}` });
 };
 import { SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
 import { unrefElement, useIntersectionObserver } from "@vueuse/core";

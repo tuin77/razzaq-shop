@@ -28,7 +28,7 @@ const useHomeStore = defineStore({
       // 需通过命令 yarn typecheck 主动调用TS检查，提前发现错误
       newGoodsList: [] as GoodsItem[],
 
-      language: String,
+      language: "en",
     };
   },
 
