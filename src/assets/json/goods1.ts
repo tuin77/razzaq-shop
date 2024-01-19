@@ -9,6 +9,7 @@ export const goods = {
     min_amount: "29.95",
     max_amount: "90.95",
   },
+  price: "23.34",
   discount: 0.86,
   inventory: 14841717,
   salesCount: 2352,

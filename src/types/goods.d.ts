@@ -46,6 +46,8 @@ export interface GoodsDetail {
   name: string;
   slug: string;
   spuCode: string;
+  price: string;
+  count?: number;
   short_description: string;
   currency_symbol: string;
   price_range: PriceRange;

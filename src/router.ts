@@ -52,6 +52,7 @@ export default createRouter({
         },
         {
           path: "/order",
+          name: "order",
           component: Order,
         },
         {

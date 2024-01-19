@@ -5,6 +5,9 @@ const messages = {
       Shop: "Shop",
       "Contact us": "Contact us",
       "Log In": "Log In",
+      cart: "cart",
+      Information: "Information",
+      Finish: "Finish",
     },
     msg: {
       test: "hello world",

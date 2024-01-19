@@ -13,19 +13,36 @@
         <tr v-for="item in cart.effectiveList" :key="item.skuId" class="py-10 border-b border-gray-100">
           <td class="pr-[47px] py-10">
             <div class="flex items-center">
-              <button>
+              <button @click="cart.deleteCart([item.skuId])">
                 <SfIconClose size="lg" class="text-gray-200 mr-30"></SfIconClose>
               </button>
-              <img src="../../assets/images/shop/product-img1.png" class="w-[208px] h-[208px]" alt="" srcset="" />
-              <p class="w-[320px] ml-30 text-bold-100">Wall Suction Soft Durable Bath Massage Brush – BlueFrom wishlist:Default wishlist</p>
+              <img
+                :src="item.picture"
+                class="w-[208px] h-[208px] rounded-[20px] cursor-pointer"
+                alt=""
+                srcset=""
+                @click="goPageShopping(item.skuId)"
+              />
+              <p class="w-[320px] ml-30 text-bold-100">
+                {{ item.name }}
+                <br />
+                {{ item.attrsText }}
+                <br />
+                wishlist:Default wishlist
+              </p>
             </div>
           </td>
-          <td class="pr-[83px]">{{ item.price }}</td>
+          <td class="pr-[83px]">${{ item.price }}</td>
           <td>
-            <input v-model="count" type="number" min="0" class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-lg text-bold-100" />
+            <input
+              v-model="item.count"
+              type="number"
+              min="0"
+              class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-lg text-bold-100"
+            />
           </td>
           <td class="text-right pl-[70px]">
-            <div class="text-lg text-bold-100">HK$272.95</div>
+            <div class="text-lg text-bold-100">${{ (item.count * Number(item.price)).toFixed(2) }}</div>
             <button
               type="button"
               class="flex items-center justify-center w-full py-1 mt-6 text-sm text-gray-200 transition-colors duration-200 bg-white gap-x-2 sm:w-auto"
@@ -67,6 +84,7 @@
             <button
               type="button"
               class="flex items-center justify-center py-1 mt-6 text-2xl text-gray-200 transition-colors duration-200 bg-white sm:w-auto"
+              @click="goBack"
             >
               <img
                 class="flex-shrink-0 h-3.5 text-gray-400 transition duration-75 w-7"
@@ -98,7 +116,7 @@
 
       <div class="flex text-lg mt-[26px]">
         <span class="text-gray-666">Subtotal</span>
-        <span class="flex-1 text-right text-blod-100">HK$1,403.95</span>
+        <span class="flex-1 text-right text-blod-100">HK${{ cart.effectiveListPrice }}</span>
       </div>
 
       <div class="flex text-lg mt-[26px]">
@@ -106,10 +124,10 @@
       </div>
 
       <div class="text-sm mt-9 text-gary-666">*All orders are processed in USD</div>
-      <button class="mt-[77px] w-full py-[13px] text-lg text-white rounded-100 bg-primary-700" @click="open">proceed to checkout</button>
+      <button class="mt-[77px] w-full py-[13px] text-lg text-white rounded-100 bg-primary-700" @click="toPageOrder">proceed to checkout</button>
     </div>
   </div>
-
+  <!-- @click="open" -->
   <!-- Backdrop -->
   <transition
     enter-active-class="transition duration-200 ease-out"
@@ -154,12 +172,26 @@ import { SfModal, SfIconClose, useDisclosure } from "@storefront-ui/vue";
 const { isOpen, open } = useDisclosure({ initialValue: false });
 
 import { SfIconFavorite } from "@storefront-ui/vue";
-import { ref } from "vue";
+// import { ref } from "vue";
 // https://tailwind.nodejs.cn/docs/table-layout
-const count = ref(1);
+// const count = ref(1);
 
 import useStore from "@/stores";
+import router from "@/router";
 
 const { cart } = useStore();
 cart.getCartList();
+
+const goBack = () => router.go(-1);
+const goPageShopping = (skuId: string) => {
+  const slug = "warm-winter-cozy-washable-dog-house";
+  router.push({ path: `/product/${slug}?skuId=${skuId}` });
+};
+const toPageOrder = () => {
+  router.push({ path: `/order` });
+};
+// const changeCount = (skuId: string, count: number) => {
+//   // console.log({ skuId, count });
+//   cart.updateCart(skuId, { count: count });
+// };
 </script>

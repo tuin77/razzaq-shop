@@ -299,7 +299,6 @@ onMounted(async () => {
   // console.log(JSON.stringify(_product));
 
   // const res = await http<GoodsDetail>("GET", "/goods", { id: id });
-  // console.log("/goods", res.data.result);
   goods.value = _product;
 });
 
@@ -316,13 +315,14 @@ const changeSku = (value: any) => {
   if (goods.value && value.skuId) {
     // 根据选中规格，更新商品库存，销售价格，原始价格
     goods.value.inventory = value.inventory;
-    // goods.value.price = value.price;
+    goods.value.price = value.price;
+    goods.value.count = value.count;
     // goods.value.oldPrice = value.oldPrice;
   }
 };
 const { cart } = useStore();
 // 加入购物按钮点击
-const addCart = () => {
+const addCart = (count: number) => {
   // 没有 skuId，提醒用户并退出函数
   if (!skuId.value) {
     // return message({ type: "warn", text: "请选择完整商品规则~" });
@@ -335,11 +335,11 @@ const addCart = () => {
     id: goods.value.id, // 商品id
     name: goods.value.name, // 商品名称
     picture: goods.value.mainPictures[0], // 图片
-    // price: goods.value.price, // 旧价格
+    price: goods.value.price, // 旧价格
     // nowPrice: goods.value.price, // 新价格
     stock: goods.value.inventory, // 库存
     // 第二部分：商品详情中没有的，自己通过响应式数据收集
-    count: count.value, // 商品数量
+    count: count, // 商品数量
     skuId: skuId.value, // skuId
     attrsText: attrsText.value, // 商品规格文本
     // 第三部分：设置默认值即可

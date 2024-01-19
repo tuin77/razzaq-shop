@@ -39,15 +39,15 @@ const useCartStore = defineStore("cart", {
       return this.effectiveList.reduce((sum, item) => sum + item.count, 0);
     },
     // 总钱数  = 所有单项的钱数累加  单项的钱数 = 数量 * 单价
-    // effectiveListPrice(): string {
-    //   return (
-    //     this.effectiveList
-    //       // 叠加 单价 * 数量
-    //       .reduce((sum, item) => sum + item.count * Number(item.nowPrice), 0)
-    //       // 转换成字符串并保留两位小数
-    //       .toFixed(2)
-    //   );
-    // },
+    effectiveListPrice(): string {
+      return (
+        this.effectiveList
+          // 叠加 单价 * 数量
+          .reduce((sum, item) => sum + item.count * Number(item.price), 0)
+          // 转换成字符串并保留两位小数
+          .toFixed(2)
+      );
+    },
     // 计算全选状态
     isAllSelected(): boolean {
       return this.effectiveList.length !== 0 && this.effectiveList.every((item) => item.selected);
@@ -61,9 +61,9 @@ const useCartStore = defineStore("cart", {
       return this.selectedList.reduce((sum, item) => sum + item.count, 0);
     },
     // 计算选中商品总钱数
-    // selectedListPrice(): string {
-    //   return this.selectedList.reduce((sum, item) => sum + item.count * Number(item.nowPrice), 0).toFixed(2);
-    // },
+    selectedListPrice(): string {
+      return this.selectedList.reduce((sum, item) => sum + item.count * Number(item.price), 0).toFixed(2);
+    },
   },
   // 方法
   actions: {

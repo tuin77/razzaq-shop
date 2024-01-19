@@ -113,7 +113,7 @@
       <button
         type="submit"
         class="flex items-center justify-center w-full py-3 text-base text-white bg-black border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        @click="$emit('add')"
+        @click="$emit('add', count)"
       >
         Add to bag
       </button>
@@ -181,7 +181,8 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
 export interface SkuEmit {
   skuId: string;
   price: string;
-  oldPrice: string;
+  // oldPrice: string;
+  count: number;
   inventory: number;
   specsText: string;
 }
@@ -298,7 +299,7 @@ const props = defineProps({
 
 interface Emit {
   (e: "change", value: SkuEmit): void;
-  (e: "add"): void;
+  (e: "add", value: Number): void;
   // addCart
 }
 const emit = defineEmits<Emit>();
@@ -339,14 +340,15 @@ const clickSpecs = (item: Spec, val: SpecValue) => {
     // 从路径字典中得到skuId
     const skuId = pathMap[selectedArr.join(spliter)][0];
     const sku = props.goods.skus.find((sku) => sku.id === skuId) as Sku;
-    console.log("sku", sku);
+    console.log("sku", sku, count.value);
 
     // 传递数据给父组件
     emit("change", {
       skuId: sku.id,
       price: sku.price,
-      oldPrice: sku.oldPrice,
+      // oldPrice: sku.oldPrice,
       inventory: sku.inventory,
+      count: count.value, // 商品数量
       specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, "").trim(),
     });
   } else {
