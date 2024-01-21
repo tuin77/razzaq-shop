@@ -1,5 +1,10 @@
 <template>
-  <nav class="flex justify-center border-neutral-200 pagination" role="navigation" aria-label="pagination">
+  <nav
+    v-if="props.maxPages && props.maxPages > 1"
+    class="flex justify-center border-neutral-200 pagination"
+    role="navigation"
+    aria-label="pagination"
+  >
     <SfButton
       size="lg"
       aria-label="Go to previous page"
@@ -24,7 +29,7 @@
         </button>
       </li>
       <li v-if="startPage > 2">
-        <button type="button" disabled aria-hidden="true" class="px-4 py-3 rounded-md md:w-12">...</button>
+        <button type="button" disabled aria-hidden="true" class="pb-2 rounded-md md:w-12">...</button>
       </li>
       <li v-if="maxVisiblePages === 1 && selectedPage === totalPages">
         <button
@@ -58,7 +63,7 @@
         <button type="button" class="rounded-md" :aria-label="`Page 2 of ${totalPages}`" @click="setPage(2)">2</button>
       </li>
       <li v-if="endPage < totalPages - 1">
-        <button type="button" disabled aria-hidden="true" class="px-4 py-3 rounded-md md:w-12">...</button>
+        <button type="button" disabled aria-hidden="true" class="pb-2 rounded-md md:w-12">...</button>
       </li>
       <li
         v-if="!pages.includes(totalPages)"
@@ -91,12 +96,18 @@
 
 <script lang="ts" setup>
 import { SfButton, SfIconChevronLeft, SfIconChevronRight, usePagination } from "@storefront-ui/vue";
-
+const props = defineProps({
+  // specs:所有的规格信息  skus:所有的sku组合
+  totalItems: Number,
+  currentPage: Number,
+  pageSize: Number,
+  maxPages: Number,
+});
 const { totalPages, pages, selectedPage, startPage, endPage, next, prev, setPage, maxVisiblePages } = usePagination({
-  totalItems: 150,
-  currentPage: 2,
-  pageSize: 10,
-  maxPages: 1,
+  totalItems: props.totalItems || 0,
+  currentPage: props.currentPage || 0,
+  pageSize: props.pageSize || 0,
+  maxPages: props.maxPages || 0,
 });
 </script>
 

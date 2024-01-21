@@ -181,22 +181,22 @@ import {
   //  useId
 } from "@storefront-ui/vue";
 // import { clamp } from "@storefront-ui/shared";
-import { useCounter } from "@vueuse/core";
+// import { useCounter } from "@vueuse/core";
 import { goods as _product } from "../../assets/json/goods1";
 import ProductSpecs from "./ProductSpecs/index.vue";
 import { useRouter } from "vue-router";
 import useStore from "@/stores";
 import type { GoodsDetail, CartItem } from "@/types";
 import Message from "@/components/message/index";
-const min = ref(1);
-const max = ref(10);
-const {
-  count,
-  // inc, dec, set
-} = useCounter(1, {
-  min: min.value,
-  max: max.value,
-});
+// const min = ref(1);
+// const max = ref(10);
+// const {
+//   // count,
+//   // inc, dec, set
+// } = useCounter(1, {
+//   min: min.value,
+//   max: max.value,
+// });
 // function handleOnChange(event: Event) {
 //   const currentValue = (event.target as HTMLInputElement)?.value;
 //   const nextValue = parseFloat(currentValue);

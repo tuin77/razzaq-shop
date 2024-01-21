@@ -169,7 +169,7 @@
 <script lang="ts" setup>
 import { SfModal, SfIconClose, useDisclosure } from "@storefront-ui/vue";
 
-const { isOpen, open } = useDisclosure({ initialValue: false });
+const { isOpen } = useDisclosure({ initialValue: false });
 
 import { SfIconFavorite } from "@storefront-ui/vue";
 // import { ref } from "vue";

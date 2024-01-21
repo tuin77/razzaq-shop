@@ -136,7 +136,6 @@ import { type ComponentPublicInstance, ref } from "vue";
 import { useCounter } from "@vueuse/core";
 import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
 import type { PropType } from "vue";
-import type { Sku } from "./goods";
 import type { GoodsDetail, SpecValue, Spec, SKU } from "@/types";
 import { getPriceRange } from "@/utils/index";
 import { clamp } from "@storefront-ui/shared";
@@ -152,6 +151,7 @@ function handleOnChange(event: Event) {
   const currentValue = (event.target as HTMLInputElement)?.value;
   const nextValue = parseFloat(currentValue);
   set(clamp(nextValue, min.value, max.value));
+  emit("add", count.value);
 }
 const firstThumbRef = ref<HTMLButtonElement>();
 const lastThumbRef = ref<HTMLButtonElement>();
@@ -339,7 +339,7 @@ const clickSpecs = (item: Spec, val: SpecValue) => {
   if (selectedArr.length === props.goods.specs_list.length) {
     // 从路径字典中得到skuId
     const skuId = pathMap[selectedArr.join(spliter)][0];
-    const sku = props.goods.skus.find((sku) => sku.id === skuId) as Sku;
+    const sku = props.goods.skus.find((sku) => sku.id === skuId) as SKU;
     console.log("sku", sku, count.value);
 
     // 传递数据给父组件
@@ -349,7 +349,7 @@ const clickSpecs = (item: Spec, val: SpecValue) => {
       // oldPrice: sku.oldPrice,
       inventory: sku.inventory,
       count: count.value, // 商品数量
-      specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, "").trim(),
+      specsText: sku.specs.reduce((p: any, n: any) => `${p} ${n.name}：${n.valueName}`, "").trim(),
     });
   } else {
     emit("change", {} as SkuEmit);

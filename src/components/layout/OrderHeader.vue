@@ -33,18 +33,22 @@
 import { SfRadio } from "@storefront-ui/vue";
 import LangSelect from "./LangSelect.vue";
 
-import { useDisclosure, useTrapFocus, useDropdown } from "@storefront-ui/vue";
+import {
+  useDisclosure,
+  useTrapFocus,
+  //  useDropdown
+} from "@storefront-ui/vue";
 import { ref, computed } from "vue";
-import { unrefElement } from "@vueuse/core";
+// import { unrefElement } from "@vueuse/core";
 
-const { close, isOpen } = useDisclosure();
+const { isOpen } = useDisclosure();
 
 const radioGroupModelValue = ref("order");
 
 const drawerRef = ref();
 const megaMenuRef = ref();
-const triggerRefs = ref();
-const activeNode = ref<string>("");
+// const triggerRefs = ref();
+// const activeNode = ref<string>("");
 
 const trapFocusOptions = {
   activeState: isOpen,
@@ -65,11 +69,11 @@ const menus = [
 
 import { toRaw } from "vue";
 import { useRouter } from "vue-router";
-const _activeClass = "text-primary-600 after:w-full after:absolute after:bottom-8 after:border-b after:left-0 after:border-primary-600";
+// const _activeClass = "text-primary-600 after:w-full after:absolute after:bottom-8 after:border-b after:left-0 after:border-primary-600";
 
 let router = useRouter();
 const currentRouteName = computed(() => toRaw(router).currentRoute.value.name);
 console.log(currentRouteName.value);
 
-const isActiveClass = computed(() => (tab: string) => (currentRouteName.value === tab.toLocaleLowerCase() ? _activeClass : ""));
+// const isActiveClass = computed(() => (tab: string) => (currentRouteName.value === tab.toLocaleLowerCase() ? _activeClass : ""));
 </script>

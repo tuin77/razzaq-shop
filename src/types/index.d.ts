@@ -2,7 +2,10 @@
 export * from "./home";
 // export * from "./api/category";
 export * from "./goods";
-export * from "./member";
+export * from "./shop";
+// ShopGoods
+export * from "./user";
 // export * from "./api/qq";
 export * from "./cart";
 export * from "./order";
+export * from "./request";

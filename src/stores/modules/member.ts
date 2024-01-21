@@ -1,6 +1,6 @@
 // import { http } from "@/utils/request";
 import { defineStore } from "pinia";
-import type { Profile } from "@/types";
+// import type { Profile } from "@/types";
 // import { message } from "@/components/XtxUI";
 // 📌在非 .vue 组件文件中，可通过导入 router 直接获取路由实例
 import router from "@/router";
@@ -62,7 +62,7 @@ const useMemberStore = defineStore({
     // 退出登录
     async logout() {
       // 清空 Pinia 用户信息
-      this.profile = {} as Profile;
+      // this.profile = {} as Profile;
       // 清空 本地 用户信息
       clearStorageProfile();
       // 跳转到登录页
