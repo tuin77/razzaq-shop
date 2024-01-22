@@ -17,7 +17,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 product-list">
-      <div v-for="product in products" :key="product.id" href="#" class="group rounded-[1.25rem] cursor-pointer" @click="handleClick">
+      <div v-for="product in products" :key="product.id" href="#" class="group rounded-[1.25rem] cursor-pointer" @click="handleClick(product.id)">
         <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
           <!-- https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg -->
           <img
@@ -40,7 +40,7 @@
         <button
           type="button"
           class="rounded-md bg-white py-3 mt-6 text-lg px-[4.25rem] font-semibold text-primary-700 shadow-sm ring-1 ring-inset ring-primary-700 hover:bg-primary-700 hover:ring-primary-700 hover:text-white"
-          @click="handleClick"
+          @click="handleClick(product.id)"
         >
           Buy
         </button>
@@ -93,10 +93,10 @@ const categories = [
   { label: "Uncategorized", value: "" },
 ];
 
-const handleClick = () => {
+const handleClick = (id) => {
   console.log("handleClick");
-  const slug = "warm-winter-cozy-washable-dog-house";
-  router.push({ path: `/product/${slug}` });
+  // const slug = "warm-winter-cozy-washable-dog-house";
+  router.push({ path: `/product/${id}` });
 };
 const queryData = async () => {
   const params = {};

@@ -176,6 +176,7 @@
 <script lang="ts" setup>
 import { SfScrollable } from "@storefront-ui/vue";
 import { ref, onMounted } from "vue";
+import { getSpuDetail } from "@/api";
 import {
   SfButton,
   //  useId
@@ -186,22 +187,9 @@ import { goods as _product } from "../../assets/json/goods1";
 import ProductSpecs from "./ProductSpecs/index.vue";
 import { useRouter } from "vue-router";
 import useStore from "@/stores";
-import type { GoodsDetail, CartItem } from "@/types";
+import type { CartItem } from "@/types";
+import type { ShopGoods } from "@/types/shop";
 import Message from "@/components/message/index";
-// const min = ref(1);
-// const max = ref(10);
-// const {
-//   // count,
-//   // inc, dec, set
-// } = useCounter(1, {
-//   min: min.value,
-//   max: max.value,
-// });
-// function handleOnChange(event: Event) {
-//   const currentValue = (event.target as HTMLInputElement)?.value;
-//   const nextValue = parseFloat(currentValue);
-//   set(clamp(nextValue, min.value, max.value));
-// }
 
 const router = useRouter();
 const handleClick = () => {
@@ -294,12 +282,23 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
   }
 };
 
-const goods = ref<GoodsDetail>();
-onMounted(async () => {
-  // console.log(JSON.stringify(_product));
+const goods = ref<ShopGoods>();
 
-  // const res = await http<GoodsDetail>("GET", "/goods", { id: id });
-  goods.value = _product;
+import { useRoute } from "vue-router";
+// 从路由中获取商品 id
+const { params } = useRoute();
+const id = params.id;
+
+onMounted(async () => {
+  const res = await getSpuDetail({ id });
+  const { propertyVos, ...data } = res.data;
+
+  const _goods = {
+    ...data,
+    propertyVos: propertyVos.map((item: any) => ({ ...item, valueNames: item.valueNames.map((item: string) => ({ name: item })) })),
+  };
+  console.log("goods", _goods);
+  goods.value = _goods;
 });
 
 // 获取 XtxSku 组件选中的商品信息
@@ -314,9 +313,9 @@ const changeSku = (value: any) => {
   // console.log("当前选择的SKU为信息为", value);
   if (goods.value && value.skuId) {
     // 根据选中规格，更新商品库存，销售价格，原始价格
-    goods.value.inventory = value.inventory;
+    goods.value.stock = value.inventory;
     goods.value.price = value.price;
-    goods.value.count = value.count;
+    // goods.value.count = value.count;
     // goods.value.oldPrice = value.oldPrice;
   }
 };
@@ -332,19 +331,19 @@ const addCart = (count: number) => {
   const cartItem: CartItem = {
     // 🚨🚨 注意数据收集字段名很多坑，小心操作
     // 第一部分：商品详情中有的
-    id: goods.value.id, // 商品id
+    id: String(goods.value.id), // 商品id
     name: goods.value.name, // 商品名称
-    picture: goods.value.mainPictures[0], // 图片
+    picture: goods.value.picUrl, // 图片
     price: goods.value.price, // 旧价格
     // nowPrice: goods.value.price, // 新价格
-    stock: goods.value.inventory, // 库存
-    // 第二部分：商品详情中没有的，自己通过响应式数据收集
+    stock: goods.value.stock, // 库存
+    // // 第二部分：商品详情中没有的，自己通过响应式数据收集
     count: count, // 商品数量
     skuId: skuId.value, // skuId
-    attrsText: attrsText.value, // 商品规格文本
-    // 第三部分：设置默认值即可
+    // attrsText: attrsText.value, // 商品规格文本
+    // // 第三部分：设置默认值即可
     selected: true, // 默认商品选中
-    isEffective: true, // 默认商品有效
+    // isEffective: true, // 默认商品有效
   } as CartItem;
   console.log("😭 cartItem 数据终于准备完毕了", cartItem);
   // 调用加入购物车接口

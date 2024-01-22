@@ -5,7 +5,7 @@ export * from "./goods";
 export * from "./shop";
 // ShopGoods
 export * from "./user";
-// export * from "./api/qq";
+export * from "./shop";
 export * from "./cart";
 export * from "./order";
 export * from "./request";

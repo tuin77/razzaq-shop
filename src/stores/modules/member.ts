@@ -1,4 +1,4 @@
-// import { http } from "@/utils/request";
+import { login } from "@/api";
 import { defineStore } from "pinia";
 // import type { Profile } from "@/types";
 // import { message } from "@/components/XtxUI";
@@ -52,10 +52,9 @@ const useMemberStore = defineStore({
     async login(data: { account: string; password: string }) {
       console.log(data);
       // 发送请求
-      // const res = await http<Profile>("POST", "/login", data);
-      // console.log("/login", res.data.result);
+      const res = await login(data);
       // 存储到 Pinia 中
-      // this.profile = res.data.result;
+      this.profile = res.data.result;
       // 调用登录成功后的逻辑
       this.loginSuccess();
     },

@@ -1,3 +1,92 @@
+// export interface ShopGoods {
+//   /*商品 SPU 编号 */
+//   id: number;
+
+//   /*商品名称 */
+//   name: string;
+
+//   /*商品简介 */
+//   introduction: string;
+
+//   /*分类编号 */
+//   categoryId: number;
+
+//   /*商品封面图 */
+//   picUrl: string;
+
+//   /*商品轮播图 */
+//   sliderPicUrls: Record<string, unknown>[];
+
+//   /*单位名 */
+//   unitName: string;
+
+//   /*规格类型 */
+//   specType: boolean;
+
+//   /*商品价格，单位使用：分 */
+//   price: number;
+
+//   /*市场价，单位使用：分 */
+//   marketPrice: number;
+
+//   /*库存 */
+//   stock: number;
+
+//   /*商品销量 */
+//   salesCount: number;
+// }
+
+export interface SKU {
+  /*商品 SKU 编号 */
+  id: number;
+
+  /* */
+  properties: {
+    /*属性的编号 */
+    propertyId: number;
+
+    /*属性的名称 */
+    propertyName: string;
+
+    /*属性值的编号 */
+    valueId: number;
+
+    /*属性值的名称 */
+    valueName: string;
+  }[];
+
+  /*销售价格，单位：分 */
+  price: number;
+
+  /*市场价，单位使用：分 */
+  marketPrice: number;
+
+  /*图片地址 */
+  picUrl: string;
+
+  /*库存 */
+  stock: number;
+
+  /*商品重量 */
+  weight: number;
+
+  // /*商品体积 */
+  volume: number;
+  specs: { name: string; valueName: string }[];
+}
+interface PropertyValue {
+  name: string;
+  picture?: string | null;
+  selected?: boolean;
+  disabled?: boolean;
+}
+export interface PropertyVo {
+  /*属性名称 */
+  propertyName: string;
+
+  /*属性值集合 */
+  valueNames: PropertyValue[];
+}
 export interface ShopGoods {
   /*商品 SPU 编号 */
   id: number;
@@ -8,14 +97,20 @@ export interface ShopGoods {
   /*商品简介 */
   introduction: string;
 
-  /*分类编号 */
+  /*商品详情 */
+  description: string;
+
+  /*商品分类编号 */
   categoryId: number;
 
   /*商品封面图 */
   picUrl: string;
 
   /*商品轮播图 */
-  sliderPicUrls: Record<string, unknown>[];
+  // sliderPicUrls: Record<string, unknown>[];
+
+  /*商品视频 */
+  videoUrl: string;
 
   /*单位名 */
   unitName: string;
@@ -34,4 +129,10 @@ export interface ShopGoods {
 
   /*商品销量 */
   salesCount: number;
+
+  /*属性列表 */
+  propertyVos: PropertyVo[];
+
+  /* */
+  skus: SKU[];
 }

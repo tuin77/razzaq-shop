@@ -1,3 +1,30 @@
+<script setup lang="ts">
+import useStore from "@/stores";
+import Message from "@/components/message/index";
+import { reactive } from "vue";
+
+// 获取会员 Store
+const { member } = useStore();
+
+const form = reactive({
+  account: "cdshi0088",
+  password: "123456",
+});
+// 登录按钮
+const login = () => {
+  // 简单的非空校验
+  if (form.account === "") {
+    Message.text("用户名不能为空");
+    return;
+  }
+  if (form.password === "") {
+    Message.text({ type: "warn", text: "密码不能为空" });
+    return;
+  }
+  // 调用发送登录请求
+  member.login(form);
+};
+</script>
 <template>
   <div class="flex flex-col justify-center min-h-full px-6 py-12 lg:px-8">
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[750px] login-form rounded-[10px]">
@@ -38,6 +65,7 @@
         <div>
           <button
             type="submit"
+            @click="login"
             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             LOG IN

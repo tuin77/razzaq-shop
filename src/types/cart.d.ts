@@ -6,7 +6,7 @@ export interface CartItem {
   attrsText: string;
   // specs: any[];
   picture: string;
-  price: string;
+  price: number;
   // nowPrice: string;
   // nowOriginalPrice: string;
   selected: boolean;
@@ -14,8 +14,8 @@ export interface CartItem {
   count: number;
   isEffective: boolean;
   // discount?: any;
-  isCollect: boolean;
-  postFee: number;
+  isCollect?: boolean;
+  // postFee: number;
 }
 
 // 购物车列表
