@@ -93,7 +93,7 @@ const categories = [
   { label: "Uncategorized", value: "" },
 ];
 
-const handleClick = (id) => {
+const handleClick = (id: number) => {
   console.log("handleClick");
   // const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/${id}` });

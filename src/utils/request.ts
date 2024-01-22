@@ -138,6 +138,7 @@ function httpErrorStatusHandle(error: any) {
   }
   if (error.message.includes("timeout")) message = "网络请求超时！";
   if (error.message.includes("Network")) message = window.navigator.onLine ? "服务端异常！" : "您断网了！";
+  console.log(message);
 
   // ElMessage({
   //   type: "error",

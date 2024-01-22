@@ -77,7 +77,7 @@
           </template>
         </SfScrollable>
       </div>
-      <ProductSpecs v-if="goods?.id" :goods="goods" @change="changeSku" class="w-[710px]" @add="addCart"></ProductSpecs>
+      <ProductSpecs v-if="goods?.id" :goods="goods" class="w-[710px]"></ProductSpecs>
     </div>
     <div class="">
       <h3 class="mb-12 text-5xl font-bold text-black">About Products</h3>
@@ -183,11 +183,8 @@ import {
 } from "@storefront-ui/vue";
 // import { clamp } from "@storefront-ui/shared";
 // import { useCounter } from "@vueuse/core";
-import { goods as _product } from "../../assets/json/goods1";
 import ProductSpecs from "./ProductSpecs/index.vue";
 import { useRouter } from "vue-router";
-import useStore from "@/stores";
-import type { CartItem } from "@/types";
 import type { ShopGoods } from "@/types/shop";
 import Message from "@/components/message/index";
 
@@ -300,53 +297,4 @@ onMounted(async () => {
   console.log("goods", _goods);
   goods.value = _goods;
 });
-
-// 获取 XtxSku 组件选中的商品信息
-const skuId = ref("");
-const attrsText = ref("");
-// const addToBag = () => {};
-const changeSku = (value: any) => {
-  // 🔔存储 skuId 用于加入购物车
-  skuId.value = value.skuId || "";
-  // 存储选中规格文本
-  attrsText.value = value.specsText;
-  // console.log("当前选择的SKU为信息为", value);
-  if (goods.value && value.skuId) {
-    // 根据选中规格，更新商品库存，销售价格，原始价格
-    goods.value.stock = value.inventory;
-    goods.value.price = value.price;
-    // goods.value.count = value.count;
-    // goods.value.oldPrice = value.oldPrice;
-  }
-};
-const { cart } = useStore();
-// 加入购物按钮点击
-const addCart = (count: number) => {
-  // 没有 skuId，提醒用户并退出函数
-  if (!skuId.value) {
-    // return message({ type: "warn", text: "请选择完整商品规则~" });
-  }
-  if (!goods.value) return;
-  // Partial   泛型工具类型 全部 转可选
-  const cartItem: CartItem = {
-    // 🚨🚨 注意数据收集字段名很多坑，小心操作
-    // 第一部分：商品详情中有的
-    id: String(goods.value.id), // 商品id
-    name: goods.value.name, // 商品名称
-    picture: goods.value.picUrl, // 图片
-    price: goods.value.price, // 旧价格
-    // nowPrice: goods.value.price, // 新价格
-    stock: goods.value.stock, // 库存
-    // // 第二部分：商品详情中没有的，自己通过响应式数据收集
-    count: count, // 商品数量
-    skuId: skuId.value, // skuId
-    // attrsText: attrsText.value, // 商品规格文本
-    // // 第三部分：设置默认值即可
-    selected: true, // 默认商品选中
-    // isEffective: true, // 默认商品有效
-  } as CartItem;
-  console.log("😭 cartItem 数据终于准备完毕了", cartItem);
-  // 调用加入购物车接口
-  cart.addCart(cartItem);
-};
 </script>

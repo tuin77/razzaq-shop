@@ -114,7 +114,7 @@
       <button
         type="submit"
         class="flex items-center justify-center w-full py-3 text-base text-white bg-black border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        @click="$emit('add', count)"
+        @click="addCart"
       >
         Add to bag
       </button>
@@ -131,6 +131,7 @@
 
 <script setup lang="ts">
 defineOptions({ name: "ProductSpecs" });
+import useStore from "@/stores";
 import getPowerSet from "./power-set";
 import { type ComponentPublicInstance, ref } from "vue";
 
@@ -144,9 +145,13 @@ import type {
   PropertyVo,
   PropertyValue,
 } from "@/types/shop";
+import type { CartItem } from "@/types";
 // import { getPriceRange } from "@/utils/index";
 import { clamp } from "@storefront-ui/shared";
-
+// const router = useRouter();
+import { useRoute } from "vue-router";
+// 从路由中获取商品 id
+const { params } = useRoute();
 const min = ref(1);
 const max = ref(10);
 const inputId = useId();
@@ -300,10 +305,10 @@ const props = defineProps({
     default: () => ({ propertyVos: [], skus: [] }),
   },
   // 当前所有商品规格组成的有效skuId(唯一标识)
-  skuId: {
-    type: String,
-    default: "",
-  },
+  // skuId: {
+  //   type: String,
+  //   default: "",
+  // },
 });
 
 interface Emit {
@@ -311,6 +316,7 @@ interface Emit {
   (e: "add", value: Number): void;
   // addCart
 }
+const skuId = params.id;
 const emit = defineEmits<Emit>();
 
 // // 🔔 得到所有字典集合
@@ -320,9 +326,10 @@ const pathMap = getPathMap(props.goods.skus);
 // // 组件初始化的时候更新禁用状态
 initDisabledStatus(props.goods.propertyVos, pathMap);
 // // 根据传入的skuId默认选中规格按钮
-if (props.skuId) {
-  initSelectedStatus(props.goods, props.skuId);
+if (skuId) {
+  initSelectedStatus(props.goods, String(skuId));
 }
+const cartItem = ref<CartItem>();
 // 🔔 用户点击选择规格 - 模拟下次点击
 const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
   console.log("val.disabled", val.disabled);
@@ -351,17 +358,37 @@ const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
     const sku = props.goods.skus.find((sku) => String(sku.id) === skuId) as SKU;
     console.log("sku", sku, count.value);
 
-    // 传递数据给父组件
-    emit("change", {
-      skuId: sku.id,
+    cartItem.value = {
+      id: String(props.goods.id),
+      name: props.goods.name,
+      isEffective: true,
+      picture: sku.picUrl,
+      skuId: String(sku.id),
       price: sku.price,
-      // oldPrice: sku.oldPrice,
-      inventory: sku.stock,
-      count: count.value, // 商品数量
-      specsText: sku.properties.reduce((p: any, n: any) => `${p} ${n.propertyName}：${n.valueName}`, "").trim(),
-    });
-  } else {
-    emit("change", {} as SkuEmit);
+      stock: sku.stock,
+      count: count.value,
+      attrsText: sku.properties.reduce((p: any, n: any) => `${p} ${n.propertyName}：${n.valueName}`, "").trim(),
+    };
   }
+};
+
+const { cart } = useStore();
+
+// 加入购物按钮点击
+const addCart = () => {
+  // 没有 skuId，提醒用户并退出函数
+  if (!cartItem.value?.skuId) {
+    return;
+    // return message({ type: "warn", text: "请选择完整商品规则~" });
+  }
+  if (!count.value) {
+    return;
+    // return message({ type: "warn", text: "请选择完整商品规则~" });
+  }
+  cartItem.value.count = count.value;
+
+  console.log("😭 cartItem 数据终于准备完毕了", cartItem);
+  // 调用加入购物车接口
+  cart.addCart(cartItem.value);
 };
 </script>

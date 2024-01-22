@@ -9,7 +9,7 @@ export interface CartItem {
   price: number;
   // nowPrice: string;
   // nowOriginalPrice: string;
-  selected: boolean;
+  selected?: boolean;
   stock: number;
   count: number;
   isEffective: boolean;
