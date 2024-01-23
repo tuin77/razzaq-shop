@@ -6,7 +6,7 @@
           <img src="../../assets/images/logo.svg" class="w-[9.625rem] h-[2.125rem] sm:h-9" alt="Flowbite Logo" />
         </a>
         <div class="flex items-center lg:order-2">
-          <RouterLink to="/login">
+          <RouterLink to="/login" v-if="!member.isLogin">
             <span href="#" class="text-2xl font-light text-black px-4 lg:px-5 py-2 lg:py-2.5 mr-2"> Sign in </span></RouterLink
           >
           <LangSelect></LangSelect>
@@ -204,6 +204,8 @@ import RightDrawer from "./RightDrawer.vue";
 import { useDisclosure, useTrapFocus, useDropdown, SfIconSearch, SfInput, SfIconClose } from "@storefront-ui/vue";
 import { ref, computed } from "vue";
 import { unrefElement } from "@vueuse/core";
+import useStore from "@/stores";
+const { member } = useStore();
 
 const { close, open, isOpen } = useDisclosure();
 const { referenceRef, floatingRef, style } = useDropdown({

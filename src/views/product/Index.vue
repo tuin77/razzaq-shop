@@ -13,15 +13,14 @@
           @on-drag-end="onDragged"
         >
           <div
-            v-for="({ imageSrc, alt }, index) in images"
-            :key="`${alt}-${index}`"
+            v-for="(imageSrc, index) in goods?.sliderPicUrls"
+            :key="`alt-${index}`"
             class="flex justify-center h-[800px] basis-full shrink-0 grow snap-center"
           >
             <img
-              :aria-label="alt"
+              :aria-label="goods?.name"
               :aria-hidden="activeIndex !== index"
               class="rounded-[1.25rem] object-cover w-auto h-full"
-              :alt="alt"
               :src="imageSrc"
             />
           </div>
@@ -49,19 +48,18 @@
             </SfButton>
           </template>
           <button
-            v-for="({ imageThumbSrc, alt }, index) in images"
-            :key="`${alt}-${index}-thumbnail`"
+            v-for="(imageThumbSrc, index) in goods?.sliderPicUrls"
+            :key="`alt-${index}-thumbnail`"
             :ref="(el) => assignRef(el, index)"
             type="button"
-            :aria-label="alt"
             :aria-current="activeIndex === index"
-            :class="`w-[150px] h-[150px] mr-3 last:mr-0  relative shrink-0 border border-2 rounded-[1.25rem]  snap-start cursor-pointer focus-visible:outline focus-visible:outline-offset transition-colors flex-grow md:flex-grow-0  ${
+            :class="`w-[150px] h-[150px] mr-3 last:mr-0  relative shrink-0 border  rounded-[1.25rem]  snap-start cursor-pointer focus-visible:outline focus-visible:outline-offset transition-colors flex-grow md:flex-grow-0  ${
               activeIndex === index ? 'border-primary-700' : 'border-transparent'
             }`"
             @mouseover="activeIndex = index"
             @focus="activeIndex = index"
           >
-            <img :alt="alt" class="rounded-[1.25rem]" width="150" height="150" :src="imageThumbSrc" />
+            <img class="rounded-[1.25rem]" width="150" height="150" :src="imageThumbSrc" />
           </button>
           <template #nextButton="defaultProps">
             <SfButton
@@ -137,53 +135,14 @@
         <!-- More products... -->
       </div>
     </div>
-    <!-- <SfScrollable class="items-center w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]" drag>
-      <div
-        v-for="(_, index) in Array.from({ length: 20 })"
-        :key="index"
-        class="flex items-center justify-center text-gray-500 border border-dashed w-36 h-36 shrink-0 bg-neutral-100 border-negative-300 snap-center"
-      >
-        {{ index + 1 }}
-      </div>
-      <div v-for="i in 12" :key="i" href="#" class="group rounded-[1.25rem]">
-        <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
-          <img
-            src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
-            alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-            class="object-cover object-center w-full h-full"
-          />
-          <img
-            src="../../assets/images/shop/collect-icon.svg"
-            class="invisible group-hover:visible w-[28px] h-[24px] absolute right-5 top-5"
-            alt=""
-            srcset=""
-          />
-          <div class="absolute bottom-0 left-0 invisible w-full py-4 text-lg text-white bg-black opacity-45 group-hover:visible">Select options</div>
-        </div>
-        <h3 class="mt-5 text-lg text-gray-400">Colorful Sunflower Plush Comfy</h3>
-        <p class="mt-6 text-2xl text-black">$22.95 – $42.95</p>
-        <button
-          type="button"
-          class="rounded-md bg-white py-3 mt-6 text-lg px-[4.25rem] font-semibold text-primary-700 shadow-sm ring-1 ring-inset ring-primary-700 hover:bg-primary-700 hover:ring-primary-700 hover:text-white"
-          @click="handleClick"
-        >
-          Buy
-        </button>
-      </div>
-    </SfScrollable> -->
   </div>
 </template>
 <script lang="ts" setup>
-import { SfScrollable } from "@storefront-ui/vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, type ComponentPublicInstance } from "vue";
+import { unrefElement, useIntersectionObserver } from "@vueuse/core";
 import { getSpuDetail } from "@/api";
-import {
-  SfButton,
-  //  useId
-} from "@storefront-ui/vue";
-// import { clamp } from "@storefront-ui/shared";
-// import { useCounter } from "@vueuse/core";
-import ProductSpecs from "./ProductSpecs/index.vue";
+import { SfButton, SfScrollable, SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
+import ProductSpecs from "./ProductSpecs.vue";
 import { useRouter } from "vue-router";
 import type { ShopGoods } from "@/types/shop";
 import Message from "@/components/message/index";
@@ -191,14 +150,9 @@ import Message from "@/components/message/index";
 const router = useRouter();
 const handleClick = () => {
   Message.text("这是一条文本类型的消息提示");
-  // console.log("handleClick");
-
   const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/${slug}` });
 };
-import { SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
-import { unrefElement, useIntersectionObserver } from "@vueuse/core";
-import { watch, type ComponentPublicInstance } from "vue";
 
 const withBase = (filepath: string) => `https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/${filepath}`;
 
@@ -222,6 +176,10 @@ const firstThumbVisible = ref(false);
 const lastThumbVisible = ref(false);
 const activeIndex = ref(0);
 
+import { useRoute } from "vue-router";
+// 从路由中获取商品 id
+const { params } = useRoute();
+const id = params.id;
 watch(
   thumbsRef,
   (thumbsRef) => {
@@ -280,11 +238,6 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
 };
 
 const goods = ref<ShopGoods>();
-
-import { useRoute } from "vue-router";
-// 从路由中获取商品 id
-const { params } = useRoute();
-const id = params.id;
 
 onMounted(async () => {
   const res = await getSpuDetail({ id });

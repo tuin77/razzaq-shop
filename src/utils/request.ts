@@ -55,8 +55,8 @@ class Api {
   async get<T = any>(url: string, params: any): Promise<TResponseData<T>> {
     return this.instance.request<TResponseData<T>, TResponseData<T>>({ url, params, method: "GET" });
   }
-  async post<T = any>(url: string, params: any): Promise<TResponseData<T>> {
-    return this.instance.request<TResponseData<T>, TResponseData<T>>({ url, params, method: "POST" });
+  async post<T = any>(url: string, data: any): Promise<TResponseData<T>> {
+    return this.instance.request<TResponseData<T>, TResponseData<T>>({ url, data, method: "POST" });
   }
   async put<T = any>(url: string, params: any): Promise<TResponseData<T>> {
     return this.instance.request<TResponseData<T>, TResponseData<T>>({ url, params, method: "PUT" });

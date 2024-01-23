@@ -107,7 +107,7 @@ export interface ShopGoods {
   picUrl: string;
 
   /*商品轮播图 */
-  // sliderPicUrls: Record<string, unknown>[];
+  sliderPicUrls: string[];
 
   /*商品视频 */
   videoUrl: string;

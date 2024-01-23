@@ -24,6 +24,11 @@ export default createRouter({
           component: Login,
         },
         {
+          path: "/signup",
+          name: "signup",
+          component: () => import("./views/SignUp.vue"),
+        },
+        {
           path: "/shop",
           name: "shop",
           component: Shop,

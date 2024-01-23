@@ -1,10 +1,15 @@
 import { login } from "@/api";
 import { defineStore } from "pinia";
-// import type { Profile } from "@/types";
+import type { AccessInfo } from "@/types";
 // import { message } from "@/components/XtxUI";
 // 📌在非 .vue 组件文件中，可通过导入 router 直接获取路由实例
 import router from "@/router";
-import { clearStorageProfile, getStorageProfile, saveStorageProfile } from "@/utils/storage";
+import {
+  clearStorageProfile,
+  getStorageProfile,
+  // saveStorageProfile
+} from "@/utils/storage";
+import { saveStorageAccessInfo, getStorageAccessInfo } from "@/utils/storage";
 import useStore from "..";
 
 const useMemberStore = defineStore({
@@ -15,12 +20,13 @@ const useMemberStore = defineStore({
   state: () => ({
     // 用户资料
     profile: getStorageProfile(),
+    accessInfo: getStorageAccessInfo(),
   }),
   // 计算
   getters: {
     // getters 封装用户是否登录，语义更强
     isLogin(): boolean {
-      return Boolean(this.profile.token);
+      return Boolean(this.accessInfo.accessToken);
     },
   },
   // 方法
@@ -28,7 +34,7 @@ const useMemberStore = defineStore({
     // 登录成功后的复用逻辑封装
     loginSuccess() {
       // 存储到本地
-      saveStorageProfile(this.profile);
+      // saveStorageProfile(this.profile);
       // 📌主动合并本地购物车
       const { cart } = useStore();
       cart.mergeLocalCart();
@@ -48,13 +54,18 @@ const useMemberStore = defineStore({
         router.push("/");
       }
     },
+    setAccessInfo(accessInfo: AccessInfo) {
+      this.accessInfo = accessInfo;
+      saveStorageAccessInfo(accessInfo);
+    },
     // 用户名密码登录
     async login(data: { account: string; password: string }) {
       console.log(data);
       // 发送请求
       const res = await login(data);
       // 存储到 Pinia 中
-      this.profile = res.data.result;
+      this.accessInfo = res.data;
+      saveStorageAccessInfo(res.data);
       // 调用登录成功后的逻辑
       this.loginSuccess();
     },

@@ -2,16 +2,17 @@
 import useStore from "@/stores";
 import Message from "@/components/message/index";
 import { reactive } from "vue";
+import { register } from "@/api/login";
 
 // 获取会员 Store
 const { member } = useStore();
 
 const form = reactive({
-  mobile: "15601691300@163.com",
-  password: "buzhidao",
+  mobile: "wang1@gmail.com",
+  password: "sd34fg2s2d32s",
 });
 // 登录按钮
-const login = () => {
+const signup = async () => {
   // 简单的非空校验
   if (form.mobile === "") {
     Message.text("用户名不能为空");
@@ -21,8 +22,11 @@ const login = () => {
     Message.text({ type: "warn", text: "密码不能为空" });
     return;
   }
+  const res = await register(form);
+  console.log("res", res);
+
   // 调用发送登录请求
-  member.login(form);
+  member.setAccessInfo(res.data);
 };
 </script>
 <template>
@@ -30,7 +34,7 @@ const login = () => {
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[750px] login-form rounded-[10px]">
       <div class="">
         <img class="w-auto h-10 mx-auto" src="../assets/images/logo.svg" alt="Your Company" />
-        <h2 class="mt-10 mb-[46px] font-bold text-center text-blod text-32">LOGIN</h2>
+        <h2 class="mt-10 mb-[46px] font-bold text-center text-blod text-32">Sign up</h2>
       </div>
       <div class="space-y-6">
         <div>
@@ -66,11 +70,10 @@ const login = () => {
 
         <div>
           <button
-            type="submit"
-            @click="login"
+            @click="signup"
             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            LOG IN
+            SIGN UP
           </button>
         </div>
         <div>

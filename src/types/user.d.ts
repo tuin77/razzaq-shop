@@ -11,3 +11,8 @@ export interface UserInfo {
   provinceCode: string;
   profession: string;
 }
+export interface AccessInfo {
+  accessToken: string;
+  expiresTime: string;
+  refreshToken: string;
+}

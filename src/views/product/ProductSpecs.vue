@@ -18,14 +18,14 @@
               <button
                 v-for="(spec_value, index) in item.valueNames"
                 :key="`${index}-thumbnail`"
-                :ref="(el) => assignRef(el, index)"
                 type="button"
                 :aria-current="spec_value.selected"
-                :class="`w-[100px] h-[100px] mr-3 last:mr-0  relative shrink-0 border border-2 rounded-[1.25rem]  snap-start cursor-pointer focus-visible:outline focus-visible:outline-offset transition-colors flex-grow md:flex-grow-0  ${
+                :class="`w-[100px] h-[100px] mr-3 last:mr-0  relative shrink-0 border  rounded-[1.25rem]  snap-start cursor-pointer focus-visible:outline focus-visible:outline-offset transition-colors flex-grow md:flex-grow-0  ${
                   spec_value.selected ? 'border-primary-700' : 'border-transparent'
                 }`"
                 @click="clickSpecs(item, spec_value)"
               >
+                <!-- :ref="(el) => assignRef(el, index)" -->
                 <!-- @mouseover="clickSpecs(item, spec_value)"
                 @focus="clickSpecs(item, spec_value)" -->
                 <img class="rounded-[1.25rem]" width="150" height="150" :src="spec_value.picture || ''" />
@@ -131,20 +131,15 @@
 
 <script setup lang="ts">
 defineOptions({ name: "ProductSpecs" });
+import Message from "@/components/message/index";
 import useStore from "@/stores";
 import getPowerSet from "./power-set";
-import { type ComponentPublicInstance, ref } from "vue";
+import { ref } from "vue";
 
 import { useCounter } from "@vueuse/core";
 import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
 import type { PropType } from "vue";
-import type {
-  // GoodsDetail, SpecValue, Spec,
-  SKU,
-  ShopGoods,
-  PropertyVo,
-  PropertyValue,
-} from "@/types/shop";
+import type { SKU, ShopGoods, PropertyVo, PropertyValue } from "@/types/shop";
 import type { CartItem } from "@/types";
 // import { getPriceRange } from "@/utils/index";
 import { clamp } from "@storefront-ui/shared";
@@ -165,31 +160,17 @@ function handleOnChange(event: Event) {
   set(clamp(nextValue, min.value, max.value));
   emit("add", count.value);
 }
-const firstThumbRef = ref<HTMLButtonElement>();
-const lastThumbRef = ref<HTMLButtonElement>();
-const withBase = (filepath: string) => `https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/gallery/${filepath}`;
+// const firstThumbRef = ref<HTMLButtonElement>();
+// const lastThumbRef = ref<HTMLButtonElement>();
 
-const images = [
-  { imageSrc: withBase("gallery_9.png"), imageThumbSrc: withBase("gallery_1_thumb.png"), alt: "backpack1" },
-  { imageSrc: withBase("gallery_2.png"), imageThumbSrc: withBase("gallery_2_thumb.png"), alt: "backpack2" },
-  { imageSrc: withBase("gallery_3.png"), imageThumbSrc: withBase("gallery_3_thumb.png"), alt: "backpack3" },
-  { imageSrc: withBase("gallery_4.png"), imageThumbSrc: withBase("gallery_4_thumb.png"), alt: "backpack4" },
-  { imageSrc: withBase("gallery_5.png"), imageThumbSrc: withBase("gallery_5_thumb.png"), alt: "backpack5" },
-  { imageSrc: withBase("gallery_6.png"), imageThumbSrc: withBase("gallery_6_thumb.png"), alt: "backpack6" },
-  { imageSrc: withBase("gallery_7.png"), imageThumbSrc: withBase("gallery_7_thumb.png"), alt: "backpack7" },
-  { imageSrc: withBase("gallery_8.png"), imageThumbSrc: withBase("gallery_8_thumb.png"), alt: "backpack8" },
-  { imageSrc: withBase("gallery_9.png"), imageThumbSrc: withBase("gallery_9_thumb.png"), alt: "backpack9" },
-  { imageSrc: withBase("gallery_10.png"), imageThumbSrc: withBase("gallery_10_thumb.png"), alt: "backpack10" },
-  { imageSrc: withBase("gallery_11.png"), imageThumbSrc: withBase("gallery_11_thumb.png"), alt: "backpack11" },
-];
-const assignRef = (el: Element | ComponentPublicInstance | null, index: number) => {
-  if (!el) return;
-  if (index === images.length - 1) {
-    lastThumbRef.value = el as HTMLButtonElement;
-  } else if (index === 0) {
-    firstThumbRef.value = el as HTMLButtonElement;
-  }
-};
+// const assignRef = (el: Element | ComponentPublicInstance | null, index: number) => {
+//   if (!el) return;
+//   if (index === images.length - 1) {
+//     lastThumbRef.value = el as HTMLButtonElement;
+//   } else if (index === 0) {
+//     firstThumbRef.value = el as HTMLButtonElement;
+//   }
+// };
 export interface SkuEmit {
   skuId: string;
   price: string;
@@ -241,8 +222,6 @@ const getPathMap = (skus: SKU[]) => {
 
 // // 初始化禁用状态
 function initDisabledStatus(specs: PropertyVo[], pathMap: PathMap) {
-  console.log("initDisabledStatus", specs);
-
   specs.forEach((spec: PropertyVo) => {
     spec.valueNames.forEach((val: PropertyValue) => {
       // 设置禁用状态
@@ -254,7 +233,6 @@ function initDisabledStatus(specs: PropertyVo[], pathMap: PathMap) {
 // // 得到当前选中规格集合
 const getSelectedArr = (specs: PropertyVo[]) => {
   const selectedArr: (string | undefined)[] = [];
-
   specs.forEach((spec, index) => {
     const selectedVal = spec.valueNames.find((val) => val.selected);
     if (selectedVal) {
@@ -266,8 +244,8 @@ const getSelectedArr = (specs: PropertyVo[]) => {
   return selectedArr;
 };
 
-// // 🔔 更新按钮的禁用状态
-// // 🔔 更新禁用状态核心：获取当前用户选中的规格，再模拟用户下一次的规格选择，去字典中查询，查询不到设置为禁用状态
+// 更新按钮的禁用状态
+// 更新禁用状态核心：获取当前用户选中的规格，再模拟用户下一次的规格选择，去字典中查询，查询不到设置为禁用状态
 const updateDisabledStatus = (specs: PropertyVo[], pathMap: PathMap) => {
   // 遍历每一种规格
   specs.forEach((item, i) => {
@@ -304,23 +282,15 @@ const props = defineProps({
     type: Object as PropType<ShopGoods>,
     default: () => ({ propertyVos: [], skus: [] }),
   },
-  // 当前所有商品规格组成的有效skuId(唯一标识)
-  // skuId: {
-  //   type: String,
-  //   default: "",
-  // },
 });
 
 interface Emit {
   (e: "change", value: SkuEmit): void;
-  (e: "add", value: Number): void;
-  // addCart
 }
 const skuId = params.id;
 const emit = defineEmits<Emit>();
 
-// // 🔔 得到所有字典集合
-console.log("skus", props.goods.skus);
+// 得到所有字典集合
 
 const pathMap = getPathMap(props.goods.skus);
 // // 组件初始化的时候更新禁用状态
@@ -330,10 +300,8 @@ if (skuId) {
   initSelectedStatus(props.goods, String(skuId));
 }
 const cartItem = ref<CartItem>();
-// 🔔 用户点击选择规格 - 模拟下次点击
+// 用户点击选择规格 - 模拟下次点击
 const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
-  console.log("val.disabled", val.disabled);
-
   if (val.disabled) return false;
   // 选中与取消选中逻辑
   if (val.selected) {
@@ -362,7 +330,7 @@ const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
       id: String(props.goods.id),
       name: props.goods.name,
       isEffective: true,
-      picture: sku.picUrl,
+      picture: sku.picUrl || props.goods.picUrl,
       skuId: String(sku.id),
       price: sku.price,
       stock: sku.stock,
@@ -378,12 +346,13 @@ const { cart } = useStore();
 const addCart = () => {
   // 没有 skuId，提醒用户并退出函数
   if (!cartItem.value?.skuId) {
+    Message.text("请选择完整商品规则");
     return;
     // return message({ type: "warn", text: "请选择完整商品规则~" });
   }
   if (!count.value) {
+    Message.text("请输入商品数量");
     return;
-    // return message({ type: "warn", text: "请选择完整商品规则~" });
   }
   cartItem.value.count = count.value;
 
