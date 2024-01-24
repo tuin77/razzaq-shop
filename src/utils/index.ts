@@ -69,3 +69,29 @@ export function deepClone<T>(tSource: T, tTarget?: Record<string, any> | T): T {
 export const isArray = (obj: any) => {
   return obj && typeof obj == "object" && obj instanceof Array;
 };
+import { Category } from "@/types/category";
+export function groupCategoriesByParentId(categories: Category[]): Category[] {
+  const categoryMap: Record<number, Category> = {};
+
+  // 创建一个映射，以便可以根据 id 快速查找每个类别
+  categories.forEach((category) => {
+    category.children = [];
+    categoryMap[category.id] = category;
+  });
+
+  const topLevelCategories: Category[] = [];
+
+  // 遍历类别，将子类别添加到父类别的 children 属性中
+  categories.forEach((category) => {
+    if (category.parentId === 0) {
+      topLevelCategories.push(category);
+    } else {
+      const parentCategory = categoryMap[category.parentId];
+      if (parentCategory) {
+        parentCategory.children?.push(category);
+      }
+    }
+  });
+
+  return topLevelCategories;
+}

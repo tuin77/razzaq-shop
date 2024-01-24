@@ -29,7 +29,7 @@ export default createRouter({
           component: () => import("./views/SignUp.vue"),
         },
         {
-          path: "/shop",
+          path: "/shop/",
           name: "shop",
           component: Shop,
         },

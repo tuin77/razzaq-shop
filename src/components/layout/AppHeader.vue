@@ -73,21 +73,19 @@
             @mouseleave="close()"
             @keydown.esc="focusTrigger(1)"
           >
-            <template v-for="node in categoriesContent" :key="node.key">
-              <ul class="mt-2 border-l-[1px] border-gray-100 first:border-none">
-                <li v-for="child in node.children" :key="child.key">
-                  <div class="flex flex-row items-center justify-center">
-                    <a
-                      href=""
-                      target="_self"
-                      class="text-black typography-text-base md:typography-text-sm py-4 md:py-1.5 hover:underline group-hover:text-500"
-                    >
-                      {{ child.value.label }}
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </template>
+            <ul v-for="node in home.categoryList" :key="node.id" class="mt-2 border-l-[1px] border-gray-100 first:border-none">
+              <li v-for="item in node.children" :key="item.id">
+                <div class="flex flex-row items-center justify-center">
+                  <a
+                    href=""
+                    target="_self"
+                    class="text-black typography-text-base md:typography-text-sm py-4 md:py-1.5 hover:underline group-hover:text-500"
+                    @click="toPageShop(item)"
+                    >{{ item.name }}
+                  </a>
+                </div>
+              </li>
+            </ul>
           </div>
           <div
             v-if="isOpen && activeNode === 'search'"
@@ -205,7 +203,8 @@ import { useDisclosure, useTrapFocus, useDropdown, SfIconSearch, SfInput, SfIcon
 import { ref, computed } from "vue";
 import { unrefElement } from "@vueuse/core";
 import useStore from "@/stores";
-const { member } = useStore();
+const { member, home } = useStore();
+import { Category } from "@/types";
 
 const { close, open, isOpen } = useDisclosure();
 const { referenceRef, floatingRef, style } = useDropdown({
@@ -361,4 +360,9 @@ const categoriesContent = [
     ],
   },
 ];
+
+home.getAllCategory();
+const toPageShop = (item: Category) => {
+  router.push({ path: `/shop`, query: { id: item.id, category: item.name } });
+};
 </script>

@@ -64,7 +64,13 @@ import { ref } from "vue";
 
 const router = useRouter();
 
-const sort = ref("");
+const queryProps = defineProps({
+  category: String,
+  id: String,
+});
+
+const sort = ref("recommendLeading");
+const curCategoryId = ref(queryProps.id || "");
 const products = ref<ShopGoods[]>();
 
 const options = [
@@ -98,11 +104,6 @@ const handleClick = (id: number) => {
   // const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/${id}` });
 };
-const queryData = async () => {
-  const params = {};
-  const res = await getProductCategoryList(params);
-  console.log("res", res);
-};
 const queryProducts = async () => {
   // 推荐类型 recommendLeading主打 recommendEssential必备
   const params = {
@@ -116,7 +117,7 @@ const queryProducts = async () => {
   }
 };
 queryProducts();
-queryData();
+// queryData();
 </script>
 <style>
 .product-list .group {

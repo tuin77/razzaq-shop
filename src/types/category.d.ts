@@ -14,3 +14,11 @@ export interface TopCategory {
   name: string;
   children: TopCategoryChildren[];
 }
+
+export interface Category {
+  id: number;
+  name: string;
+  parentId: number;
+  picUrl: string;
+  children?: Category[];
+}

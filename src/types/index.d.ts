@@ -1,6 +1,6 @@
 // 统一导出所有自定义的类型文件
 export * from "./home";
-// export * from "./api/category";
+export * from "./category";
 export * from "./goods";
 export * from "./shop";
 // ShopGoods

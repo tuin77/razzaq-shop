@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
-// import { http } from "@/utils/request";
-import type { BannerList, CategoryList, GoodsItem } from "@/types";
+import { getProductCategoryList } from "@/api";
+import type { BannerList, Category, GoodsItem } from "@/types";
+import { groupCategoriesByParentId } from "@/utils";
 
 // 定义 Store 时建议遵循命名规范 useXxxStore
 const useHomeStore = defineStore({
@@ -20,7 +21,7 @@ const useHomeStore = defineStore({
     return {
       money: 15000,
       // 所有分类数据
-      categoryList: [] as CategoryList,
+      categoryList: [] as any,
       // 轮播图数据
       bannerList: [] as BannerList,
       // 新鲜好物数据
@@ -47,12 +48,17 @@ const useHomeStore = defineStore({
     },
     // 获取所有分类数据
     async getAllCategory() {
-      // const res = await request.get<ApiRes<CategoryList>>("/home/category/head");
+      const res = await getProductCategoryList({});
+      if (res.data?.length) {
+        this.categoryList = groupCategoriesByParentId(res.data);
+        console.log("categoryList", JSON.parse(JSON.stringify(this.categoryList)));
+
+        // this.categoryList = res.data.result;
+      }
       // const res = await http<CategoryList>("GET", "/home/category/head");
       // // 🎉恭喜已经有类型提醒了
-      // // console.log(res.data.result);
+      // console.log(res.data);
       // // 左右类型一致了
-      // this.categoryList = res.data.result;
     },
     // 获取轮播图数据
     async getBannerList() {

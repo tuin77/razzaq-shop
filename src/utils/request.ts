@@ -37,13 +37,15 @@ class Api {
         removePending(response.config);
 
         const res = response.data;
-        if (res.code !== 1) {
+        if (res.code !== "0") {
           // ElMessage.error(res.msg);
         }
         return res;
       },
       (error) => {
-        error.config && removePending(error.config);
+        // console.log("error", error);
+
+        // error.config && removePending(error.config);
         httpErrorStatusHandle(error);
         return Promise.reject(error);
       },
@@ -138,7 +140,7 @@ function httpErrorStatusHandle(error: any) {
   }
   if (error.message.includes("timeout")) message = "网络请求超时！";
   if (error.message.includes("Network")) message = window.navigator.onLine ? "服务端异常！" : "您断网了！";
-  console.log(message);
+  console.log("message", message);
 
   // ElMessage({
   //   type: "error",
