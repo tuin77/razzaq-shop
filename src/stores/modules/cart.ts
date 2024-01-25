@@ -1,7 +1,9 @@
 // import { message } from "@/components/XtxUI";
 import type { CartItem, CartList } from "@/types";
 // import { http } from "@/utils/request";
+import { addCart, getCartList, deleteCart } from "@/api";
 import { defineStore } from "pinia";
+import Message from "@/components/message";
 import useStore from "..";
 
 const useCartStore = defineStore("cart", {
@@ -25,7 +27,9 @@ const useCartStore = defineStore("cart", {
     },
     // 计算有效商品列表 isEffective = true  filter
     effectiveList(): CartList {
-      return this.list.filter((v) => v.stock > 0 && v.isEffective);
+      console.log("effectiveList", JSON.parse(JSON.stringify(this.list)));
+
+      return this.list?.filter((v) => v.stock > 0 && v.isEffective);
     },
     // 有效商品总数量 把 effctiveList 中的每一项的 count 叠加起来
     effectiveListCounts(): number {
@@ -68,22 +72,26 @@ const useCartStore = defineStore("cart", {
   // 方法
   actions: {
     // 加入购物车
-    async addCart(data: CartItem) {
+    async addCart(cartItem: CartItem) {
       if (this.isLogin) {
-        // const { skuId, count } = data;
-        // const res = await http("POST", "/member/cart", { skuId, count });
+        const { skuId, count } = cartItem;
+        const res = await addCart({ skuId, count });
         // console.log("POST", "/member/cart", res.data.result);
-        // message({ type: "success", text: "添加成功~" });
+        if (res.code === 0) {
+          Message.text({ type: "success", text: "添加成功~" });
+          this.getCartList();
+        } else {
+          console.log(res);
+        }
         // 🐛获取最新购物车列表
-        // this.getCartList();
       } else {
         // console.log("未登录-本地操作", data);
         // 添加商品分两种情况：
-        const { skuId, count } = data;
+        const { skuId, count } = cartItem;
         const goodsItem = this.list.find((item) => item.skuId === skuId);
         if (!goodsItem) {
           // 情况1：新添加的商品，前添加到数组中
-          this.list.unshift(data);
+          this.list.unshift(cartItem);
         } else {
           // 情况2：已添加过的的商品，累加数量即可
           goodsItem.count += count;
@@ -92,11 +100,15 @@ const useCartStore = defineStore("cart", {
     },
     // 获取购物车列表
     async getCartList() {
+      console.log("getCartList");
+
       if (this.isLogin) {
-        // const res = await http<CartList>("GET", "/member/cart");
+        const res = await getCartList({});
         // console.log("GET", "/member/cart", res.data.result);
         // 保存购物车列表数据
-        // this.list = res.data.result;
+        if (!res.data) return;
+        const { invalidList, validList } = res.data;
+        this.list = [...validList.map((i: any) => ({ ...i, isEffective: true })), ...invalidList];
       } else {
         // console.log("未登录-本地操作");
         // 本地存储的库存信息和价格**不是服务器最新的**，所以需**要主动获取**最新商品信息。
@@ -128,20 +140,21 @@ const useCartStore = defineStore("cart", {
       }
     },
     // 删除/清空购物车商品
-    async deleteCart(skuIds: string[]) {
+    async deleteCart(item: any) {
       if (this.isLogin) {
-        // const res = await http("DELETE", "/member/cart", { ids: skuIds });
-        // console.log("DELETE", "/member/cart", res.data.result);
-        // if (res.data.result) {
-        // message({ type: "success", text: "删除成功~" });
-        // 获取购物车列表
-        this.getCartList();
-        // } else {
-        //   // message({ type: "warn", text: "删除失败" });
-        // }
+        const params = { id: item.id, skuId: item.skuId, count: 0 };
+        const res = await deleteCart(params);
+        console.log("DELETE", "/member/cart", res.data.result);
+        if (res.data.result) {
+          Message.success("删除成功~");
+          // 获取购物车列表
+          this.getCartList();
+        } else {
+          Message.warn("删除失败");
+        }
       } else {
         // console.log("未登录-本地操作", skuIds);
-        this.list = this.list.filter((item) => !skuIds.includes(item.skuId));
+        this.list = this.list.filter((product) => product.skuId != item.skuId);
       }
     },
     // 修改购物车商品-修改选中-修改数量

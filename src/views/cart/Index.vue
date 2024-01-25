@@ -13,7 +13,7 @@
         <tr v-for="item in cart.effectiveList" :key="item.skuId" class="py-10 border-b border-gray-100">
           <td class="pr-[47px] py-10">
             <div class="flex items-center">
-              <button @click="cart.deleteCart([item.skuId])">
+              <button @click="cart.deleteCart({ skuId: item.skuId, id: item.id })">
                 <SfIconClose size="lg" class="text-gray-200 mr-30"></SfIconClose>
               </button>
               <img
