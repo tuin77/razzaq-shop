@@ -44,13 +44,11 @@
   </div> -->
   <!-- max-w-1620 -->
   <CarouselPosters></CarouselPosters>
-  <CarouselProducts></CarouselProducts>
 
-  <div class="mx-auto max-w-1620 my-[5rem]">
-    <div class="grid grid-cols-1 gap-x-[75px] gap-y-16 lg:grid-cols-3">
+  <div class="mx-auto max-w-1620 my-10 md:my-[5rem]">
+    <div class="px-4 md:px-0 grid grid-cols-1 gap-x-[75px] gap-y-10 lg:grid-cols-3">
       <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8">
         <img class="flex-none w-[57px] h-[45px]" src="../../assets/images/home/icon-delivery.svg" alt="" />
-        <!-- <img class="flex-none w-12 h-12 bg-gray-50" src="../../assets/images/home/icon-gifts.svg" alt="" /> -->
         <div class="flex-auto min-w-0 pl-[1.875rem]">
           <div class="text-lg font-bold text-primary-700">Free Shipping Worldwide</div>
           <div class="mt-5 ml-1 text-base text-bold-900">Our products are free in delivery after shopping on $999</div>
@@ -74,6 +72,8 @@
       </div>
     </div>
   </div>
+
+  <!-- <CarouselProducts></CarouselProducts> -->
 
   <div class="mx-auto max-w-1620 mb-[5rem]">
     <h2 class="font-bold text-black mb-[7.5rem] text-48">Featured products</h2>

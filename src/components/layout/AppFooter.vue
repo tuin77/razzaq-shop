@@ -1,25 +1,25 @@
 <template>
-  <footer class="px-4 text-gray-800 bg-neutral-100 lg:px-6">
-    <div class="mx-auto py-14 max-w-1620 md:flex md:justify-between">
+  <footer class="relative text-gray-800 bg-neutral-100">
+    <div class="px-4 mx-auto lg:px-6 xxl:px-0 md:py-14 max-w-1620 md:flex md:justify-between">
       <div class="mb-6 md:mb-0">
-        <img src="../.././assets/images/logo.svg" alt="" class="w-154 h-33" />
+        <img src="../.././assets/images/logo.svg" alt="" class="w-[100px] h-[21px] md:w-154 md:h-33" />
         <p class="mt-8 text-base text-gray-400 max-w-[30rem]">Join our newsletter to get the latest PetBoutique updates and surprise discounts!</p>
-        <div class="grid grid-cols-2 pt-10 text-lg text-bold-100">
-          <a href="#" class="mb-4 w-[200px] hover:underline hover:text-primary-700">About Us</a>
-          <a href="#" class="mb-4 w-[200px] hover:underline hover:text-primary-700">Terms of Service</a>
-          <a href="#" class="mb-4 w-[200px] hover:underline hover:text-primary-700">Contact Us</a>
-          <a href="#" class="mb-4 w-[200px] hover:underline hover:text-primary-700">Privacy Policy</a>
-          <a href="#" class="mb-4 w-[200px] hover:underline col-span-2 hover:text-primary-700">Refunds</a>
-          <a href="#" class="w-[200px] hover:underline col-span-2 hover:text-primary-700">Shipping Info</a>
+        <div class="pt-10 text-lg md:grid md:grid-cols-2 text-bold-100">
+          <a href="#" class="mb-4 hover:underline hover:text-primary-700">About Us</a>
+          <a href="#" class="mb-4 hover:underline hover:text-primary-700">Terms of Service</a>
+          <a href="#" class="mb-4 hover:underline hover:text-primary-700">Contact Us</a>
+          <a href="#" class="mb-4 hover:underline hover:text-primary-700">Privacy Policy</a>
+          <a href="#" class="col-span-2 mb-4 hover:underline hover:text-primary-700">Refunds</a>
+          <a href="#" class="col-span-2 hover:underline hover:text-primary-700">Shipping Info</a>
         </div>
       </div>
       <div class="flex-1 pt-3">
         <NewsletterBox></NewsletterBox>
 
-        <div class="mt-[5.625rem] text-right">
-          <span class="text-2xl text-bold-100">FOLLOW US</span>
+        <div class="my-9 md:mt-[5.625rem] text-right">
+          <span class="hidden text-2xl text-bold-100 md:block">FOLLOW US</span>
 
-          <div class="flex justify-end py-5 gap-x-4 md:self-start">
+          <div class="flex justify-center md:justify-end gap-x-4 md:self-start">
             <span
               v-for="{ label, link, icon } in socialMedia"
               :key="label"
@@ -38,8 +38,8 @@
     </div>
 
     <hr class="border-gray-100" />
-    <div class="py-6 lg:flex lg:flex-nowrap lg:items-center lg:justify-center">
-      <p class="relative text-sm text-center text-gray-400">© 2023, PetBoutique All Rights Reserved.</p>
+    <div class="relative py-[17px] md:py-6 lg:flex lg:flex-nowrap lg:items-center lg:justify-center">
+      <p class="text-xs text-center text-gray-400 md:text-sm">© 2023, PetBoutique All Rights Reserved.</p>
     </div>
   </footer>
 </template>

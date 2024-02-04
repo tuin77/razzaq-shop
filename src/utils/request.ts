@@ -77,7 +77,7 @@ class Api {
 
 const api = new Api({
   baseURL: "http://39.106.168.4:48080/",
-  timeout: 10 * 1000,
+  timeout: 30 * 1000,
 });
 
 export default api;

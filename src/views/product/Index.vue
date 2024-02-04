@@ -75,7 +75,7 @@
           </template>
         </SfScrollable>
       </div>
-      <ProductSpecs v-if="goods?.id" :goods="goods" class="w-[710px]"></ProductSpecs>
+      <ProductSpecs v-if="goods?.id" :goods="goods" :skuId="skuId" class="w-[710px]"></ProductSpecs>
     </div>
     <div class="">
       <h3 class="mb-12 text-5xl font-bold text-black">About Products</h3>
@@ -176,10 +176,16 @@ const firstThumbVisible = ref(false);
 const lastThumbVisible = ref(false);
 const activeIndex = ref(0);
 
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 // 从路由中获取商品 id
-const { params } = useRoute();
-const id = params.id;
+// const { params } = useRoute();
+// const id = params.id;
+
+const queryProps = defineProps({
+  category: String,
+  id: String,
+  skuId: String,
+});
 watch(
   thumbsRef,
   (thumbsRef) => {
@@ -240,7 +246,9 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
 const goods = ref<ShopGoods>();
 
 onMounted(async () => {
-  const res = await getSpuDetail({ id });
+  console.log(queryProps.id, queryProps.skuId);
+
+  const res = await getSpuDetail({ id: queryProps.id });
   const { propertyVos, ...data } = res.data;
 
   const _goods = {

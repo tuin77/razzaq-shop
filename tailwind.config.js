@@ -7,7 +7,11 @@ export default {
   content: ["./index.html", "./**/*.vue", "./node_modules/@storefront-ui/vue/**/*.{js,mjs}"],
   theme: {
     extend: {
+      screens: {
+        xxl: "1620px",
+      },
       fontSize: {
+        "text-xs": ["12px", "16px"],
         sm: ["14px", "18px"],
         base: ["16px", "24px"],
         lg: ["18px", "24px"],

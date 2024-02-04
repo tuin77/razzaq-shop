@@ -193,9 +193,6 @@ const getPathMap = (skus: SKU[]) => {
     // console.log(2323);
 
     // 1. 过滤出有库存有效的sku
-    // console.log("sku", JSON.parse(JSON.stringify(sku)));
-    // console.log("sku.inventory", sku.inventory);
-    // console.log("sku.inventory", sku.inventory);
 
     if (!sku.stock) return;
     // 2. 得到sku属性值数组
@@ -267,9 +264,10 @@ const updateDisabledStatus = (specs: PropertyVo[], pathMap: PathMap) => {
 const initSelectedStatus = (goods: ShopGoods, skuId: string) => {
   // 找到当前的sku对象
   const sku = goods.skus.find((sku) => String(sku.id) === skuId);
+
   if (sku) {
     goods.propertyVos.forEach((item: PropertyVo, i) => {
-      const val = item.valueNames.find((val: PropertyValue) => val.name === sku.specs[i].valueName);
+      const val = item.valueNames.find((val: PropertyValue) => val.name === sku.properties[i].valueName);
       if (val) val.selected = true;
     });
   }
@@ -282,12 +280,13 @@ const props = defineProps({
     type: Object as PropType<ShopGoods>,
     default: () => ({ propertyVos: [], skus: [] }),
   },
+  skuId: String,
 });
 
 interface Emit {
   (e: "change", value: SkuEmit): void;
 }
-const skuId = params.id;
+// const skuId = params.id;
 const emit = defineEmits<Emit>();
 
 // 得到所有字典集合
@@ -295,11 +294,14 @@ const emit = defineEmits<Emit>();
 const pathMap = getPathMap(props.goods.skus);
 // // 组件初始化的时候更新禁用状态
 initDisabledStatus(props.goods.propertyVos, pathMap);
-// // 根据传入的skuId默认选中规格按钮
-if (skuId) {
-  initSelectedStatus(props.goods, String(skuId));
-}
+console.log("props.skuId", props.skuId);
+
 const cartItem = ref<CartItem>();
+// // 根据传入的skuId默认选中规格按钮
+if (props.skuId) {
+  initSelectedStatus(props.goods, String(props.skuId));
+  if (cartItem.value) cartItem.value.skuId = props.skuId;
+}
 // 用户点击选择规格 - 模拟下次点击
 const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
   if (val.disabled) return false;

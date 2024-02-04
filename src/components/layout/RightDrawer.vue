@@ -1,7 +1,10 @@
 <template>
   <SfButton tag="span" class="!text-bold-100 relative" square variant="tertiary" @click="open = true" aria-controls="mobile-menu-2">
     <SfIconMenu size="lg" />
-    <SfBadge v-if="cart.effectiveListCounts" class="!bg-red-500 !text-base top-[-8px] right-[-8px] px-2 py-0.5" :content="cart.effectiveListCounts"
+    <SfBadge
+      v-if="cart.effectiveListCounts"
+      class="!bg-red-500 !text-xs md:!text-base md:top-[-8px] md:right-[-8px] md:px-2 md:py-0.5"
+      :content="cart.effectiveListCounts"
   /></SfButton>
 
   <transition

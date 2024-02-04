@@ -31,11 +31,13 @@ export default createRouter({
         {
           path: "/shop/",
           name: "shop",
+          props: (route) => route.query,
           component: Shop,
         },
         {
-          path: "/product/:id",
+          path: "/product",
           name: "product",
+          props: (route) => route.query,
           component: () => import("./views/product/Index.vue"),
         },
         {

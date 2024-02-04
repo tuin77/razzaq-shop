@@ -2,13 +2,22 @@
   <div class="mx-auto mb-7 max-w-1620">
     <img src="@/assets/images/shop/shop-list-bg.png" alt="" srcset="" />
     <div class="flex flex-wrap">
-      <a v-for="item in categories" :key="item.label" href="#" class="mr-12 text-lg text-gray-200 mt-7 hover:text-bold-100">{{ item.label }}</a>
+      <template v-for="node in home.categoryList" :key="node.id"
+        ><a
+          v-for="item in node.children"
+          :key="item.id"
+          href="#"
+          :class="['mr-12 text-lg text-gray-200 mt-7 hover:text-bold-100', queryProps.id === String(item.id) ? '!text-bold-100' : '']"
+          @click="toPageShop(item)"
+          >{{ item.name }}</a
+        ></template
+      >
     </div>
   </div>
   <hr class="border-gray-100" />
   <div class="mx-auto max-w-1620">
     <div class="flex justify-between pb-10 pt-9">
-      <h2 class="text-lg font-medium text-gray-900 text-[2rem]">AutomaticFeeders</h2>
+      <h2 class="text-lg font-medium text-gray-900 text-[2rem]">{{ queryProps.category }}</h2>
       <SfSelect placeholder="" v-model="sort" class="w-60" size="base" @change="queryProducts">
         <option v-for="{ value, label } in options" :key="value" :value="value">
           {{ label }}
@@ -54,13 +63,16 @@
 </template>
 
 <script lang="ts" setup>
-// import { userApi } from "@/api/user";
 import { ShopGoods } from "@/types";
 import { getProductCategoryList, getSpuList } from "@/api/shop";
 import { useRouter } from "vue-router";
 import Pagination from "../../components/Pagination.vue";
 import { SfSelect } from "@storefront-ui/vue";
 import { ref } from "vue";
+import useStore from "@/stores";
+const { home } = useStore();
+
+import { Category } from "@/types";
 
 const router = useRouter();
 
@@ -70,8 +82,11 @@ const queryProps = defineProps({
 });
 
 const sort = ref("recommendLeading");
-const curCategoryId = ref(queryProps.id || "");
 const products = ref<ShopGoods[]>();
+
+const toPageShop = (item: Category) => {
+  router.push({ name: `shop`, query: { id: item.id, category: item.name } });
+};
 
 const options = [
   { label: "Default sort", value: "" },
@@ -79,25 +94,6 @@ const options = [
   { label: "Recommend Essential", value: "recommendEssential" },
 ];
 // https://bookix.madrasthemes.com/product-category/hot-deals/
-const categories = [
-  { label: "AutomaticFeeders", value: "" },
-  { label: "Cats", value: "" },
-  { label: "Cats Beds", value: "" },
-  { label: "Cats Carriers", value: "" },
-  { label: "Cats Food", value: "" },
-  { label: "Cats Toys", value: "" },
-  { label: "Dogs", value: "" },
-  { label: "Dogs Backpacks", value: "" },
-  { label: "Dogs Beds", value: "" },
-  { label: "Dogs Food", value: "" },
-  { label: "Dogs Toys", value: "" },
-  { label: "Feeding&WateringSupplies", value: "" },
-  { label: "Grooming", value: "" },
-  { label: "Litter&Housebreaking", value: "" },
-  { label: "LitterMats", value: "" },
-  { label: "PetSupplies", value: "" },
-  { label: "Uncategorized", value: "" },
-];
 
 const handleClick = (id: number) => {
   console.log("handleClick");

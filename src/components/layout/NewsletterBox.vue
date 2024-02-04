@@ -8,10 +8,10 @@
           type="email"
           size="lg"
           style="font-size: 18px"
-          wrapper-class="grow rounded-large text-lg max-w-[500px] sm:w-auto"
+          wrapper-class="grow text-lg md:max-w-[500px] sm:w-auto !rounded-100"
           placeholder="Please enter your email"
         />
-        <SfButton type="submit" size="lg" class="px-4 py-2 text-lg text-white bg-primary-700 sm:w-auto hover:bg-orange-600 rounded-large">
+        <SfButton type="submit" size="lg" class="px-4 py-2 text-lg text-white bg-primary-700 sm:w-auto hover:bg-orange-600 !rounded-100">
           subscription
         </SfButton>
       </form>

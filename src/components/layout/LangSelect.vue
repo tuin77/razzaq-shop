@@ -8,7 +8,7 @@
       :aria-expanded="isOpen"
       aria-label="Select one option"
       :aria-activedescendant="selectedOption ? `${listboxId}-${selectedOption.value}` : undefined"
-      class="mt-0.5 flex items-center gap-1 relative text-2xl font-normal typography-text-base py-2 px-1 cursor-pointer z-30"
+      class="text-lg mt-0.5 flex items-center gap-1 relative md:text-2xl font-normal typography-text-base py-2 px-1 cursor-pointer z-30"
       tabindex="0"
       @keydown.space="toggle()"
       @click="toggle()"

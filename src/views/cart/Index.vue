@@ -16,13 +16,7 @@
               <button @click="cart.deleteCart([item.skuId])">
                 <SfIconClose size="lg" class="text-gray-200 mr-30"></SfIconClose>
               </button>
-              <img
-                :src="item.picture"
-                class="w-[208px] h-[208px] rounded-[20px] cursor-pointer"
-                alt=""
-                srcset=""
-                @click="goPageShopping(item.skuId)"
-              />
+              <img :src="item.picture" class="w-[208px] h-[208px] rounded-[20px] cursor-pointer" alt="" srcset="" @click="goPageShopping(item)" />
               <p class="w-[320px] ml-30 text-bold-100">
                 {{ item.name }}
                 <br />
@@ -52,31 +46,6 @@
             </button>
           </td>
         </tr>
-        <!-- <tr class="py-10 border-b border-gray-100">
-          <td class="pr-[47px] py-10">
-            <div class="flex items-center">
-              <button>
-                <SfIconClose size="lg" class="text-gray-200 mr-30"></SfIconClose>
-              </button>
-              <img src="../../assets/images/shop/product-img1.png" class="w-[208px] h-[208px]" alt="" srcset="" />
-              <p class="w-[320px] ml-30 text-bold-100">Wall Suction Soft Durable Bath Massage Brush – BlueFrom wishlist:Default wishlist</p>
-            </div>
-          </td>
-          <td class="pr-[83px]">HK$272.95</td>
-          <td>
-            <input v-model="count" type="number" min="0" class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-lg text-bold-100" />
-          </td>
-          <td class="text-right pl-[70px]">
-            <div class="text-lg text-bold-100">HK$272.95</div>
-            <button
-              type="button"
-              class="flex items-center justify-center w-full py-1 mt-6 text-sm text-gray-200 transition-colors duration-200 bg-white gap-x-2 sm:w-auto"
-            >
-              <SfIconFavorite size="sm" />
-              <span>Save for later</span>
-            </button>
-          </td>
-        </tr> -->
       </tbody>
       <tfoot>
         <tr>
@@ -183,9 +152,10 @@ const { cart } = useStore();
 cart.getCartList();
 
 const goBack = () => router.go(-1);
-const goPageShopping = (skuId: string) => {
-  const slug = "warm-winter-cozy-washable-dog-house";
-  router.push({ path: `/product/${slug}?skuId=${skuId}` });
+const goPageShopping = (item: any) => {
+  console.log("item", item);
+
+  router.push({ name: `product`, query: { id: item.id, skuId: item.skuId } });
 };
 const toPageOrder = () => {
   router.push({ path: `/order` });
