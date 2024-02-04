@@ -186,7 +186,6 @@ const spliter = "★";
 // // 根据skus数据得到路径字典对象
 const getPathMap = (skus: SKU[]) => {
   // debugger;
-  console.log("getPathMap", skus);
 
   const pathMap = {} as PathMap;
   skus.forEach((sku: SKU) => {
@@ -199,7 +198,6 @@ const getPathMap = (skus: SKU[]) => {
     const specs = sku.properties.map((spec) => spec.valueName);
     // 3. 得到sku属性值数组的子集
     const powerSet = getPowerSet(specs);
-    console.log("powerSet", powerSet);
 
     // 4. 设置给路径字典对象
     powerSet.forEach((set) => {
@@ -210,10 +208,7 @@ const getPathMap = (skus: SKU[]) => {
       }
       pathMap[key].push(String(sku.id));
     });
-
-    console.log("pathMap", JSON.parse(JSON.stringify(pathMap)));
   });
-  console.log("🔔根据后端返回的skus集合得到用于查询路径字典", pathMap);
   return pathMap;
 };
 

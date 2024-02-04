@@ -51,7 +51,6 @@ const useHomeStore = defineStore({
       const res = await getProductCategoryList({});
       if (res.data?.length) {
         this.categoryList = groupCategoriesByParentId(res.data);
-        console.log("categoryList", JSON.parse(JSON.stringify(this.categoryList)));
 
         // this.categoryList = res.data.result;
       }

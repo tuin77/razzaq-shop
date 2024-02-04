@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { TResponseData } from "@/types";
 // import { Local } from "@/utils/storage";
+import useStore from "@/stores";
+import router from "@/router";
 // import { ElMessage } from "element-plus";
 // import { useUserStore } from "@/store/user";
 class Api {
@@ -25,6 +27,15 @@ class Api {
         // if (token) {
         //   config.headers.Authorization = token;
         config.headers["tenant-id"] = 1;
+        // ✅ 非组件中，在消费前获取 Store
+        const { member } = useStore();
+        // 1. 获取token
+        const { accessToken } = member.accessInfo;
+        // 2. 如果有 token 同时 headers 非空
+        if (accessToken && config.headers) {
+          // 3. 请求头中携带 token 信息
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        }
 
         // }
         return config;
@@ -37,8 +48,11 @@ class Api {
         removePending(response.config);
 
         const res = response.data;
-        if (res.code !== "0") {
+        if (res.code === 401) {
+          console.log("错误");
+
           // ElMessage.error(res.msg);
+          router.push({ name: "login" });
         }
         return res;
       },
