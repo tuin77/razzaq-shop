@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-start justify-between mx-auto mt-20 table-fixed mb-36 max-w-1620">
+  <div class="items-start justify-between px-4 mx-auto mb-10 border-t border-gray-100 table-fixed md:px-0 md:mt-20 md:flex md:mb-36 max-w-1620">
     <table class="">
-      <thead>
+      <thead class="hidden md:table-header-group;">
         <tr class="border-b border-gray-100">
           <th class="font-normal text-left pb-7">PRODUCT</th>
           <th class="font-normal text-left pb-7">PRICE</th>
@@ -11,31 +11,79 @@
       </thead>
       <tbody>
         <tr v-for="item in cart.effectiveList" :key="item.skuId" class="py-10 border-b border-gray-100">
-          <td class="pr-[47px] py-10">
-            <div class="flex items-center">
-              <button @click="cart.deleteCart({ skuId: item.skuId, id: item.id })">
-                <SfIconClose size="lg" class="text-gray-200 mr-30"></SfIconClose>
-              </button>
-              <img :src="item.picture" class="w-[208px] h-[208px] rounded-[20px] cursor-pointer" alt="" srcset="" @click="goPageShopping(item)" />
-              <p class="w-[320px] ml-30 text-bold-100">
-                {{ item.name }}
-                <br />
-                {{ item.attrsText }}
-                <br />
-                wishlist:Default wishlist
-              </p>
+          <td class="md:pr-[47px] md:py-10 pb-10 pt-7.5">
+            <div class="flex md:items-center">
+              <SfIconClose
+                class="w-4 h-4 mt-10 mr-3 text-gray-200 md:mt-0 md:mr-30"
+                @click="cart.deleteCart({ skuId: item.skuId, id: item.id })"
+              ></SfIconClose>
+              <img
+                :src="item.picture"
+                class="w-24 h-24 md:w-[208px] md:h-[208px] rounded-[20px] cursor-pointer"
+                alt=""
+                srcset=""
+                @click="goPageShopping(item)"
+              />
+              <div class="ml-4 text-xs md:text-lg">
+                <p class="md:w-[320px] md:ml-30 text-bold-100">
+                  {{ item.name }}
+                  <br />
+                  {{ item.attrsText }}
+                  <br />
+                  wishlist:Default wishlist
+                </p>
+                <div class="flex mt-4 md:hidden">
+                  <span class="text-gray-666">PRICE：</span> <span class="flex-1 text-right text-blod-100">${{ item.price }}</span>
+                </div>
+                <div class="flex mt-4 md:hidden">
+                  <span class="text-gray-666">QUANTITY：</span>
+                  <span class="flex-1 text-right text-blod-100">
+                    <SfButton
+                      variant="secondary"
+                      :disabled="count <= min"
+                      square
+                      class="!rounded-100 w-6 h-6 mr-4.5"
+                      :aria-controls="inputId"
+                      aria-label="Decrease value"
+                      @click="dec()"
+                    >
+                      -
+                    </SfButton>
+                    <span class="text-sm">{{ item.count }}</span>
+                    <SfButton
+                      variant="secondary"
+                      :disabled="count >= max"
+                      square
+                      class="!rounded-100 w-6 h-6 ml-4.5"
+                      :aria-controls="inputId"
+                      aria-label="Increase value"
+                      @click="inc()"
+                    >
+                      +
+                    </SfButton>
+                  </span>
+                </div>
+                <div class="flex mt-4 md:hidden">
+                  <span class="text-gray-666">SUBTOTAL：</span>
+                  <span class="flex-1 text-right text-blod-100">${{ (item.count * Number(item.price)).toFixed(2) }}</span>
+                </div>
+                <div class="mt-4 mb-5 mb-10">
+                  <button
+                    type="button"
+                    class="flex items-center justify-center py-1 text-sm text-gray-200 transition-colors duration-200 bg-white gap-x-2"
+                  >
+                    <SfIconFavorite size="sm" />
+                    <span>Save for later</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </td>
-          <td class="pr-[83px]">${{ item.price }}</td>
-          <td>
-            <input
-              v-model="item.count"
-              type="number"
-              min="0"
-              class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-lg text-bold-100"
-            />
+          <td class="pr-[83px] hidden md:table-cell">${{ item.price }}</td>
+          <td class="hidden md:table-cell">
+            <input v-model="item.count" type="number" min="0" class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-bold-100" />
           </td>
-          <td class="text-right pl-[70px]">
+          <td class="text-right pl-[70px] hidden md:table-cell">
             <div class="text-lg text-bold-100">${{ (item.count * Number(item.price)).toFixed(2) }}</div>
             <button
               type="button"
@@ -47,7 +95,7 @@
           </td>
         </tr>
       </tbody>
-      <tfoot>
+      <tfoot class="hidden md:table-footer-group">
         <tr>
           <td>
             <button
@@ -80,7 +128,7 @@
       </tfoot>
       <div class="flex justify-between"></div>
     </table>
-    <div class="bg-neutral-100 border rounded-20 border-gray-100 pt-[27px] pb-[25px] px-[25px]">
+    <div class="bg-neutral-100 border mt-10 md:mt-0 rounded-20 border-gray-100 pt-[27px] pb-[25px] px-[25px]">
       <span class="text-2xl text-blod-100">Cart totals</span>
 
       <div class="flex text-lg mt-[26px]">
@@ -164,4 +212,19 @@ const toPageOrder = () => {
 //   // console.log({ skuId, count });
 //   cart.updateCart(skuId, { count: count });
 // };
+
+import { ref } from "vue";
+import { SfButton, useId } from "@storefront-ui/vue";
+// import { clamp } from "@storefront-ui/shared";
+import { useCounter } from "@vueuse/core";
+
+const min = ref(1);
+const max = ref(10);
+const inputId = useId();
+const { count, inc, dec } = useCounter(1, { min: min.value, max: max.value });
+// function handleOnChange(event: Event) {
+//   const currentValue = (event.target as HTMLInputElement)?.value;
+//   const nextValue = parseFloat(currentValue);
+//   set(clamp(nextValue, min.value, max.value));
+// }
 </script>

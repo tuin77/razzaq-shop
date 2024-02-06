@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 import { getProductCategoryList, getBannerList } from "@/api";
-import type { BannerList, Category, GoodsItem } from "@/types";
+import type {
+  BannerList,
+  // Category,
+  GoodsItem,
+} from "@/types";
 import { groupCategoriesByParentId } from "@/utils";
 
 // 定义 Store 时建议遵循命名规范 useXxxStore

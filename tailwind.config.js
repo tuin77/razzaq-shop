@@ -24,6 +24,9 @@ export default {
         1620: "1620px",
       },
       margin: {
+        4.5: "18px",
+        7.5: "30px",
+        15: "60px",
         30: "1.875rem",
         "30px": "1.875rem",
         "34px": "2.125rem",
@@ -32,6 +35,8 @@ export default {
       },
       padding: {
         4.5: "1.125rem",
+        7.5: "30px",
+        15: "60px",
         30: "1.875rem",
         "30px": "1.875rem",
         "34px": "2.125rem",
@@ -40,6 +45,7 @@ export default {
       },
 
       borderRadius: {
+        10: "10px",
         20: "20px",
         large: "1.875rem", //30px
         100: "6.25rem",

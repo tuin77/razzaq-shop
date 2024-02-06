@@ -15,13 +15,16 @@
         <div class="text-center md:text-left md:pt-[18.3vh] md:w-full md:flex md:flex-col md:items-start md:basis-2/4 carousel-left">
           <!-- <p class="font-bold tracking-widest uppercase typography-text-xs md:typography-text-sm text-neutral-500">Feel the music</p> -->
           <h2 class="text-32 mt-9 md:text-left md:text-48 md:w-[29rem] md:h-44 font-bold">
-            {{ title || "NEW ARRIVALS ‘21 Delicious Snack" }}
+            <!-- title ||  -->
+            {{ "NEW ARRIVALS ‘21 Delicious Snack" }}
           </h2>
-          <p class="text-left mb-6 m-5 text-lg text-gray-200 md:h-36 md:leading-loose md:w-[30rem] typography-text-base">
-            {{ description || "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad." }}
+          <p class="text-left mb-7 m-5 text-lg text-gray-200 md:h-36 md:leading-loose md:w-[30rem] typography-text-base">
+            <!-- description || -->
+            {{ "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad." }}
           </p>
           <SfButton
-            class="!text-base py-3 px-7 md:!text-2xl !font-bold md:py-[28px] md:!px-[52px] bg-primary-950 !rounded-100 md:mt-7 md:mt-14 ml-0 mr-auto"
+            class="!text-base py-3 px-7 mb-15 md:!text-2xl !font-bold md:py-[28px] md:!px-[52px] bg-primary-950 !rounded-100 md:mt-7 md:mt-14 ml-0 mr-auto"
+            @click="toPageProduct"
             >Buy Product</SfButton
           >
           <!-- <h1 class="typography-display-2 md:typography-display-1 md:leading-[67.5px] font-bold mt-2 mb-4">New Wireless Pro</h1> -->
@@ -90,9 +93,10 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-import useStore from "@/stores";
-const { home } = useStore();
+// import useStore from "@/stores";
+// const { home } = useStore();
 import { SfScrollable, SfButton, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
+import router from "@/router";
 // type SfScrollableOnScrollData,
 const displayDetails = [
   {
@@ -180,6 +184,9 @@ const activeArrowNavigation = ($event: KeyboardEvent, index: number) => {
     activeIndex.value = index - 1;
     previousElement.focus();
   }
+};
+const toPageProduct = (item?: any) => {
+  router.push({ name: "product", query: { id: item?.id || "643" } });
 };
 </script>
 <style scoped>

@@ -1,83 +1,39 @@
 <template>
-  <!--  -->
-  <!-- <div class="mx-auto max-w-1620 mb-[5rem]">
-    <div class="px-6 mx-auto max-w-7xl lg:px-8">
-      <dl class="grid grid-cols-1 text-center gap-x-8 gap-y-16 lg:grid-cols-3">
-        <div class="flex flex-col max-w-xs mx-auto gap-y-4">
-          <dt class="text-base leading-7 text-gray-600">Transactions every 24 hours</dt>
-          <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">44 million</dd>
-        </div>
-        <div class="flex flex-col max-w-xs mx-auto gap-y-4">
-          <dt class="text-base leading-7 text-gray-600">Assets under holding</dt>
-          <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$119 trillion</dd>
-        </div>
-        <div class="flex flex-col max-w-xs mx-auto gap-y-4">
-          <dt class="text-base leading-7 text-gray-600">New users annually</dt>
-          <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">46,000</dd>
-        </div>
-      </dl>
-    </div>
-  </div> -->
-
-  <!-- <div class="flex flex-col flex-wrap gap-6 mx-auto md:flex-row max-w-1620">
-    <div
-      v-for="{ image, title, subtitle, description, buttonText, backgroundColor, titleClass, subtitleClass } in displayDetails"
-      :key="title"
-      :class="['relative flex md:max-w-[1536px] md:[&:not(:first-of-type)]:flex-1 md:first-of-type:w-full', backgroundColor]"
-    >
-      <div :class="['flex justify-between overflow-hidden grow']">
-        <div class="flex flex-col items-start justify-center p-6 lg:p-10 max-w-1/2">
-          <p :class="['uppercase typography-text-xs block font-bold tracking-widest', subtitleClass]">
-            {{ subtitle }}
-          </p>
-          <h2 :class="['mb-4 mt-2 font-bold typography-display-3', titleClass]">
-            {{ title }}
-          </h2>
-          <p class="block mb-4 typography-text-base">
-            {{ description }}
-          </p>
-          <SfButton class="!bg-black">{{ buttonText }}</SfButton>
-        </div>
-        <img :src="image" :alt="title" class="self-end object-contain w-1/2" />
-      </div>
-    </div>
-  </div> -->
-  <!-- max-w-1620 -->
   <CarouselPosters></CarouselPosters>
 
   <div class="mx-auto max-w-1620 my-10 md:my-[5rem]">
     <div class="px-4 md:px-0 grid grid-cols-1 gap-x-[75px] gap-y-10 lg:grid-cols-3">
-      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8">
+      <div class="flex flex-col md:flex-row items-center border border-gray-100 rounded-[20px] gap-y-4 py-7 md:py-10 md:pl-14 md:pr-8">
         <img class="flex-none w-[57px] h-[45px]" src="../../assets/images/home/icon-delivery.svg" alt="" />
-        <div class="flex-auto min-w-0 pl-[1.875rem]">
+        <div class="flex-auto px-4 min-w-0 md:pl-[1.875rem] text-center md:text-left">
           <div class="text-lg font-bold text-primary-700">Free Shipping Worldwide</div>
-          <div class="mt-5 ml-1 text-base text-bold-900">Our products are free in delivery after shopping on $999</div>
+          <div class="mt-5 ml-1 text-sm md:text-base text-bold-900">Our products are free in delivery after shopping on $999</div>
         </div>
       </div>
-      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8">
+      <div class="flex flex-col md:flex-row items-center border border-gray-100 rounded-[20px] gap-y-4 py-7 md:py-10 md:pl-14 md:pr-8">
         <img class="flex-none w-12 h-12" src="../../assets/images/home/icon-gifts.svg" alt="" />
         <!-- <img class="flex-none w-12 h-12 bg-gray-50" src="../../assets/images/home/icon-gifts.svg" alt="" /> -->
-        <div class="flex-auto min-w-0 pl-9">
+        <div class="flex-auto min-w-0 px-4 text-center md:pl-9 md:text-left">
           <div class="text-lg font-bold text-primary-700">Weekly Gifts Members</div>
-          <div class="mt-5 ml-1 text-base text-bold-900">We are your one-stop shop for nationwide online store.</div>
+          <div class="mt-5 ml-1 text-sm md:text-base text-bold-900">We are your one-stop shop for nationwide online store.</div>
         </div>
       </div>
 
-      <div class="flex items-center border border-gray-100 rounded-[20px] gap-y-4 py-10 pl-14 pr-8">
+      <div class="flex flex-col md:flex-row items-center border border-gray-100 rounded-[20px] gap-y-4 py-7 md:py-10 md:pl-14 md:pr-8">
         <img class="flex-none w-[2.75rem] h-[2.75rem]" src="../../assets/images/home/icon-money-back.svg" alt="" />
-        <div class="flex-auto min-w-0 pl-[2.625rem]">
-          <div class="text-lg font-bold text-primary-700">Weekly Gifts Members</div>
-          <div class="mt-5 ml-1 text-base text-bold-900">We are your one-stop shop for nationwide online store.</div>
+        <div class="flex-auto text-center px-4 md:text-left min-w-0 md:pl-[2.625rem]">
+          <div class="text-lg font-bold text-primary-700">Money Back Guarantee</div>
+          <div class="mt-5 ml-1 text-sm md:text-base text-bold-900">Start saving straight away with discount offer on items.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- <CarouselProducts></CarouselProducts> -->
+  <CarouselProducts></CarouselProducts>
 
-  <div class="mx-auto max-w-1620 mb-[5rem]">
-    <h2 class="font-bold text-black mb-[7.5rem] text-48">Featured products</h2>
-    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 product-list">
+  <div class="mx-auto max-w-1620 my-10 md:mb-[5rem]">
+    <h2 class="font-bold text-center md:text-left text-black mb-10 md:mb-[7.5rem] text-2xl md:text-48">Featured products</h2>
+    <div class="grid grid-cols-1 px-4 md:px-0 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 product-list md:px0">
       <div v-for="i in 4" :key="i" href="#" class="group rounded-[1.25rem] text-center">
         <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
           <img
@@ -109,20 +65,20 @@
   </div>
 
   <div class="mx-auto max-w-1620">
-    <h2 class="font-bold text-black mb-[7.5rem] text-48">Must-have Products</h2>
-    <div class="grid grid-cols-1 gap-x-[30px] gap-y-[30px] gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <h2 class="font-bold text-center md:text-left text-black mb-10 md:mb-[7.5rem] text-2xl md:text-48">Must-have Products</h2>
+    <div class="grid grid-cols-1 px-4 pb-10 md:px-0 gap-x-[30px] gap-y-10 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <!-- First item -->
       <div class="relative overflow-hidden group" v-for="i in 6" :key="i">
         <img
           src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
           alt="Automatic Feeders"
-          class="object-cover w-full h-full rounded-lg group-hover:scale-125"
+          class="object-cover w-full h-full rounded-20 md:rounded-lg group-hover:scale-125"
         />
         <div
-          class="absolute bottom-0 left-0 flex items-center justify-center w-full h-full p-4 text-white transition bg-gray-900 bg-opacity-50 rounded-lg opacity-100"
+          class="absolute bottom-0 left-0 flex items-center justify-center w-full h-full p-4 text-white transition bg-gray-900 bg-opacity-50 opacity-100 rounded-20 md:rounded-lg"
         >
           <!-- opacity-0  group-hover:opacity-100-->
-          <span class="font-bold text-32">Automatic Feeders</span>
+          <span class="text-xl font-bold md:text-32">Automatic Feeders</span>
         </div>
       </div>
     </div>
@@ -145,3 +101,12 @@ const handleClick = () => {
   router.push({ path: `/product/${slug}` });
 };
 </script>
+
+<style>
+.product-list .group {
+  padding: 25px 25px 33px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+}
+</style>

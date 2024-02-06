@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto mb-7 max-w-1620">
     <div class="mt-[3.75rem] mb-[7.5rem] mx-auto gap-x-[109px] gap-y-16 lg:flex" style="grid-template-columns: 800px 710px">
-      <div class="relative flex flex-col w-[800px] max-h-[1180px]">
+      <div class="relative flex flex-col md:w-[800px] md:max-h-[1180px]">
         <SfScrollable
           class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           :active-index="activeIndex"
@@ -15,7 +15,7 @@
           <div
             v-for="(imageSrc, index) in goods?.sliderPicUrls"
             :key="`alt-${index}`"
-            class="flex justify-center h-[800px] basis-full shrink-0 grow snap-center"
+            class="flex justify-center md:h-[800px] basis-full shrink-0 grow snap-center"
           >
             <img
               :aria-label="goods?.name"
@@ -27,7 +27,7 @@
         </SfScrollable>
         <SfScrollable
           ref="thumbsRef"
-          class="items-center w-full mt-[1.875rem] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          class="hidden md:flex items-center w-full mt-[1.875rem] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           direction="horizontal"
           :active-index="activeIndex"
           :previous-disabled="activeIndex === 0"
@@ -75,7 +75,7 @@
           </template>
         </SfScrollable>
       </div>
-      <ProductSpecs v-if="goods?.id" :goods="goods" :skuId="skuId" class="w-[710px]"></ProductSpecs>
+      <ProductSpecs v-if="goods?.id" :goods="goods" :skuId="skuId" class="md:w-[710px]"></ProductSpecs>
     </div>
     <div class="">
       <h3 class="mb-12 text-5xl font-bold text-black">About Products</h3>

@@ -64,7 +64,7 @@
 
 <script lang="ts" setup>
 import { ShopGoods } from "@/types";
-import { getProductCategoryList, getSpuList } from "@/api/shop";
+import { getSpuList } from "@/api/shop";
 import { useRouter } from "vue-router";
 import Pagination from "../../components/Pagination.vue";
 import { SfSelect } from "@storefront-ui/vue";
@@ -98,7 +98,7 @@ const options = [
 const handleClick = (id: number) => {
   console.log("handleClick");
   // const slug = "warm-winter-cozy-washable-dog-house";
-  router.push({ path: `/product/${id}` });
+  router.push({ path: `/product/`, query: { id } });
 };
 const queryProducts = async () => {
   // 推荐类型 recommendLeading主打 recommendEssential必备

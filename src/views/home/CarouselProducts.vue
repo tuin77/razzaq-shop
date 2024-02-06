@@ -1,22 +1,25 @@
 <template>
   <!-- v-for="{ title, price, description, buttonText, titleClass } in displayDetails"
     :key="title" -->
-  <div class="grid grid-cols-1 mt-[3.75rem] max-w-1620 my-[5rem] mb-[7.5rem] mx-auto gap-x-[109px] gap-y-16 lg:grid-cols-2">
-    <img :src="currentProduct.image" :alt="currentProduct.title" class="object-contain w-[796px] h-[732px]" />
-    <div class="relative flex flex-col">
-      <h2 :class="['mb-4 mt-[78px] text-32  font-bold text-bold-100', currentProduct.titleClass]">
+  <div class="grid grid-cols-1 my-[3.75rem] max-w-1620 md:my-[5rem] md:mb-[7.5rem] mx-auto gap-x-[109px] gap-y-16 lg:grid-cols-2">
+    <img :src="currentProduct.image" :alt="currentProduct.title" class="object-contain w-[796px] h-[732px] hidden md:block" />
+    <div class="relative flex flex-col items-center md:items-start">
+      <h2 :class="['mb-4 md:mt-[78px] text-xl md:text-32 font-bold text-bold-100', currentProduct.titleClass]">
         {{ currentProduct.title }}
       </h2>
-      <p class="mb-4 text-2xl text-black w-[30rem] mt-[40px] typography-text-base">
+      <p class="md:mb-4 text-2xl text-black md:w-[30rem] md:mt-[40px] typography-text-base">
         {{ currentProduct.price }}
       </p>
-      <p class="mb-4 text-lg text-gray-200 max-w-[40rem] mt-[40px] whitespace-pre-line">
+      <p class="m-4 md:ml-0 text-xs md:text-lg text-gray-200 md:max-w-[40rem] md:mt-[40px] whitespace-pre-line">
         {{ currentProduct.description }}
       </p>
-      <SfButton class="!text-2xl !font-normal py-[9px] !px-[62px] bg-primary-950 !rounded-100 mt-[54px] ml-0 mr-auto" @click="handleClick">{{
+      <div class="px-4 mb-5 md:hidden">
+        <img :src="currentProduct.image" :alt="currentProduct.title" class="object-contain w-full rounded-20" />
+      </div>
+      <SfButton class="!text-2xl mx-auto !font-normal py-[9px] !px-[62px] bg-primary-950 !rounded-100 md:mt-[54px] md:ml-0" @click="handleClick">{{
         currentProduct.buttonText
       }}</SfButton>
-      <div class="flex justify-between mt-[85px]">
+      <div class="flex justify-between mt-5 md:mt-[85px]">
         <div class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <button
             v-for="(_item, index) in displayDetails"
@@ -24,7 +27,7 @@
             type="button"
             :aria-current="activeIndex === index"
             :class="[
-              'w-3.5 h-3.5 relative mt-1 mr-8 rounded-full transition-colors focus-visible:outline focus-visible:outline-offset-0 ',
+              'w-3.5 h-3.5 relative mt-1 mr-8 rounded-full transition-colors focus-visible:outline focus-visible:outline-offset-0 last:mr-0',
               activeIndex === index ? 'bg-primary-700' : 'bg-gray-200',
             ]"
             @keydown.right.prevent="activeArrowNavigation($event, index)"
@@ -34,7 +37,7 @@
             @click="activeIndex = index"
           ></button>
         </div>
-        <div class="flex">
+        <div class="flex hidden">
           <SfButton
             class="w-[60px] h-[60px] group-hover/scrollable:block !rounded-full !p-3 z-10 top-1/2 left-4 bg-white"
             variant="secondary"

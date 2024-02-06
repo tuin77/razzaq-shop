@@ -59,7 +59,7 @@ const useMemberStore = defineStore({
       saveStorageAccessInfo(accessInfo);
     },
     // 用户名密码登录
-    async login(data: { account: string; password: string }) {
+    async login(data: any) {
       console.log(data);
       // 发送请求
       const res = await login(data);

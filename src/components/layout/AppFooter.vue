@@ -1,16 +1,18 @@
 <template>
   <footer class="relative text-gray-800 bg-neutral-100">
     <div class="px-4 mx-auto lg:px-6 xxl:px-0 md:py-14 max-w-1620 md:flex md:justify-between">
-      <div class="mb-6 md:mb-0">
-        <img src="../.././assets/images/logo.svg" alt="" class="w-[100px] h-[21px] md:w-154 md:h-33" />
-        <p class="mt-8 text-base text-gray-400 max-w-[30rem]">Join our newsletter to get the latest PetBoutique updates and surprise discounts!</p>
-        <div class="pt-10 text-lg md:grid md:grid-cols-2 text-bold-100">
-          <a href="#" class="mb-4 hover:underline hover:text-primary-700">About Us</a>
-          <a href="#" class="mb-4 hover:underline hover:text-primary-700">Terms of Service</a>
-          <a href="#" class="mb-4 hover:underline hover:text-primary-700">Contact Us</a>
-          <a href="#" class="mb-4 hover:underline hover:text-primary-700">Privacy Policy</a>
-          <a href="#" class="col-span-2 mb-4 hover:underline hover:text-primary-700">Refunds</a>
-          <a href="#" class="col-span-2 hover:underline hover:text-primary-700">Shipping Info</a>
+      <div class="p-10 md:mb-0">
+        <img src="../.././assets/images/logo.svg" alt="" class="w-[100px] h-[21px] md:w-154 md:h-33 mx-auto" />
+        <p class="mt-5 text-center text-xs md:text-base text-gray-400 max-w-[30rem]">
+          Join our newsletter to get the latest PetBoutique updates and surprise discounts!
+        </p>
+        <div class="pt-10 text-center md:text-lg md:grid md:grid-cols-2 text-bold-100">
+          <a href="#" class="block mb-7 hover:underline hover:text-primary-700">About Us</a>
+          <a href="#" class="block mb-7 hover:underline hover:text-primary-700">Terms of Service</a>
+          <a href="#" class="block mb-7 hover:underline hover:text-primary-700">Contact Us</a>
+          <a href="#" class="block mb-7 hover:underline hover:text-primary-700">Privacy Policy</a>
+          <a href="#" class="block col-span-2 mb-7 hover:underline hover:text-primary-700">Refunds</a>
+          <a href="#" class="block col-span-2 mb-10 hover:underline hover:text-primary-700">Shipping Info</a>
         </div>
       </div>
       <div class="flex-1 pt-3">

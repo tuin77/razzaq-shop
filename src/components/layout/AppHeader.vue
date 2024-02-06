@@ -1,10 +1,11 @@
 <template>
   <header ref="referenceRef">
-    <nav :class="['relative bg-white px-4 lg:px-6 z-30']" ref="floatingRef">
+    <nav :class="['relative bg-white pl-4 lg:px-6 z-30']" ref="floatingRef">
       <div class="flex flex-wrap items-center justify-between mx-auto max-w-1620">
-        <a href="" class="flex items-center">
-          <img src="../../assets/images/logo.svg" class="w-20 h-4 md:w-[9.625rem] md:h-[2.125rem]" alt="Flowbite Logo" />
-        </a>
+        <RouterLink :to="{ name: 'home' }">
+          <img src="../../assets/images/logo.svg" class="w-20 h-4 md:w-[9.625rem] md:h-[2.125rem]" alt="Flowbite Logo"
+        /></RouterLink>
+        <!-- </a> -->
         <div class="flex items-center lg:order-2">
           <RouterLink to="/login" v-if="!member.isLogin">
             <span href="#" class="hidden md:visible text-2xl font-light text-black px-4 lg:px-5 py-2 lg:py-2.5 mr-2"> Sign in </span></RouterLink

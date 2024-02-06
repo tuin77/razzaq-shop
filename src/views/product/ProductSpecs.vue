@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <section aria-labelledby="information-heading " class="sm:pr-12">
-      <h2 class="text-[2rem] text-bold-100">{{ goods?.name }}</h2>
-      <p v-if="goods.price" class="text-[2rem] font-bold-100 font-bold mt-4">
+  <div class="p-4 md:p-0">
+    <section aria-labelledby="information-heading " class="">
+      <h2 class="text-xl md:text-32 text-bold-100">{{ goods?.name }}</h2>
+      <p v-if="goods.price" class="flex mt-4">
         <!-- {{ getPriceRange(goods.price, goods.price_range.max_amount) }} -->
-        ${{ goods.price }}
+        <span class="text-2xl font-bold md:text-32 font-bold-100"> ${{ goods.price }}</span>
+        <SfButton variant="tertiary" size="sm" square class="md:hidden ml-auto !p-0 !text-bold-100 !bg-transparent" aria-label="Add to wishlist">
+          <SfIconFavorite size="sm" color="#999999" />
+        </SfButton>
       </p>
       <p class="text-lg text-gray-500 mt-7">{{ goods?.introduction }}</p>
     </section>
@@ -31,7 +34,7 @@
                 <img class="rounded-[1.25rem]" width="150" height="150" :src="spec_value.picture || ''" />
               </button>
             </span>
-            <div v-else class="grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
+            <div v-else class="hidden grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
               <label
                 v-for="(spec_value, index) in item.valueNames"
                 :key="`${index}-thumbnail`"
@@ -55,6 +58,11 @@
                 </span>
               </label>
             </div>
+            <SfSelect size="sm" placeholder="-- Select --" @update:modelValue="(spec_value: any) => clickSpecs(item, spec_value)">
+              <option v-for="spec_value in item.valueNames" :key="spec_value.name" :value="spec_value.name" :disabled="spec_value.disabled">
+                {{ spec_value.name }}
+              </option>
+            </SfSelect>
           </fieldset>
         </div>
       </template>
@@ -137,16 +145,16 @@ import getPowerSet from "./power-set";
 import { ref } from "vue";
 
 import { useCounter } from "@vueuse/core";
-import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite } from "@storefront-ui/vue";
+import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite, SfSelect } from "@storefront-ui/vue";
 import type { PropType } from "vue";
 import type { SKU, ShopGoods, PropertyVo, PropertyValue } from "@/types/shop";
 import type { CartItem } from "@/types";
 // import { getPriceRange } from "@/utils/index";
 import { clamp } from "@storefront-ui/shared";
 // const router = useRouter();
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 // 从路由中获取商品 id
-const { params } = useRoute();
+// const { params } = useRoute();
 const min = ref(1);
 const max = ref(10);
 const inputId = useId();
@@ -158,7 +166,7 @@ function handleOnChange(event: Event) {
   const currentValue = (event.target as HTMLInputElement)?.value;
   const nextValue = parseFloat(currentValue);
   set(clamp(nextValue, min.value, max.value));
-  emit("add", count.value);
+  // emit("add", count.value);
 }
 // const firstThumbRef = ref<HTMLButtonElement>();
 // const lastThumbRef = ref<HTMLButtonElement>();
@@ -299,6 +307,9 @@ if (props.skuId) {
 }
 // 用户点击选择规格 - 模拟下次点击
 const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
+  console.log("item", item);
+  console.log("val", val);
+
   if (val.disabled) return false;
   // 选中与取消选中逻辑
   if (val.selected) {
