@@ -78,9 +78,9 @@
       <ProductSpecs v-if="goods?.id" :goods="goods" :skuId="skuId" class="md:w-[710px]"></ProductSpecs>
     </div>
     <div class="">
-      <h3 class="mb-12 text-5xl font-bold text-black">About Products</h3>
+      <h3 class="mb-12 text-2xl font-bold text-center text-black md:text-5xl md:text-left">About Products</h3>
 
-      <div class="grid grid-cols-1 mb-36 mx-auto gap-x-[20px] gap-y-36 lg:grid-cols-2">
+      <div class="grid grid-cols-1 mb-36 mx-auto gap-x-[20px] gap-y-36 lg:grid-cols-2 px-4 md:px-0">
         <div class="flex pr-[23px]">
           <p class="m-auto text-lg leading-10 text-black">
             Introducing the original DeepSleep Calming Bed™ - one of the highest quality pet beds ever produced. Crafted with premium nylon fabric
@@ -103,7 +103,10 @@
       </div>
     </div>
     <div>
-      <h3 class="text-5xl font-bold text-black mb-[80px]">Products you might like..</h3>
+      <h3 class="text-2xl text-center md:text-left md:text-5xl font-bold text-black mb-[80px]">
+        Products you might <br />
+        like..
+      </h3>
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 product-list">
         <div v-for="i in 4" :key="i" href="#" class="group rounded-[1.25rem]">
           <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">

@@ -59,19 +59,23 @@
                   </span>
                 </label>
               </div>
-              <!-- <SfSelect class="md:hidden" size="sm" placeholder="-- Select --" @update:modelValue="(spec_value: any) => clickSpecs(item, spec_value)">
+              <SfSelect
+                wrapperClassName="md:hidden"
+                size="sm"
+                placeholder="-- Select --"
+                :modelValue="getSelectSpec(item)"
+                @update:modelValue="(spec_value: any) => handleSelectSpecs(item, spec_value)"
+              >
                 <option v-for="spec_value in item.valueNames" :key="spec_value.name" :value="spec_value.name" :disabled="spec_value.disabled">
                   {{ spec_value.name }}
                 </option>
-              </SfSelect> -->
+              </SfSelect>
             </template>
           </fieldset>
         </div>
       </template>
-
-      <!-- Sizes -->
       <!-- Quantity -->
-      <!-- <div class="mt-7">
+      <div class="mt-7">
         <div class="flex items-center justify-between">
           <h4 class="text-sm font-medium text-gray-900">Quantity：</h4>
         </div>
@@ -83,7 +87,7 @@
                 :id="inputId"
                 v-model="count"
                 type="number"
-                class="flex-1 w-12 px-6 mr-2.5 text-lg py-4 text-gray-900 bg-transparent border rounded-100 appearance-none disabled:placeholder-disabled-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none"
+                class="flex-1 w-12 px-6 mr-2.5 text-lg md:py-4 text-gray-900 bg-transparent border rounded-100 appearance-none disabled:placeholder-disabled-900 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:display-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:display-none [&::-webkit-outer-spin-button]:m-0 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none"
                 :min="min"
                 :max="max"
                 @input="handleOnChange"
@@ -91,7 +95,7 @@
               <SfButton
                 square
                 size="lg"
-                class="!rounded-full mr-2.5"
+                class="!rounded-full mr-2.5 !p-2 md:!p-4"
                 :disabled="count <= min"
                 :aria-controls="inputId"
                 aria-label="Decrease value"
@@ -102,7 +106,7 @@
               <SfButton
                 square
                 size="lg"
-                class="!rounded-full"
+                class="!rounded-full !p-2"
                 :disabled="count >= max"
                 :aria-controls="inputId"
                 aria-label="Increase value"
@@ -113,10 +117,11 @@
             </div>
           </div>
         </fieldset>
-      </div> -->
+      </div>
+
       <button
         type="submit"
-        class="flex items-center justify-center w-full py-[18px] text-lg text-white bg-primary-700 border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        class="flex items-center justify-center w-full py-3 text-lg text-white bg-primary-700 border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         Buy it now
       </button>
@@ -144,41 +149,32 @@ defineOptions({ name: "ProductSpecs" });
 import Message from "@/components/message/index";
 import useStore from "@/stores";
 import getPowerSet from "./power-set";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 import { useCounter } from "@vueuse/core";
-import {
-  SfButton,
-  // SfIconAdd, SfIconRemove,
-  // useId,
-  SfIconFavorite,
-  // SfSelect,
-} from "@storefront-ui/vue";
+import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite, SfSelect } from "@storefront-ui/vue";
 import type { PropType } from "vue";
 import type { SKU, ShopGoods, PropertyVo, PropertyValue } from "@/types/shop";
 import type { CartItem } from "@/types";
 // import { getPriceRange } from "@/utils/index";
-// import { clamp } from "@storefront-ui/shared";
+import { clamp } from "@storefront-ui/shared";
 // const router = useRouter();
 // import { useRoute } from "vue-router";
 // 从路由中获取商品 id
 // const { params } = useRoute();
 const min = ref(1);
 const max = ref(10);
-// const inputId = useId();
-const {
-  count,
-  // inc, dec, set
-} = useCounter(1, {
+const inputId = useId();
+const { count, inc, dec, set } = useCounter(1, {
   min: min.value,
   max: max.value,
 });
-// function handleOnChange(event: Event) {
-//   const currentValue = (event.target as HTMLInputElement)?.value;
-//   const nextValue = parseFloat(currentValue);
-//   set(clamp(nextValue, min.value, max.value));
-//   // emit("add", count.value);
-// }
+function handleOnChange(event: Event) {
+  const currentValue = (event.target as HTMLInputElement)?.value;
+  const nextValue = parseFloat(currentValue);
+  set(clamp(nextValue, min.value, max.value));
+  // emit("add", count.value);
+}
 // const firstThumbRef = ref<HTMLButtonElement>();
 // const lastThumbRef = ref<HTMLButtonElement>();
 
@@ -316,6 +312,15 @@ if (props.skuId) {
   initSelectedStatus(props.goods, String(props.skuId));
   if (cartItem.value) cartItem.value.skuId = props.skuId;
 }
+
+const getSelectSpec = computed(() => (item: PropertyVo) => item.valueNames.find((item) => item.selected)?.name || "");
+const handleSelectSpecs = (item: PropertyVo, spec_value: string) => {
+  console.log("item", item);
+  const valueNames = item.valueNames;
+  console.log("valueNames", valueNames);
+  const val: PropertyValue = valueNames.find((val: PropertyValue) => val.name === spec_value) as PropertyValue;
+  clickSpecs(item, val);
+};
 // 用户点击选择规格 - 模拟下次点击
 const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
   console.log("item", item);
