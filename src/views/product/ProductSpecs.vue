@@ -34,42 +34,44 @@
                 <img class="rounded-[1.25rem]" width="150" height="150" :src="spec_value.picture || ''" />
               </button>
             </span>
-            <div v-else class="hidden grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
-              <label
-                v-for="(spec_value, index) in item.valueNames"
-                :key="`${index}-thumbnail`"
-                :class="[
-                  'relative flex items-center justify-center px-4 py-3 text-sm  border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1',
-                  spec_value.selected ? 'border-primary-700 ' : '',
-                  spec_value.disabled ? '!cursor-not-allowed !border-gray-200' : '',
-                ]"
-              >
-                <input name="size-choice" :value="spec_value.name" class="sr-only" @click="clickSpecs(item, spec_value)" />
-                <span>{{ spec_value.name }}</span>
-                <span v-show="spec_value.disabled" class="absolute mx-4 pointer-events-none -inset-px">
-                  <svg
-                    class="absolute inset-0 w-full h-full text-gray-200 stroke-2"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                    stroke="currentColor"
-                  >
-                    <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                  </svg>
-                </span>
-              </label>
-            </div>
-            <SfSelect size="sm" placeholder="-- Select --" @update:modelValue="(spec_value: any) => clickSpecs(item, spec_value)">
-              <option v-for="spec_value in item.valueNames" :key="spec_value.name" :value="spec_value.name" :disabled="spec_value.disabled">
-                {{ spec_value.name }}
-              </option>
-            </SfSelect>
+            <template v-else>
+              <div class="hidden md:grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
+                <label
+                  v-for="(spec_value, index) in item.valueNames"
+                  :key="`${index}-thumbnail`"
+                  :class="[
+                    'relative flex items-center justify-center px-4 py-3 text-sm  border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1',
+                    spec_value.selected ? 'border-primary-700 ' : '',
+                    spec_value.disabled ? '!cursor-not-allowed !border-gray-200' : '',
+                  ]"
+                >
+                  <input name="size-choice" :value="spec_value.name" class="sr-only" @click="clickSpecs(item, spec_value)" />
+                  <span>{{ spec_value.name }}</span>
+                  <span v-show="spec_value.disabled" class="absolute mx-4 pointer-events-none -inset-px">
+                    <svg
+                      class="absolute inset-0 w-full h-full text-gray-200 stroke-2"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                      stroke="currentColor"
+                    >
+                      <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                    </svg>
+                  </span>
+                </label>
+              </div>
+              <!-- <SfSelect class="md:hidden" size="sm" placeholder="-- Select --" @update:modelValue="(spec_value: any) => clickSpecs(item, spec_value)">
+                <option v-for="spec_value in item.valueNames" :key="spec_value.name" :value="spec_value.name" :disabled="spec_value.disabled">
+                  {{ spec_value.name }}
+                </option>
+              </SfSelect> -->
+            </template>
           </fieldset>
         </div>
       </template>
 
       <!-- Sizes -->
       <!-- Quantity -->
-      <div class="mt-7">
+      <!-- <div class="mt-7">
         <div class="flex items-center justify-between">
           <h4 class="text-sm font-medium text-gray-900">Quantity：</h4>
         </div>
@@ -111,7 +113,7 @@
             </div>
           </div>
         </fieldset>
-      </div>
+      </div> -->
       <button
         type="submit"
         class="flex items-center justify-center w-full py-[18px] text-lg text-white bg-primary-700 border border-transparent rounded-[100px] mt-7 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -145,29 +147,38 @@ import getPowerSet from "./power-set";
 import { ref } from "vue";
 
 import { useCounter } from "@vueuse/core";
-import { SfButton, SfIconAdd, SfIconRemove, useId, SfIconFavorite, SfSelect } from "@storefront-ui/vue";
+import {
+  SfButton,
+  // SfIconAdd, SfIconRemove,
+  // useId,
+  SfIconFavorite,
+  // SfSelect,
+} from "@storefront-ui/vue";
 import type { PropType } from "vue";
 import type { SKU, ShopGoods, PropertyVo, PropertyValue } from "@/types/shop";
 import type { CartItem } from "@/types";
 // import { getPriceRange } from "@/utils/index";
-import { clamp } from "@storefront-ui/shared";
+// import { clamp } from "@storefront-ui/shared";
 // const router = useRouter();
 // import { useRoute } from "vue-router";
 // 从路由中获取商品 id
 // const { params } = useRoute();
 const min = ref(1);
 const max = ref(10);
-const inputId = useId();
-const { count, inc, dec, set } = useCounter(1, {
+// const inputId = useId();
+const {
+  count,
+  // inc, dec, set
+} = useCounter(1, {
   min: min.value,
   max: max.value,
 });
-function handleOnChange(event: Event) {
-  const currentValue = (event.target as HTMLInputElement)?.value;
-  const nextValue = parseFloat(currentValue);
-  set(clamp(nextValue, min.value, max.value));
-  // emit("add", count.value);
-}
+// function handleOnChange(event: Event) {
+//   const currentValue = (event.target as HTMLInputElement)?.value;
+//   const nextValue = parseFloat(currentValue);
+//   set(clamp(nextValue, min.value, max.value));
+//   // emit("add", count.value);
+// }
 // const firstThumbRef = ref<HTMLButtonElement>();
 // const lastThumbRef = ref<HTMLButtonElement>();
 

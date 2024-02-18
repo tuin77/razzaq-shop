@@ -2,27 +2,25 @@
   <header ref="referenceRef">
     <nav class="relative z-30 px-4 bg-white border border-gray-100 border-solid lg:px-6" ref="floatingRef">
       <div class="flex flex-wrap items-center justify-between mx-auto max-w-1620">
-        <a href="" class="flex items-center">
-          <img src="../../assets/images/logo.svg" class="w-[9.625rem] h-[2.125rem] sm:h-9" alt="Flowbite Logo" />
-        </a>
+        <RouterLink :to="{ name: 'home' }">
+          <img src="../../assets/images/logo.svg" class="w-20 h-4 md:w-[9.625rem] md:h-[2.125rem]" alt="Flowbite Logo" />
+        </RouterLink>
         <div class="flex items-center lg:order-2">
           <LangSelect></LangSelect>
         </div>
-        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-          <nav ref="floatingRef">
-            <ul class="hidden px-6 text-2xl font-light text-black bg-white md:flex">
-              <li v-for="menuNode in menus" :key="menuNode.key" class="relative flex items-center justify-center mx-4 py-34px">
-                <SfRadio
-                  :modelValue="radioGroupModelValue"
-                  :value="menuNode.key"
-                  :name="menuNode.key"
-                  @click.prevent
-                  class="!cursor-default hover:border-neutral-500"
-                />
-                <span class="pl-2 text-xl font-light text-bold-100"> {{ $t(`nav.${menuNode.label}`) }}</span>
-              </li>
-            </ul>
-          </nav>
+        <div class="justify-center flex-1 lg:flex lg:w-auto lg:order-1">
+          <ul class="flex justify-between md:w-[644px] px-2 text-2xl font-light text-black bg-white md:px-6 md:flex">
+            <li v-for="menuNode in menus" :key="menuNode.key" class="relative flex items-center justify-center md:mx-4 py-34px">
+              <SfRadio
+                :modelValue="radioGroupModelValue"
+                :value="menuNode.key"
+                :name="menuNode.key"
+                @click.prevent
+                class="!cursor-default !w-4 !h-4 hover:border-neutral-500"
+              />
+              <span class="pl-1 text-sm font-light md:pl-2 md:text-xl text-bold-100"> {{ $t(`nav.${menuNode.label}`) }}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

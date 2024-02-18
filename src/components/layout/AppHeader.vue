@@ -3,13 +3,12 @@
     <nav :class="['relative bg-white pl-4 lg:px-6 z-30']" ref="floatingRef">
       <div class="flex flex-wrap items-center justify-between mx-auto max-w-1620">
         <RouterLink :to="{ name: 'home' }">
-          <img src="../../assets/images/logo.svg" class="w-20 h-4 md:w-[9.625rem] md:h-[2.125rem]" alt="Flowbite Logo"
-        /></RouterLink>
-        <!-- </a> -->
+          <img src="../../assets/images/logo.svg" class="w-20 h-4 md:w-[9.625rem] md:h-[2.125rem]" alt="Flowbite Logo" />
+        </RouterLink>
         <div class="flex items-center lg:order-2">
           <RouterLink to="/login" v-if="!member.isLogin">
-            <span href="#" class="hidden md:visible text-2xl font-light text-black px-4 lg:px-5 py-2 lg:py-2.5 mr-2"> Sign in </span></RouterLink
-          >
+            <span href="#" class="hidden md:block text-2xl font-light text-black px-4 lg:px-5 py-2 lg:py-2.5 mr-2"> Sign in </span>
+          </RouterLink>
           <LangSelect></LangSelect>
 
           <RightDrawer></RightDrawer>
@@ -64,28 +63,26 @@
             </ul>
           </nav>
           <div
-            v-if="isOpen && activeNode === 'shop'"
             key="Shop"
+            v-if="isOpen && activeNode === 'shop'"
             ref="megaMenuRef"
             :style="style"
-            class="left-0 right-0 hidden grid-cols-3 p-6 bg-white shadow-lg outline-none md:grid gap-x-6"
+            class="left-0 right-0 hidden bg-white border-t border-gray-100 shadow-lg outline-none md:block"
             tabindex="0"
             @mouseleave="close()"
             @keydown.esc="focusTrigger(1)"
           >
-            <ul v-for="node in home.categoryList" :key="node.id" class="mt-2 border-l-[1px] border-gray-100 first:border-none">
-              <li v-for="item in node.children" :key="item.id">
-                <div class="flex flex-row items-center justify-center">
-                  <a
-                    href=""
-                    target="_self"
-                    class="text-black typography-text-base md:typography-text-sm py-4 md:py-1.5 hover:underline group-hover:text-500"
+            <div class="grid grid-cols-3 px-6 pt-[78px] mx-auto pb-[108px] max-w-1620">
+              <ul v-for="node in home.categoryList" :key="node.id" class="mt-2 border-l-[1px] border-gray-100 first:border-none">
+                <li v-for="item in node.children" :key="item.id" class="flex items-center justify-center pb-34px last:pb-0">
+                  <span
+                    class="text-lg cursor-pointer text-bold-100 hover:underline hover:font-bold hover:decoration-primary-700"
                     @click="toPageShop(item)"
                     >{{ item.name }}
-                  </a>
-                </div>
-              </li>
-            </ul>
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
           <div
             v-if="isOpen && activeNode === 'search'"
@@ -128,7 +125,7 @@
                     :key="value.label"
                     class="text-lg mb-34px hover:underline hover:decoration-primary-700 group-hover:font-bold"
                   >
-                    {{ $t(`nav.${value.label}`) }}
+                    {{ `${value.label}` }}
                   </li>
                 </template>
               </ul>
@@ -362,7 +359,7 @@ const categoriesContent = [
 ];
 
 home.getAllCategory();
-home.getHomeBannerList();
+// home.getHomeBannerList();
 const toPageShop = (item: Category) => {
   router.push({ name: `shop`, query: { id: item.id, category: item.name } });
 };

@@ -1,7 +1,8 @@
 <template>
-  <div class="items-start justify-between px-4 mx-auto mb-10 border-t border-gray-100 table-fixed md:px-0 md:mt-20 md:flex md:mb-36 max-w-1620">
-    <table class="">
-      <thead class="hidden md:table-header-group;">
+  <hr class="border-gray-100" />
+  <div class="items-start justify-between px-4 mx-auto mb-10 table-fixed md:px-0 md:mt-20 md:flex md:mb-36 max-w-1620">
+    <table>
+      <thead class="hidden border-b border-gray-100 md:table-header-group">
         <tr class="border-b border-gray-100">
           <th class="font-normal text-left pb-7">PRODUCT</th>
           <th class="font-normal text-left pb-7">PRICE</th>
@@ -14,8 +15,8 @@
           <td class="md:pr-[47px] md:py-10 pb-10 pt-7.5">
             <div class="flex md:items-center">
               <SfIconClose
-                class="w-4 h-4 mt-10 mr-3 text-gray-200 md:mt-0 md:mr-30"
-                @click="cart.deleteCart({ skuId: item.skuId, id: item.id })"
+                class="w-4 h-4 mt-10 mr-3 text-gray-200 cursor-pointer md:mt-0 md:mr-30"
+                @click="cart.deleteCart({ skuId: item.skuId, cartId: item.cartId })"
               ></SfIconClose>
               <img
                 :src="item.picture"
@@ -29,8 +30,6 @@
                   {{ item.name }}
                   <br />
                   {{ item.attrsText }}
-                  <br />
-                  wishlist:Default wishlist
                 </p>
                 <div class="flex mt-4 md:hidden">
                   <span class="text-gray-666">PRICE：</span> <span class="flex-1 text-right text-blod-100">${{ item.price }}</span>
@@ -67,7 +66,7 @@
                   <span class="text-gray-666">SUBTOTAL：</span>
                   <span class="flex-1 text-right text-blod-100">${{ (item.count * Number(item.price)).toFixed(2) }}</span>
                 </div>
-                <div class="mt-4 mb-5 mb-10">
+                <div class="mt-4 mb-5 mb-10 md:hidden">
                   <button
                     type="button"
                     class="flex items-center justify-center py-1 text-sm text-gray-200 transition-colors duration-200 bg-white gap-x-2"
@@ -81,7 +80,13 @@
           </td>
           <td class="pr-[83px] hidden md:table-cell">${{ item.price }}</td>
           <td class="hidden md:table-cell">
-            <input v-model="item.count" type="number" min="0" class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-bold-100" />
+            <input
+              v-model="item.count"
+              type="number"
+              min="1"
+              class="w-[150px] h-[60px] border border-gray-100 rounded-100 px-30 text-bold-100"
+              @input="cart.updateCart(item)"
+            />
           </td>
           <td class="text-right pl-[70px] hidden md:table-cell">
             <div class="text-lg text-bold-100">${{ (item.count * Number(item.price)).toFixed(2) }}</div>
@@ -105,7 +110,7 @@
             >
               <img
                 class="flex-shrink-0 h-3.5 text-gray-400 transition duration-75 w-7"
-                src="../../assets/images/login/icon-left-arrow.svg"
+                src="@/assets/images/login/icon-left-arrow.svg"
                 alt="Your Company"
               />
               <span class="ml-5 text-bold-100">continue shopping</span>
@@ -115,12 +120,14 @@
             <button
               type="button"
               class="flex items-center justify-center py-1 mt-6 ml-auto text-2xl text-gray-200 transition-colors duration-200 bg-white sm:w-auto"
+              @click="refreshCart"
             >
               <img
-                class="flex-shrink-0 w-[22px] h-[22px] text-gray-400 transition duration-75"
-                src="../../assets/images/shop/icon-loading.svg"
+                :class="['flex-shrink-0 w-[22px] h-[22px] text-gray-400 transition duration-75', refreshBtnClass]"
+                src="@/assets/images/shop/icon-loading.svg"
                 alt="Your Company"
               />
+              <!-- animate-spin-slow -->
               <span class="ml-5 text-bold-100">refresh package</span>
             </button>
           </td>
@@ -133,7 +140,7 @@
 
       <div class="flex text-lg mt-[26px]">
         <span class="text-gray-666">Subtotal</span>
-        <span class="flex-1 text-right text-blod-100">HK${{ cart.effectiveListPrice }}</span>
+        <span class="flex-1 text-right text-blod-100">${{ cart.effectiveListPrice }}</span>
       </div>
 
       <div class="flex text-lg mt-[26px]">
@@ -174,7 +181,7 @@
       aria-labelledby="promoModalTitle"
       aria-describedby="promoModalDesc"
     >
-      <img class="w-[77px] h-[66px] mx-auto" src="../../assets/images/shop/icon-collect.svg" alt="" srcset="" />
+      <img class="w-[77px] h-[66px] mx-auto" src="@/assets/images/shop/icon-collect.svg" alt="" srcset="" />
       <p id="promoModalDesc" class="mt-6 text-lg text-center">
         “Stainless Steel Sink Dish Storage Countertop Organizer - Basic Set Silver” has been added to your cart.
       </p>
@@ -193,9 +200,9 @@ import { SfIconFavorite } from "@storefront-ui/vue";
 // https://tailwind.nodejs.cn/docs/table-layout
 // const count = ref(1);
 
-import useStore from "@/stores";
 import router from "@/router";
 
+import useStore from "@/stores";
 const { cart } = useStore();
 cart.getCartList();
 
@@ -227,4 +234,10 @@ const { count, inc, dec } = useCounter(1, { min: min.value, max: max.value });
 //   const nextValue = parseFloat(currentValue);
 //   set(clamp(nextValue, min.value, max.value));
 // }
+const refreshBtnClass = ref("");
+const refreshCart = () => {
+  refreshBtnClass.value = "animate-spin";
+  cart.getCartList();
+  setTimeout(() => (refreshBtnClass.value = ""), 800);
+};
 </script>

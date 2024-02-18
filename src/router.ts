@@ -3,7 +3,7 @@ import Index from "./views/Index.vue";
 const Home = () => import("./views/home/Index.vue");
 const Shop = () => import("./views/shop/Index.vue");
 const Contact = () => import("./views/contact/Index.vue");
-const Order = () => import("./views/order/index.vue");
+const Order = () => import("./views/Order.vue");
 const Login = () => import("./views/Login.vue");
 
 export default createRouter({
@@ -42,7 +42,7 @@ export default createRouter({
         },
         {
           path: "/cart",
-          component: () => import("./views/cart/Index.vue"),
+          component: () => import("./views/Cart.vue"),
         },
         {
           path: "/wish",

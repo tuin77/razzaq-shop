@@ -26,7 +26,7 @@
       @touchstart.prevent
     />
   </transition>
-  <SfDrawer v-model="open" placement="right" class="md:right-0 max-w-[300px] md:w-[445px] bg-white z-1000 h-[100vh] w-[445px] z-30" @wheel.prevent>
+  <SfDrawer v-model="open" placement="right" class="md:right-0 w-[300px] md:w-[445px] bg-white z-1000 h-[100vh] z-30" @wheel.prevent>
     <div class="relative flex flex-col h-full">
       <div href="" class="flex items-center justify-between py-[18px] md:py-[33px] px-5 border-b-[1px] border-gray-100">
         <img src="../../assets/images/logo.svg" class="w-20 h-4 md:w-[154px] md:h-[34px] mr-3 sm:h-9" alt="Flowbite Logo" />
@@ -42,7 +42,7 @@
           <SfIconClose class="!text-base" />
         </SfButton>
       </div>
-      <div class="flex items-center p-4">
+      <div class="flex items-center p-4 md:hidden">
         <SfInput
           wrapper-class="!ring-0 !rounded-10 flex-1 w-full !bg-neutral-100 drawer-search"
           size="lg"
@@ -56,7 +56,7 @@
         ></SfInput>
       </div>
 
-      <div class="flex justify-center px-4">
+      <div class="flex justify-center px-4 md:hidden">
         <div
           v-for="page in pages"
           :key="page"
@@ -76,7 +76,7 @@
         </div>
       </div>
       <template v-if="selectedPage === 'Menu'">
-        <SfListItem class="w-full px-[30px] py-[30px] mt-[38px]">
+        <SfListItem class="w-full px-[30px] py-[30px] mt-7">
           <template #prefix>
             <img src="../../assets/images/home/icon-nav-account.svg" class="object-contain w-[21px] h-[21px] text-blod" />
           </template>
@@ -95,13 +95,17 @@
           </template>
           <span class="text-lg font-bold text-bold-100 ml-[24px]"> shopping cart </span>
           <template #suffix>
-            <SfCounter size="sm" pill class="text-white !px-1.5 bg-red-500 ring-white"> {{ cart.effectiveListCounts }} </SfCounter></template
-          >
+            <SfCounter size="sm" pill class="text-white !px-1.5 bg-red-500 ring-white"> {{ cart.effectiveListCounts }} </SfCounter>
+          </template>
         </SfListItem>
+        <div v-if="member.isLogin" class="p-4 mt-20">
+          <span href="#" class="p-5 px-4 py-2 cursor-pointer" @click="handleSignOut"> Sign out </span>
+        </div>
         <div class="md:flex items-center md:justify-between pl-5 md:px-[30px] mt-auto mb-10 md:mb-[57px]">
-          <div class="mb-5 text-sm text-gray-200 md:text-lg">contact us</div>
-          <img src="../../assets/images/home/nav-medium-icons.png" class="w-[196px] h-[40px] cursor-pointer" alt="" srcset="" /></div
-      ></template>
+          <div class="mb-5 text-sm text-gray-200 md:mb-0 md:text-lg">contact us</div>
+          <img src="../../assets/images/home/nav-medium-icons.png" class="w-[196px] h-[40px] cursor-pointer" alt="" srcset="" />
+        </div>
+      </template>
       <template v-else-if="selectedPage === 'Category'">
         <div v-for="{ heading, items } in categoriesContent" :key="heading" class="[&:nth-child(2)]:pt-0 pt-6 md:pt-0">
           <h2 role="presentation" class="typography-text-base font-medium text-neutral-900 whitespace-nowrap p-4 md:py-1.5">
@@ -119,16 +123,6 @@
       </template>
     </div>
   </SfDrawer>
-  <!-- Mobile drawer -->
-  <!-- <div
-    v-if="open"
-    class="fixed inset-0 bg-opacity-50 bg-neutral-500"
-    @wheel.prevent
-    @mousewheel.prevent
-    @touchmove.prevent
-    @touchstart.prevent
-    @click.stop
-  /> -->
 </template>
 
 <script lang="ts" setup>
@@ -162,7 +156,7 @@ const toPageCart = () => {
 
 import useStore from "@/stores";
 
-const { cart } = useStore();
+const { cart, member } = useStore();
 cart.getCartList();
 
 const selectedPage = ref("Menu");
@@ -256,5 +250,11 @@ const categoriesContent = [
     ],
   },
 ];
+const handleSignOut = () => {
+  const accessInfo = { accessToken: "", refreshToken: "", expiresTime: "" };
+  member.setAccessInfo(accessInfo);
+  open.value = false;
+  router.push({ name: "home" });
+};
 </script>
 <style scoped></style>

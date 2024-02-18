@@ -1,5 +1,5 @@
 <template>
-  <div class="relative max-h-[980px] flex flex-col w-full">
+  <div class="relative max-h-[1013px] flex flex-col w-full">
     <SfScrollable
       class="w-full h-full snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       :active-index="activeIndex"
@@ -10,29 +10,19 @@
       @on-drag-end="onDragged"
       @on-scroll="onScroll"
     >
-      <!-- <div class="relative min-h-[600px]"> -->
       <div class="mx-auto md:flex md:justify-center md:w-full bg-neutral-100 carousel">
         <div class="text-center md:text-left md:pt-[18.3vh] md:w-full md:flex md:flex-col md:items-start md:basis-2/4 carousel-left">
-          <!-- <p class="font-bold tracking-widest uppercase typography-text-xs md:typography-text-sm text-neutral-500">Feel the music</p> -->
           <h2 class="text-32 mt-9 md:text-left md:text-48 md:w-[29rem] md:h-44 font-bold">
-            <!-- title ||  -->
             {{ "NEW ARRIVALS ‘21 Delicious Snack" }}
           </h2>
-          <p class="text-left mb-7 m-5 text-lg text-gray-200 md:h-36 md:leading-loose md:w-[30rem] typography-text-base">
-            <!-- description || -->
+          <p class="text-left mb-7 m-5 text-sm md:m-0 md:text-lg text-gray-200 md:h-36 md:leading-loose md:w-[30rem] typography-text-base">
             {{ "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad." }}
           </p>
           <SfButton
             class="!text-base py-3 px-7 mb-15 md:!text-2xl !font-bold md:py-[28px] md:!px-[52px] bg-primary-950 !rounded-100 md:mt-7 md:mt-14 ml-0 mr-auto"
             @click="toPageProduct"
-            >Buy Product</SfButton
-          >
-          <!-- <h1 class="typography-display-2 md:typography-display-1 md:leading-[67.5px] font-bold mt-2 mb-4">New Wireless Pro</h1> -->
-          <!-- <p class="typography-text-base md:typography-text-lg">Spatial audio. Adjustable ear cups. On-device controls. All-day battery.</p> -->
-          <!-- <div class="flex flex-col gap-4 mt-6 md:flex-row">
-            <SfButton size="lg"> Order now </SfButton>
-            <SfButton size="lg" variant="secondary" class="bg-white"> Show more </SfButton>
-          </div> -->
+            >Buy Product
+          </SfButton>
         </div>
         <div class="flex md:basis-2/4 md:items-stretch md:overflow-hidden carousel-img">
           <img
@@ -43,40 +33,22 @@
           <img
             src="http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/ef1d8a40903cafd7dbbf34d5727e6b82de74a119a2f7395b5789b55729b7257c.png"
             alt="Headphones"
-            class="object-cover object-left md:hidden"
+            class="object-cover object-left w-full h-auto md:hidden"
           />
         </div>
       </div>
-      <!-- </div> -->
-      <!-- home.bannerList picUrl-->
-      <!-- <div
-        v-for="{ title, titleClass, image } in displayDetails"
-        :key="title"
-        :class="['relative flex justify-center basis-full snap-center snap-always shrink-0 grow h-[980px]', 'bg-neutral-100']"
-      >
-        <div :class="['flex justify-between overflow-hidden grow']" style="padding-left: calc((100% - 1620px) / 2)">
-          <div class="flex flex-col pt-[12.25rem] max-w-1/2">
-            <h2 :class="['mb-4  text-48 w-[29rem] font-bold typography-display-3', titleClass]">
-              {{ title }}
-            </h2>
-            <p class="mb-4 text-lg text-gray-200 w-[30rem] mt-[40px] typography-text-base">
-              {{ description || "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad." }}
-            </p>
-           
-          </div>
-          <img :src="image" :alt="title" class="self-end object-contain w-1/2" />
-        </div>
-      </div> -->
     </SfScrollable>
-    <div class="absolute top-[46.3125rem]" style="left: calc((100% - 1620px) / 2)">
-      <div class="flex-row w-full ml-0.5 flex gap-0.5 mt [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <div class="absolute top-[308px] w-full md:top-[46.3125rem] carousel-left">
+      <div
+        class="flex-row justify-center md:justify-start w-full md:w-auto md:ml-0.5 flex gap-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      >
         <button
           v-for="(_item, index) in displayDetails"
           :key="`${index}-thumbnail`"
           type="button"
           :aria-current="activeIndex === index"
           :class="[
-            'w-3.5 h-3.5 relative mt-1 mr-8 rounded-full transition-colors focus-visible:outline focus-visible:outline-offset-0 ',
+            'w-3.5 h-3.5 relative mt-1 mr-8 rounded-full transition-colors focus-visible:outline focus-visible:outline-offset-0 last:mr-0',
             activeIndex === index ? 'bg-primary-700' : 'bg-gray-200',
           ]"
           @keydown.right.prevent="activeArrowNavigation($event, index)"
@@ -192,13 +164,13 @@ const toPageProduct = (item?: any) => {
 <style scoped>
 @media (min-width: 768px) {
   .carousel {
-    height: min(calc(100vh - 100px), 980px);
+    height: min(calc(100vh - 100px), 1013px);
   }
   .carousel-left {
     padding-left: max(calc(50% - 810px), 24px);
   }
   .carousel-img {
-    height: min(calc(100vh - 100px), 980px);
+    height: min(calc(100vh - 100px), 1013px);
   }
 }
 </style>

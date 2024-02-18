@@ -1,6 +1,7 @@
 // 单个购物车商品
 export interface CartItem {
   id: string;
+  cartId?: string;
   skuId: string;
   name: string;
   attrsText: string;

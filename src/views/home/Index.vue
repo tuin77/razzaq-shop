@@ -5,15 +5,14 @@
     <div class="px-4 md:px-0 grid grid-cols-1 gap-x-[75px] gap-y-10 lg:grid-cols-3">
       <div class="flex flex-col md:flex-row items-center border border-gray-100 rounded-[20px] gap-y-4 py-7 md:py-10 md:pl-14 md:pr-8">
         <img class="flex-none w-[57px] h-[45px]" src="../../assets/images/home/icon-delivery.svg" alt="" />
-        <div class="flex-auto px-4 min-w-0 md:pl-[1.875rem] text-center md:text-left">
+        <div class="flex-auto px-4 md:px-0 min-w-0 md:pl-[1.875rem] text-center md:text-left">
           <div class="text-lg font-bold text-primary-700">Free Shipping Worldwide</div>
           <div class="mt-5 ml-1 text-sm md:text-base text-bold-900">Our products are free in delivery after shopping on $999</div>
         </div>
       </div>
       <div class="flex flex-col md:flex-row items-center border border-gray-100 rounded-[20px] gap-y-4 py-7 md:py-10 md:pl-14 md:pr-8">
         <img class="flex-none w-12 h-12" src="../../assets/images/home/icon-gifts.svg" alt="" />
-        <!-- <img class="flex-none w-12 h-12 bg-gray-50" src="../../assets/images/home/icon-gifts.svg" alt="" /> -->
-        <div class="flex-auto min-w-0 px-4 text-center md:pl-9 md:text-left">
+        <div class="flex-auto min-w-0 px-4 text-center md:px-0 md:pl-9 md:text-left">
           <div class="text-lg font-bold text-primary-700">Weekly Gifts Members</div>
           <div class="mt-5 ml-1 text-sm md:text-base text-bold-900">We are your one-stop shop for nationwide online store.</div>
         </div>
@@ -21,7 +20,7 @@
 
       <div class="flex flex-col md:flex-row items-center border border-gray-100 rounded-[20px] gap-y-4 py-7 md:py-10 md:pl-14 md:pr-8">
         <img class="flex-none w-[2.75rem] h-[2.75rem]" src="../../assets/images/home/icon-money-back.svg" alt="" />
-        <div class="flex-auto text-center px-4 md:text-left min-w-0 md:pl-[2.625rem]">
+        <div class="flex-auto text-center px-4 md:px-0 md:text-left min-w-0 md:pl-[2.625rem]">
           <div class="text-lg font-bold text-primary-700">Money Back Guarantee</div>
           <div class="mt-5 ml-1 text-sm md:text-base text-bold-900">Start saving straight away with discount offer on items.</div>
         </div>
@@ -88,8 +87,9 @@
 <script lang="ts" setup>
 import CarouselPosters from "./CarouselPosters.vue";
 import CarouselProducts from "./CarouselProducts.vue";
-//
 
+import { getBannerList } from "@/api";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 // import { reactive } from "vue";
 const router = useRouter();
@@ -100,6 +100,19 @@ const handleClick = () => {
   const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/${slug}` });
 };
+const bannerList = ref([]);
+const fetchBannerList = async () => {
+  // 1首页 2首页二层 3商品列表页 4关于我们页
+  const params = { position: 1 };
+  const res = await getBannerList(params);
+  console.log(233, res.data);
+  bannerList.value = res.data;
+  // if (res.data?.length) {
+  // this.categoryList = groupCategoriesByParentId(res.data);
+  // this.categoryList = res.data.result;
+  // }
+};
+fetchBannerList();
 </script>
 
 <style>

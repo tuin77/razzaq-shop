@@ -2,7 +2,7 @@
   <!-- v-for="{ title, price, description, buttonText, titleClass } in displayDetails"
     :key="title" -->
   <div class="grid grid-cols-1 my-[3.75rem] max-w-1620 md:my-[5rem] md:mb-[7.5rem] mx-auto gap-x-[109px] gap-y-16 lg:grid-cols-2">
-    <img :src="currentProduct.image" :alt="currentProduct.title" class="object-contain w-[796px] h-[732px] hidden md:block" />
+    <img :src="currentProduct.image" :alt="currentProduct.title" class="object-contain w-[796px] h-[732px] hidden md:block rounded-3xl" />
     <div class="relative flex flex-col items-center md:items-start">
       <h2 :class="['mb-4 md:mt-[78px] text-xl md:text-32 font-bold text-bold-100', currentProduct.titleClass]">
         {{ currentProduct.title }}
@@ -16,7 +16,7 @@
       <div class="px-4 mb-5 md:hidden">
         <img :src="currentProduct.image" :alt="currentProduct.title" class="object-contain w-full rounded-20" />
       </div>
-      <SfButton class="!text-2xl mx-auto !font-normal py-[9px] !px-[62px] bg-primary-950 !rounded-100 md:mt-[54px] md:ml-0" @click="handleClick">{{
+      <SfButton class="!text-2xl mx-auto !font-normal py-[9px] !px-[62px] bg-primary-700 !rounded-100 md:mt-[54px] md:ml-0" @click="handleClick">{{
         currentProduct.buttonText
       }}</SfButton>
       <div class="flex justify-between mt-5 md:mt-[85px]">
@@ -74,7 +74,7 @@ const displayDetails = [
   {
     image: "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
     title: "DeepSleep Calming Bed™",
-    price: "HK$585.95",
+    price: "$585.95",
     description:
       "Did You Know? 1 in 4 dogs experience anxiety on a daily basis. When left untreated, built-up stress can lead to a severe loss of appetite, destructive behavioral problems, and a shorter life span.\n The Solution? Most of the time anxiety in pets can simply be solved with a better night's rest. That's where our bed comes in. The DeepSleep Calming Bed™ blends coziness and extravagance all into one pleasurable sleeping experience for your beloved pets.",
     buttonText: "Buy",
@@ -84,7 +84,7 @@ const displayDetails = [
   {
     image: "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
     title: "DeepSleep Calming Bed™222",
-    price: "HK$585.95",
+    price: "$585.95",
     description:
       "Did You Know? 1 in 4 dogs experience anxiety on a daily basis. When left untreated, built-up stress can lead to a severe loss of appetite, destructive behavioral problems, and a shorter life span./n The Solution? Most of the time anxiety in pets can simply be solved with a better night's rest. That's where our bed comes in. The DeepSleep Calming Bed™ blends coziness and extravagance all into one pleasurable sleeping experience for your beloved pets.",
     buttonText: "Buy",

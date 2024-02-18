@@ -2,11 +2,11 @@
   <footer class="relative text-gray-800 bg-neutral-100">
     <div class="px-4 mx-auto lg:px-6 xxl:px-0 md:py-14 max-w-1620 md:flex md:justify-between">
       <div class="p-10 md:mb-0">
-        <img src="../.././assets/images/logo.svg" alt="" class="w-[100px] h-[21px] md:w-154 md:h-33 mx-auto" />
-        <p class="mt-5 text-center text-xs md:text-base text-gray-400 max-w-[30rem]">
+        <img src="../.././assets/images/logo.svg" alt="" class="w-[100px] h-[21px] md:w-[154px] md:h-[33px] mx-auto md:ml-0" />
+        <p class="mt-5 text-center md:text-left text-xs md:text-base text-gray-400 max-w-[30rem]">
           Join our newsletter to get the latest PetBoutique updates and surprise discounts!
         </p>
-        <div class="pt-10 text-center md:text-lg md:grid md:grid-cols-2 text-bold-100">
+        <div class="pt-10 text-center md:text-left md:text-lg md:grid md:grid-cols-2 text-bold-100">
           <a href="#" class="block mb-7 hover:underline hover:text-primary-700">About Us</a>
           <a href="#" class="block mb-7 hover:underline hover:text-primary-700">Terms of Service</a>
           <a href="#" class="block mb-7 hover:underline hover:text-primary-700">Contact Us</a>
