@@ -10,31 +10,26 @@
       @on-drag-end="onDragged"
       @on-scroll="onScroll"
     >
-      <div class="mx-auto md:flex md:justify-center md:w-full bg-neutral-100 carousel">
-        <div class="text-center md:text-left md:pt-[18.3vh] md:w-full md:flex md:flex-col md:items-start md:basis-2/4 carousel-left">
-          <h2 class="text-32 mt-9 md:text-left md:text-48 md:w-[29rem] md:h-44 font-bold">
-            {{ "NEW ARRIVALS ‘21 Delicious Snack" }}
-          </h2>
-          <p class="text-left mb-7 m-5 text-sm md:m-0 md:text-lg text-gray-200 md:h-36 md:leading-loose md:w-[30rem] typography-text-base">
-            {{ "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad." }}
-          </p>
-          <SfButton
-            class="!text-base py-3 px-7 mb-15 md:!text-2xl !font-bold md:py-[28px] md:!px-[52px] bg-primary-950 !rounded-100 md:mt-7 md:mt-14 ml-0 mr-auto"
-            @click="toPageProduct"
-            >Buy Product
-          </SfButton>
-        </div>
-        <div class="flex md:basis-2/4 md:items-stretch md:overflow-hidden carousel-img">
-          <img
-            src="http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/62b04c628dd4abe1ebea90b003fc6411bfb3bb21f7a089813cad6cf2541295f4.png"
-            alt="Headphones"
-            class="hidden object-cover object-left ml-auto md:block md:visible"
-          />
-          <img
-            src="http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/ef1d8a40903cafd7dbbf34d5727e6b82de74a119a2f7395b5789b55729b7257c.png"
-            alt="Headphones"
-            class="object-cover object-left w-full h-auto md:hidden"
-          />
+      <!-- -->
+      <div v-for="(item, index) in carouselImages" :key="index" class="flex justify-center h-full basis-full shrink-0 grow snap-center">
+        <div class="mx-auto md:flex md:justify-center md:w-full bg-neutral-100 carousel">
+          <div class="text-center md:text-left md:pt-[18.3vh] md:w-full md:flex md:flex-col md:items-start md:basis-2/4 carousel-left">
+            <h2 class="text-32 mt-9 md:text-left md:text-48 md:w-[29rem] md:h-44 font-bold">
+              {{ item.title }}
+            </h2>
+            <p class="text-left mb-7 m-5 text-sm md:m-0 md:text-lg text-gray-200 md:h-36 md:leading-loose md:w-[30rem] typography-text-base">
+              {{ item.description }}
+            </p>
+            <SfButton
+              class="!text-base py-3 px-7 mb-15 md:!text-2xl !font-bold md:py-[28px] md:!px-[52px] bg-primary-950 !rounded-100 md:mt-7 md:mt-14 ml-0 mr-auto"
+              @click="toPageProduct(item)"
+              >Buy Product
+            </SfButton>
+          </div>
+          <div class="flex md:basis-2/4 md:items-stretch md:overflow-hidden carousel-img">
+            <img :src="item.image" alt="Headphones" class="hidden object-cover object-left ml-auto md:block md:visible" />
+            <img :src="item.image_h5 || item.image" alt="Headphones" class="object-cover object-left w-full h-auto md:hidden" />
+          </div>
         </div>
       </div>
     </SfScrollable>
@@ -43,7 +38,7 @@
         class="flex-row justify-center md:justify-start w-full md:w-auto md:ml-0.5 flex gap-0.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
         <button
-          v-for="(_item, index) in displayDetails"
+          v-for="(_item, index) in carouselImages"
           :key="`${index}-thumbnail`"
           type="button"
           :aria-current="activeIndex === index"
@@ -70,36 +65,28 @@ import { ref } from "vue";
 import { SfScrollable, SfButton, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
 import router from "@/router";
 // type SfScrollableOnScrollData,
-const displayDetails = [
+const carouselImages = [
+  {
+    image: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/f25b64d44ebd0c1e4507e9ecf0ebb49e96d15cbe11daebc19a01f36e52cacace.png",
+    image_h5: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/ef1d8a40903cafd7dbbf34d5727e6b82de74a119a2f7395b5789b55729b7257c.png",
+    title: "NEW ARRIVALS ‘21 Delicious Snack",
+    product_id: "643",
+    description: "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad.",
+  },
   {
     image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display.png",
-    title: "NEW ARRIVALS ‘21 Delicious Snack",
-    // subtitle: "Be inspired",
-    description: "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad.",
-    buttonText: "Buy Product",
-    // reverse: false,
-    backgroundColor: "bg-neutral-100",
-    // titleClass: "md:typography-display-2",
-    // subtitleClass: "md:typography-headline-6",
-    descriptionClass: "md:typography-text-lg",
+    title: "Pack it Up",
+    subtitle: "Be active",
+    product_id: "643",
+    description: "Explore the great outdoors with our backpacks",
   },
   {
     image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-2.png",
-    title: "Pack it Up",
-    subtitle: "Be active",
-    description: "Explore the great outdoors with our backpacks",
-    buttonText: "Discover now",
-    reverse: true,
-    backgroundColor: "bg-warning-200",
-  },
-  {
-    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-3.png",
+    // "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-3.png",
     title: "Fresh and Bold",
     subtitle: "New collection",
+    product_id: "643",
     description: "Add a pop up color to your outfit",
-    buttonText: "Discover now",
-    reverse: false,
-    backgroundColor: "bg-secondary-200",
   },
 ];
 const activeIndex = ref(0);
@@ -125,7 +112,7 @@ function debounce<F extends (...args: unknown[]) => unknown>(func: F, waitFor: n
 const onDragged = (event: SfScrollableOnDragEndData) => {
   if (event.swipeRight && activeIndex.value > 0) {
     activeIndex.value -= 1;
-  } else if (event.swipeLeft && activeIndex.value < displayDetails.length - 1) {
+  } else if (event.swipeLeft && activeIndex.value < carouselImages.length - 1) {
     activeIndex.value += 1;
   }
 };
@@ -149,7 +136,7 @@ const activeArrowNavigation = ($event: KeyboardEvent, index: number) => {
   const nextElement = currentElement.nextElementSibling as HTMLElement;
   const previousElement = currentElement.previousElementSibling as HTMLElement;
 
-  if (($event.code === "ArrowRight" || $event.code === "ArrowUp") && index < displayDetails.length - 1) {
+  if (($event.code === "ArrowRight" || $event.code === "ArrowUp") && index < carouselImages.length - 1) {
     activeIndex.value = index + 1;
     nextElement.focus();
   } else if (($event.code === "ArrowLeft" || $event.code === "ArrowDown") && index > 0) {
@@ -158,7 +145,7 @@ const activeArrowNavigation = ($event: KeyboardEvent, index: number) => {
   }
 };
 const toPageProduct = (item?: any) => {
-  router.push({ name: "product", query: { id: item?.id || "643" } });
+  router.push({ name: "product", query: { id: item?.product_id || "643" } });
 };
 </script>
 <style scoped>

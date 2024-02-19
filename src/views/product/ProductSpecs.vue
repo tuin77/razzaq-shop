@@ -106,7 +106,7 @@
               <SfButton
                 square
                 size="lg"
-                class="!rounded-full !p-2"
+                class="!rounded-full !p-2 md:!p-4"
                 :disabled="count >= max"
                 :aria-controls="inputId"
                 aria-label="Increase value"

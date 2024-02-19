@@ -80,8 +80,8 @@
     <div class="">
       <h3 class="mb-12 text-2xl font-bold text-center text-black md:text-5xl md:text-left">About Products</h3>
 
-      <div class="grid grid-cols-1 mb-36 mx-auto gap-x-[20px] gap-y-36 lg:grid-cols-2 px-4 md:px-0">
-        <div class="flex pr-[23px]">
+      <div class="grid grid-cols-1 mb-36 mx-auto gap-x-[20px] gap-y-4 md:gap-y-36 lg:grid-cols-2 px-4 md:px-0">
+        <div class="flex md:pr-[23px]">
           <p class="m-auto text-lg leading-10 text-black">
             Introducing the original DeepSleep Calming Bed™ - one of the highest quality pet beds ever produced. Crafted with premium nylon fabric
             and finished with a luxurious faux fur exterior, our soothing bed is designed to mimic the cozy comfort of a mother's fur coat aiming to
@@ -104,7 +104,7 @@
     </div>
     <div>
       <h3 class="text-2xl text-center md:text-left md:text-5xl font-bold text-black mb-[80px]">
-        Products you might <br />
+        Products you might <br class="md:hidden" />
         like..
       </h3>
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 product-list">
