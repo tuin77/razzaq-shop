@@ -252,6 +252,6 @@ const goods = ref<ShopGoods>();
 onMounted(async () => {
   console.log(queryProps.id, queryProps.skuId);
 
-  goods.value = _product;
+  // goods.value = _product;
 });
 </script>
