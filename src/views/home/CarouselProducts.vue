@@ -70,9 +70,12 @@ import { SfIconChevronLeft, SfIconChevronRight, SfButton } from "@storefront-ui/
 
 import { useRouter } from "vue-router";
 const router = useRouter();
+
+const publicPath = new URL(import.meta.url);
+const imagesURL = `${publicPath.origin}/public/images/`;
 const displayDetails = [
   {
-    image: "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
+    image: `${imagesURL}/home/category-page-04-image-card-01.jpg`,
     title: "DeepSleep Calming Bed™",
     price: "$585.95",
     description:
@@ -82,7 +85,8 @@ const displayDetails = [
     descriptionClass: "md:typography-text-lg",
   },
   {
-    image: "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
+    image: `${imagesURL}/home/category-page-04-image-card-02.jpg`,
+    // "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
     title: "DeepSleep Calming Bed™222",
     price: "$585.95",
     description:
@@ -92,7 +96,8 @@ const displayDetails = [
     descriptionClass: "md:typography-text-lg",
   },
   {
-    image: "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
+    image: `${imagesURL}/home/category-page-04-image-card-03.jpg`,
+    // image: "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
     title: "Fresh and Bold232",
     price: "HK$585.00",
     description:

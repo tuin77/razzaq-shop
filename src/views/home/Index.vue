@@ -36,7 +36,7 @@
       <div v-for="i in 4" :key="i" href="#" class="group rounded-[1.25rem] text-center">
         <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
           <img
-            src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+            :src="`${imagesURL}/home/category-page-04-image-card-01.jpg`"
             alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
             class="object-cover object-center w-full h-full"
           />
@@ -69,7 +69,7 @@
       <!-- First item -->
       <div class="relative overflow-hidden group" v-for="i in 6" :key="i">
         <img
-          src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+          :src="`${imagesURL}/home/category-page-04-image-card-01.jpg`"
           alt="Automatic Feeders"
           class="object-cover w-full h-full rounded-20 md:rounded-lg group-hover:scale-125"
         />
@@ -101,6 +101,9 @@ const handleClick = () => {
   router.push({ path: `/product/${slug}` });
 };
 const bannerList = ref([]);
+
+const publicPath = new URL(import.meta.url);
+const imagesURL = `${publicPath.origin}/public/images/`;
 const fetchBannerList = async () => {
   // 1首页 2首页二层 3商品列表页 4关于我们页
   const params = { position: 1 };
@@ -111,6 +114,138 @@ const fetchBannerList = async () => {
   // this.categoryList = groupCategoriesByParentId(res.data);
   // this.categoryList = res.data.result;
   // }
+  const a = [
+    {
+      id: 60,
+      parentId: 0,
+      name: " PET GOODS",
+      picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+      children: [
+        {
+          id: 61,
+          parentId: 60,
+          name: "Dog Beds",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 62,
+          parentId: 60,
+          name: "Food Bowls",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 63,
+          parentId: 60,
+          name: "Bandanas",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 64,
+          parentId: 60,
+          name: "Placemats",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 65,
+          parentId: 60,
+          name: "Pet Tags",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+      ],
+    },
+    {
+      id: 66,
+      parentId: 0,
+      name: "HOME GOODS",
+      picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+      children: [
+        {
+          id: 67,
+          parentId: 66,
+          name: "Blankets",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 68,
+          parentId: 66,
+          name: "Pillows",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 69,
+          parentId: 66,
+          name: "Puzzle",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 70,
+          parentId: 66,
+          name: "Beach Towel",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 71,
+          parentId: 66,
+          name: "Drikware",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+      ],
+    },
+    {
+      id: 72,
+      parentId: 0,
+      name: "ACCESSORIES",
+      picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+      children: [
+        {
+          id: 73,
+          parentId: 72,
+          name: "Face Masks",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 74,
+          parentId: 72,
+          name: "Phone Cases",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 75,
+          parentId: 72,
+          name: "Coffee Mugs",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 76,
+          parentId: 72,
+          name: "Koozies",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+        {
+          id: 77,
+          parentId: 72,
+          name: "Jewelry",
+          picUrl: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/67e81f610bf5c4a8f8b0d698fb606d7ec8828e2785c61d3e7ce7ffb288edf616.jpg",
+          children: [],
+        },
+      ],
+    },
+  ];
+  console.log(a);
 };
 fetchBannerList();
 </script>

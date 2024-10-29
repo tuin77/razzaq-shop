@@ -141,9 +141,10 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { goods as _product } from "../../assets/json/goods1";
 import { ref, onMounted, watch, type ComponentPublicInstance } from "vue";
 import { unrefElement, useIntersectionObserver } from "@vueuse/core";
-import { getSpuDetail } from "@/api";
+// import { getSpuDetail } from "@/api";
 import { SfButton, SfScrollable, SfIconChevronLeft, SfIconChevronRight, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
 import ProductSpecs from "./ProductSpecs.vue";
 import { useRouter } from "vue-router";
@@ -251,14 +252,6 @@ const goods = ref<ShopGoods>();
 onMounted(async () => {
   console.log(queryProps.id, queryProps.skuId);
 
-  const res = await getSpuDetail({ id: queryProps.id });
-  const { propertyVos, ...data } = res.data;
-
-  const _goods = {
-    ...data,
-    propertyVos: propertyVos.map((item: any) => ({ ...item, valueNames: item.valueNames.map((item: string) => ({ name: item })) })),
-  };
-  console.log("goods", _goods);
-  goods.value = _goods;
+  goods.value = _product;
 });
 </script>

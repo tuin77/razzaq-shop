@@ -95,3 +95,9 @@ export function groupCategoriesByParentId(categories: Category[]): Category[] {
 
   return topLevelCategories;
 }
+// 获取assets静态资源
+export const getAssetsFile = (url: string) => {
+  const link = new URL(`../assets/images/${url}`, import.meta.url).href;
+  console.log("link", link);
+  return link;
+};

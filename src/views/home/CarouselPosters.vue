@@ -10,7 +10,6 @@
       @on-drag-end="onDragged"
       @on-scroll="onScroll"
     >
-      <!-- -->
       <div v-for="(item, index) in carouselImages" :key="index" class="flex justify-center h-full basis-full shrink-0 grow snap-center">
         <div class="mx-auto md:flex md:justify-center md:w-full bg-neutral-100 carousel">
           <div class="text-center md:text-left md:pt-[18.3vh] md:w-full md:flex md:flex-col md:items-start md:basis-2/4 carousel-left">
@@ -65,23 +64,29 @@ import { ref } from "vue";
 import { SfScrollable, SfButton, type SfScrollableOnDragEndData } from "@storefront-ui/vue";
 import router from "@/router";
 // type SfScrollableOnScrollData,
+
+const publicPath = new URL(import.meta.url);
+console.log("publicPath", publicPath.origin);
+const imagesURL = `${publicPath.origin}/public/images/`;
+console.log("displayImg", `${imagesURL}display.png`);
+
 const carouselImages = [
   {
-    image: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/f25b64d44ebd0c1e4507e9ecf0ebb49e96d15cbe11daebc19a01f36e52cacace.png",
+    image: `${imagesURL}/home/carousel1.png`,
     image_h5: "http://shopadmin.youyahuyu.com/admin-api/infra/file/4/get/ef1d8a40903cafd7dbbf34d5727e6b82de74a119a2f7395b5789b55729b7257c.png",
     title: "NEW ARRIVALS ‘21 Delicious Snack",
     product_id: "643",
     description: "So comfy, you’ll want to take a nap on it. Lounge in style and comfort in this orthopedic dog crate pad.",
   },
   {
-    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display.png",
+    image: `${imagesURL}/home/display.png`,
     title: "Pack it Up",
     subtitle: "Be active",
     product_id: "643",
     description: "Explore the great outdoors with our backpacks",
   },
   {
-    image: "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-2.png",
+    image: `${imagesURL}/home/display-2.png`,
     // "https://storage.googleapis.com/sfui_docs_artifacts_bucket_public/production/display-3.png",
     title: "Fresh and Bold",
     subtitle: "New collection",
