@@ -30,7 +30,7 @@
         <div class="w-full relative overflow-hidden bg-gray-200 rounded-[1.25rem] aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
           <!-- https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg -->
           <img
-            :src="product.picUrl"
+            :src="product.mainPictures[0]"
             alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
             class="object-cover object-center w-full h-full"
           />
@@ -95,7 +95,7 @@ const options = [
 ];
 // https://bookix.madrasthemes.com/product-category/hot-deals/
 
-const handleClick = (id: number) => {
+const handleClick = (id: string) => {
   console.log("handleClick");
   // const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/`, query: { id } });

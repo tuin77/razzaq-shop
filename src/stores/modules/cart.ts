@@ -41,7 +41,7 @@ const useCartStore = defineStore("cart", {
       // return sum;
       // ✨进阶 reduce 写法
       const list = this.list?.filter((v) => v.stock > 0 && v.isEffective);
-      console.log("list", list);
+      // console.log("list", list);
 
       return list.reduce((sum, item) => sum + item.count, 0);
     },

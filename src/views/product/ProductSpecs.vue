@@ -9,17 +9,17 @@
           <SfIconFavorite size="sm" color="#999999" />
         </SfButton>
       </p>
-      <p class="text-lg text-gray-500 mt-7">{{ goods?.introduction }}</p>
+      <p class="text-lg text-gray-500 mt-7">{{ goods?.short_description }}</p>
     </section>
 
     <section aria-labelledby="options-heading" class="mt-8">
-      <template v-for="item in goods?.propertyVos" :key="item.propertyName">
+      <template v-for="item in goods?.specs_list" :key="item.id">
         <div class="mt-7">
-          <h4 class="text-lg text-blod-100">{{ item.propertyName }}：</h4>
+          <h4 class="text-lg text-blod-100">{{ item.name }}：</h4>
           <fieldset class="mt-5">
-            <span v-if="item.propertyName === 'Color'" class="flex items-center space-x-3">
+            <span v-if="item.name === 'Color'" class="flex items-center space-x-3">
               <button
-                v-for="(spec_value, index) in item.valueNames"
+                v-for="(spec_value, index) in item.spec_values"
                 :key="`${index}-thumbnail`"
                 type="button"
                 :aria-current="spec_value.selected"
@@ -37,7 +37,7 @@
             <template v-else>
               <div class="hidden md:grid grid-cols-2 gap-2 gap-x-[30px] gap-7-[15px] pr-[80px]">
                 <label
-                  v-for="(spec_value, index) in item.valueNames"
+                  v-for="(spec_value, index) in item.spec_values"
                   :key="`${index}-thumbnail`"
                   :class="[
                     'relative flex items-center justify-center px-4 py-3 text-sm  border-gray-100 text-blod-100 uppercase bg-white border rounded-[100px] shadow-sm cursor-pointer group hover:border-primary-700 focus:outline-none sm:flex-1',
@@ -66,7 +66,7 @@
                 :modelValue="getSelectSpec(item)"
                 @update:modelValue="(spec_value: any) => handleSelectSpecs(item, spec_value)"
               >
-                <option v-for="spec_value in item.valueNames" :key="spec_value.name" :value="spec_value.name" :disabled="spec_value.disabled">
+                <option v-for="spec_value in item.spec_values" :key="spec_value.name" :value="spec_value.name" :disabled="spec_value.disabled">
                   {{ spec_value.name }}
                 </option>
               </SfSelect>
@@ -169,6 +169,7 @@ const { count, inc, dec, set } = useCounter(1, {
   min: min.value,
   max: max.value,
 });
+
 function handleOnChange(event: Event) {
   const currentValue = (event.target as HTMLInputElement)?.value;
   const nextValue = parseFloat(currentValue);
@@ -197,20 +198,33 @@ export interface SkuEmit {
 
 type PathMap = { [key: string]: string[] };
 
+// // 使用组件 <XtxGoodSku :goods="xxx" :skuId="xxx"  @change="xxx"  />
+const props = defineProps({
+  // specs:所有的规格信息  skus:所有的sku组合
+  goods: {
+    type: Object as PropType<ShopGoods>,
+    default: () => ({ propertyVos: [], skus: [] }),
+  },
+  skuId: String,
+});
+
+console.log("props.goods", props.goods);
+
+interface Emit {
+  (e: "change", value: SkuEmit): void;
+}
 const spliter = "★";
 // // 根据skus数据得到路径字典对象
 const getPathMap = (skus: SKU[]) => {
-  // debugger;
-
   const pathMap = {} as PathMap;
   skus.forEach((sku: SKU) => {
     // console.log(2323);
 
     // 1. 过滤出有库存有效的sku
 
-    if (!sku.stock) return;
+    if (!sku.inventory) return;
     // 2. 得到sku属性值数组
-    const specs = sku.properties.map((spec) => spec.valueName);
+    const specs = sku.specs.map((spec) => spec.valueName);
     // 3. 得到sku属性值数组的子集
     const powerSet = getPowerSet(specs);
 
@@ -230,7 +244,7 @@ const getPathMap = (skus: SKU[]) => {
 // // 初始化禁用状态
 function initDisabledStatus(specs: PropertyVo[], pathMap: PathMap) {
   specs.forEach((spec: PropertyVo) => {
-    spec.valueNames.forEach((val: PropertyValue) => {
+    spec.spec_values.forEach((val: PropertyValue) => {
       // 设置禁用状态
       val.disabled = !pathMap[val.name];
     });
@@ -241,7 +255,7 @@ function initDisabledStatus(specs: PropertyVo[], pathMap: PathMap) {
 const getSelectedArr = (specs: PropertyVo[]) => {
   const selectedArr: (string | undefined)[] = [];
   specs.forEach((spec, index) => {
-    const selectedVal = spec.valueNames.find((val) => val.selected);
+    const selectedVal = spec.spec_values.find((val) => val.selected);
     if (selectedVal) {
       selectedArr[index] = selectedVal.name;
     } else {
@@ -259,7 +273,7 @@ const updateDisabledStatus = (specs: PropertyVo[], pathMap: PathMap) => {
     // 拿到当前选择的项目
     const selectedArr = getSelectedArr(specs);
     // 遍历每一个按钮
-    item.valueNames.forEach((val) => {
+    item.spec_values.forEach((val) => {
       if (!val.selected) {
         selectedArr[i] = val.name;
         // 去掉undefined之后组合成key
@@ -276,26 +290,13 @@ const initSelectedStatus = (goods: ShopGoods, skuId: string) => {
   const sku = goods.skus.find((sku) => String(sku.id) === skuId);
 
   if (sku) {
-    goods.propertyVos.forEach((item: PropertyVo, i) => {
-      const val = item.valueNames.find((val: PropertyValue) => val.name === sku.properties[i].valueName);
+    goods.specs_list.forEach((item: PropertyVo, i) => {
+      const val = item.spec_values.find((val: PropertyValue) => val.name === sku.specs[i].valueName);
       if (val) val.selected = true;
     });
   }
 };
 
-// // 使用组件 <XtxGoodSku :goods="xxx" :skuId="xxx"  @change="xxx"  />
-const props = defineProps({
-  // specs:所有的规格信息  skus:所有的sku组合
-  goods: {
-    type: Object as PropType<ShopGoods>,
-    default: () => ({ propertyVos: [], skus: [] }),
-  },
-  skuId: String,
-});
-
-interface Emit {
-  (e: "change", value: SkuEmit): void;
-}
 // const skuId = params.id;
 const emit = defineEmits<Emit>();
 
@@ -303,20 +304,24 @@ const emit = defineEmits<Emit>();
 
 const pathMap = getPathMap(props.goods.skus);
 // // 组件初始化的时候更新禁用状态
-initDisabledStatus(props.goods.propertyVos, pathMap);
-console.log("props.skuId", props.skuId);
+console.log("pathMap", pathMap);
+
+initDisabledStatus(props.goods.specs_list, pathMap);
+// console.log("props.skuId", props.skuId);
 
 const cartItem = ref<CartItem>();
 // // 根据传入的skuId默认选中规格按钮
 if (props.skuId) {
+  console.log("props.skuIds", props.skuId);
+
   initSelectedStatus(props.goods, String(props.skuId));
   if (cartItem.value) cartItem.value.skuId = props.skuId;
 }
 
-const getSelectSpec = computed(() => (item: PropertyVo) => item.valueNames.find((item) => item.selected)?.name || "");
+const getSelectSpec = computed(() => (item: PropertyVo) => item.spec_values.find((item) => item.selected)?.name || "");
 const handleSelectSpecs = (item: PropertyVo, spec_value: string) => {
   console.log("item", item);
-  const valueNames = item.valueNames;
+  const valueNames = item.spec_values;
   console.log("valueNames", valueNames);
   const val: PropertyValue = valueNames.find((val: PropertyValue) => val.name === spec_value) as PropertyValue;
   clickSpecs(item, val);
@@ -331,20 +336,20 @@ const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
   if (val.selected) {
     val.selected = false;
   } else {
-    item.valueNames.forEach((bv) => {
+    item.spec_values.forEach((bv) => {
       bv.selected = false;
     });
     val.selected = true;
   }
   console.log("val.selected", val.selected);
   // 🔔 点击之后再次更新选中状态
-  updateDisabledStatus(props.goods.propertyVos, pathMap);
+  updateDisabledStatus(props.goods.specs_list, pathMap);
   // 把选择的sku信息传出去给父组件
   // 触发change事件将sku数据传递出去
-  const selectedArr = getSelectedArr(props.goods.propertyVos).filter((value) => value);
+  const selectedArr = getSelectedArr(props.goods.specs_list).filter((value) => value);
   // 如果选中得规格数量和传入得规格总数相等则传出完整信息(都选择了)
   // 否则传出空对象
-  if (selectedArr.length === props.goods.propertyVos.length) {
+  if (selectedArr.length === props.goods.specs_list.length) {
     // 从路径字典中得到skuId
     const skuId = pathMap[selectedArr.join(spliter)][0];
     const sku = props.goods.skus.find((sku) => String(sku.id) === skuId) as SKU;
@@ -354,12 +359,12 @@ const clickSpecs = (item: PropertyVo, val: PropertyValue) => {
       id: String(props.goods.id),
       name: props.goods.name,
       isEffective: true,
-      picture: sku.picUrl || props.goods.picUrl,
+      picture: sku.picture || props.goods.mainPictures[0],
       skuId: String(sku.id),
-      price: sku.price,
-      stock: sku.stock,
+      price: parseFloat(sku.price),
+      stock: sku.inventory,
       count: count.value,
-      attrsText: sku.properties.reduce((p: any, n: any) => `${p} ${n.propertyName}：${n.valueName}`, "").trim(),
+      attrsText: sku.specs.reduce((p: any, n: any) => `${p} ${n.propertyName}：${n.valueName}`, "").trim(),
     };
   }
 };

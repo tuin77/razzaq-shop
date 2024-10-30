@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
-import { getProductCategoryList, getBannerList } from "@/api";
+import {
+  getProductCategoryList,
+  // getBannerList
+} from "@/api";
 import type {
   BannerList,
   // Category,
@@ -65,10 +68,10 @@ const useHomeStore = defineStore({
     },
     // 获取轮播图数据
     async getHomeBannerList() {
-      const params = { position: 1 };
-      const res = await getBannerList(params);
-      console.log(233, res.data);
-      this.bannerList = res.data;
+      // const params = { position: 1 };
+      // const res = await getBannerList(params);
+      // console.log(233, res.data);
+      // this.bannerList = res.data;
     },
     // 获取新鲜好物数据
     async getNewGoodsList() {

@@ -88,8 +88,8 @@
 import CarouselPosters from "./CarouselPosters.vue";
 import CarouselProducts from "./CarouselProducts.vue";
 
-import { getBannerList } from "@/api";
-import { ref } from "vue";
+// import { getBannerList } from "@/api";
+// import { ref } from "vue";
 import { useRouter } from "vue-router";
 // import { reactive } from "vue";
 const router = useRouter();
@@ -100,16 +100,16 @@ const handleClick = () => {
   const slug = "warm-winter-cozy-washable-dog-house";
   router.push({ path: `/product/${slug}` });
 };
-const bannerList = ref([]);
+// const bannerList = ref([]);
 
 const publicPath = new URL(import.meta.url);
 const imagesURL = `${publicPath.origin}/images/`;
 const fetchBannerList = async () => {
   // 1首页 2首页二层 3商品列表页 4关于我们页
-  const params = { position: 1 };
-  const res = await getBannerList(params);
-  console.log(233, res.data);
-  bannerList.value = res.data;
+  // const params = { position: 1 };
+  // const res = await getBannerList(params);
+  // console.log(233, res.data);
+  // bannerList.value = res.data;
   // if (res.data?.length) {
   // this.categoryList = groupCategoriesByParentId(res.data);
   // this.categoryList = res.data.result;

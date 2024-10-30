@@ -38,40 +38,46 @@
 
 export interface SKU {
   /*商品 SKU 编号 */
-  id: number;
+  id: string;
 
   /* */
-  properties: {
-    /*属性的编号 */
-    propertyId: number;
+  // properties: {
+  //   /*属性的编号 */
+  //   propertyId: number;
 
-    /*属性的名称 */
-    propertyName: string;
+  //   /*属性的名称 */
+  //   propertyName: string;
 
-    /*属性值的编号 */
-    valueId: number;
+  //   /*属性值的编号 */
+  //   valueId: number;
 
-    /*属性值的名称 */
-    valueName: string;
-  }[];
+  //   /*属性值的名称 */
+  //   valueName: string;
+  // }[];
 
   /*销售价格，单位：分 */
-  price: number;
+  price: string;
+
+  oldPrice: string;
+
+  skuCode: string;
+
+
 
   /*市场价，单位使用：分 */
-  marketPrice: number;
+  // marketPrice?: number;
 
   /*图片地址 */
-  picUrl: string;
+  picture: string;
 
   /*库存 */
-  stock: number;
+  inventory: number;
 
   /*商品重量 */
-  weight: number;
+  weight?: number;
 
   // /*商品体积 */
-  volume: number;
+  volume?: number;
   specs: { name: string; valueName: string }[];
 }
 interface PropertyValue {
@@ -82,56 +88,56 @@ interface PropertyValue {
 }
 export interface PropertyVo {
   /*属性名称 */
-  propertyName: string;
+  name: string;
 
   /*属性值集合 */
-  valueNames: PropertyValue[];
+  spec_values: PropertyValue[];
 }
 export interface ShopGoods {
   /*商品 SPU 编号 */
-  id: number;
+  id: string;
 
   /*商品名称 */
   name: string;
 
   /*商品简介 */
-  introduction: string;
+  short_description: string;
 
   /*商品详情 */
   description: string;
 
   /*商品分类编号 */
-  categoryId: number;
+  // categoryId: number;
 
   /*商品封面图 */
-  picUrl: string;
+  // picUrl: string;
 
   /*商品轮播图 */
-  sliderPicUrls: string[];
+  mainPictures: string[];
 
   /*商品视频 */
-  videoUrl: string;
+  // videoUrl: string;
 
   /*单位名 */
-  unitName: string;
+  // unitName: string;
 
   /*规格类型 */
-  specType: boolean;
+  // specType: boolean;
 
   /*商品价格，单位使用：分 */
-  price: number;
+  price: string;
 
   /*市场价，单位使用：分 */
-  marketPrice: number;
+  // marketPrice: number;
 
   /*库存 */
-  stock: number;
+  // stock: number;
 
   /*商品销量 */
   salesCount: number;
 
   /*属性列表 */
-  propertyVos: PropertyVo[];
+  specs_list: PropertyVo[];
 
   /* */
   skus: SKU[];

@@ -13,7 +13,7 @@
           @on-drag-end="onDragged"
         >
           <div
-            v-for="(imageSrc, index) in goods?.sliderPicUrls"
+            v-for="(imageSrc, index) in goods?.mainPictures"
             :key="`alt-${index}`"
             class="flex justify-center md:h-[800px] basis-full shrink-0 grow snap-center"
           >
@@ -48,7 +48,7 @@
             </SfButton>
           </template>
           <button
-            v-for="(imageThumbSrc, index) in goods?.sliderPicUrls"
+            v-for="(imageThumbSrc, index) in goods?.mainPictures"
             :key="`alt-${index}-thumbnail`"
             :ref="(el) => assignRef(el, index)"
             type="button"
@@ -75,7 +75,8 @@
           </template>
         </SfScrollable>
       </div>
-      <ProductSpecs v-if="goods?.id" :goods="goods" :skuId="skuId" class="md:w-[710px]"></ProductSpecs>
+      <!-- :skuId="skuId"  -->
+      <ProductSpecs v-if="goods?.id" :goods="goods" class="md:w-[710px]"></ProductSpecs>
     </div>
     <div class="">
       <h3 class="mb-12 text-2xl font-bold text-center text-black md:text-5xl md:text-left">About Products</h3>
@@ -185,11 +186,11 @@ const activeIndex = ref(0);
 // const { params } = useRoute();
 // const id = params.id;
 
-const queryProps = defineProps({
-  category: String,
-  id: String,
-  skuId: String,
-});
+// const queryProps = defineProps({
+//   category: String,
+//   id: String,
+//   skuId: String,
+// });
 watch(
   thumbsRef,
   (thumbsRef) => {
@@ -250,8 +251,10 @@ const assignRef = (el: Element | ComponentPublicInstance | null, index: number) 
 const goods = ref<ShopGoods>();
 
 onMounted(async () => {
-  console.log(queryProps.id, queryProps.skuId);
+  // console.log(queryProps.id, queryProps.skuId);
 
-  // goods.value = _product;
+  // console.log("_product", _product);products
+
+  goods.value = _product;
 });
 </script>

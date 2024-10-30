@@ -101,7 +101,7 @@ const options: SelectOption[] = [
   { label: "French", name: "Fr", value: "fr" },
   { label: "German", name: "De", value: "de" },
 ];
-console.log("state.lang", state.lang);
+// console.log("state.lang", state.lang);
 
 const selectedOption = computed(() => options.find((option) => option.value === state.lang));
 
