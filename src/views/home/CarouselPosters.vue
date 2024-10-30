@@ -67,7 +67,7 @@ import router from "@/router";
 
 const publicPath = new URL(import.meta.url);
 console.log("publicPath", publicPath.origin);
-const imagesURL = `${publicPath.origin}/public/images/`;
+const imagesURL = `${publicPath.origin}/images/`;
 console.log("displayImg", `${imagesURL}display.png`);
 
 const carouselImages = [

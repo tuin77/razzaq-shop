@@ -72,7 +72,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const publicPath = new URL(import.meta.url);
-const imagesURL = `${publicPath.origin}/public/images/`;
+const imagesURL = `${publicPath.origin}/images/`;
 const displayDetails = [
   {
     image: `${imagesURL}/home/category-page-04-image-card-01.jpg`,

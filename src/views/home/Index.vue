@@ -103,7 +103,7 @@ const handleClick = () => {
 const bannerList = ref([]);
 
 const publicPath = new URL(import.meta.url);
-const imagesURL = `${publicPath.origin}/public/images/`;
+const imagesURL = `${publicPath.origin}/images/`;
 const fetchBannerList = async () => {
   // 1首页 2首页二层 3商品列表页 4关于我们页
   const params = { position: 1 };
