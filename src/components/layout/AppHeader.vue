@@ -73,12 +73,12 @@
             @keydown.esc="focusTrigger(1)"
           >
             <div class="grid grid-cols-3 px-6 pt-[78px] mx-auto pb-[108px] max-w-1620">
-              <ul v-for="node in home.categoryList" :key="node.id" class="mt-2 border-l-[1px] border-gray-100 first:border-none">
-                <li v-for="item in node.children" :key="item.id" class="flex items-center justify-center pb-34px last:pb-0">
+              <ul v-for="node in categoriesContent" :key="node.key" class="mt-2 border-l-[1px] border-gray-100 first:border-none">
+                <li v-for="item in node.children" :key="item.key" class="flex items-center justify-center pb-34px last:pb-0">
                   <span
                     class="text-lg cursor-pointer text-bold-100 hover:underline hover:font-bold hover:decoration-primary-700"
                     @click="toPageShop(item)"
-                    >{{ item.name }}
+                    >{{ item.value.label }}
                   </span>
                 </li>
               </ul>
@@ -118,25 +118,33 @@
             </div>
             <div class="flex-1 h-[600px] flex" style="padding: 0 calc(50% - 810px)">
               <ul class="overflow-y-auto max-h-[600px] h-[600px] w-[357px]">
-                <li class="pt-[72px] mb-34px">MOST POPULAR SEARCHES</li>
+                <li
+                  class="pt-[72px] mb-34px cursor-pointer"
+                  :class="curMenu.key === 'MOST_POPULAR_SEARCHES' ? 'underline decoration-primary-700' : ''"
+                  @click="handleSearchMenuClick({ key: 'MOST_POPULAR_SEARCHES', label: 'MOST POPULAR SEARCHES' })"
+                >
+                  MOST POPULAR SEARCHES
+                </li>
                 <template v-for="{ children } in categoriesContent">
                   <li
-                    v-for="{ value } in children"
-                    :key="value.label"
-                    class="text-lg mb-34px hover:underline hover:decoration-primary-700 group-hover:font-bold"
+                    v-for="menu in children"
+                    :key="menu.value.label"
+                    class="text-lg cursor-pointer mb-34px hover:underline hover:decoration-primary-700 group-hover:font-bold"
+                    :class="curMenu.key === menu.key ? 'underline decoration-primary-700' : ''"
+                    @click="handleSearchMenuClick(menu)"
                   >
-                    {{ `${value.label}` }}
+                    {{ `${menu.value.label}` }}
                   </li>
                 </template>
               </ul>
               <div class="pt-72px">
-                <p class="text-lg font-bold text-bold-100">MOST POPULAR SEARCHES</p>
+                <p class="text-lg font-bold text-bold-100">{{ curMenu.value.label }}</p>
 
                 <div class="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-[130px] lg:space-y-0">
                   <div class="relative group">
                     <div class="relative w-[333px] h-[348px] overflow-hidden rounded-20">
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg"
+                        src="https://img.picgo.net/2025/02/25/Rectangle-725aab170f2618696b.png"
                         alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
                         class="object-cover object-center w-full h-full group-hover:opacity-75"
                       />
@@ -155,7 +163,7 @@
                   <div class="relative group">
                     <div class="relative w-[333px] h-[348px] overflow-hidden rounded-20 group-hover:opacity-75">
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg"
+                        src="https://img.picgo.net/2025/02/25/Rectangle-73bb87e46acfc1d9a6.png"
                         alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
                         class="object-cover object-center w-full h-full"
                       />
@@ -165,7 +173,7 @@
                   <div class="relative group">
                     <div class="relative w-[333px] h-[348px] overflow-hidden rounded-20 group-hover:opacity-75">
                       <img
-                        src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg"
+                        src="https://img.picgo.net/2025/02/25/Rectangle-740311c1493c1bfb0f.png"
                         alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
                         class="object-cover object-center w-full h-full"
                       />
@@ -180,7 +188,7 @@
       </div>
     </nav>
   </header>
-  <!-- -->
+
   <div
     v-if="isOpen"
     class="fixed inset-0 z-10 bg-opacity-50 bg-neutral-500"
@@ -363,4 +371,10 @@ home.getAllCategory();
 const toPageShop = (item: Category) => {
   router.push({ name: `shop`, query: { id: item.id, category: item.name } });
 };
+const curMenu = ref({ key: "MOST_POPULAR_SEARCHES", value: { label: "MOST POPULAR SEARCHES" } });
+
+function handleSearchMenuClick(menu: any) {
+  curMenu.value = menu;
+  console.log("menu", menu);
+}
 </script>
